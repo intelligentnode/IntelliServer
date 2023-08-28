@@ -1,0 +1,5 @@
+### start npm ###
+start npm
+
+
+### start docker image ###
