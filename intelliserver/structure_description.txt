@@ -1,0 +1,19 @@
+Express-generator project structure:
+
+- `bin/` : This directory contains executable files. The `www` file is used to up your Express application and set it to listen on a specific port.
+
+- `public/` : This directory is used to store static files like stylesheets, images, and JavaScript files. It contains three subdirectories, each dedicated to a specific type of static file:
+      - `javascripts/`
+      - `images/`
+      - `stylesheets/`
+    
+
+- `routes/` : This directory is dedicated to defining your application routes. By default, it contains two files `index.js` and `users.js`. 
+      - `index.js` usually maps to your homepage route (`/`).
+      - `users.js` is intended to handle routes that start with `/users` (like `/users/123`). You're free to modify, delete or add new route files based on your application needs.
+
+- `views/` : If you chose to generate your project with a view engine, this directory will hold your view templates. However, in your case, since you've created your project with the `--no-view` flag, this directory will not exist.
+
+- `app.js` : This is the main application file. This is where you set up your express application, import routes, set up middleware, and error handlers.
+
+- `package.json` and `package-lock.json` : These files include your project metadata and manage your npm dependencies.
