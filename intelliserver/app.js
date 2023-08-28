@@ -17,11 +17,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* ### the api routs ### */
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var openaiRouter = require('./remotes/openai');
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/openai', openaiRouter);
 
 module.exports = app;
