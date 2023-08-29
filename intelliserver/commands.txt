@@ -1,3 +1,6 @@
+### setup npm ###
+npm install
+
 ### start npm ###
 start npm
 
