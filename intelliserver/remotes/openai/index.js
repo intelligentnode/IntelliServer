@@ -4,8 +4,6 @@ const { OpenAIWrapper } = require('intellinode');
 
 const { USE_DEFAULT_KEYS } = require('../../config');
 
-// Create a global instance of OpenAI
-
 /* GET api. */
 router.get('/', function(req, res, next) {
   res.json({ status: "OK", message: "OpenAI Micro Service is active!" });
@@ -20,7 +18,7 @@ function getAPIWrapper(req) {
     }
 }
 
-router.get('/generate_text', async (req, res, next) => {
+router.get('/text', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
 
@@ -33,7 +31,7 @@ router.get('/generate_text', async (req, res, next) => {
     }
 });
 
-router.get('/generate_embeddings', async (req, res, next) => {
+router.get('/embeddings', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
         const result = await openai.getEmbeddings(req.body.params);
@@ -43,7 +41,7 @@ router.get('/generate_embeddings', async (req, res, next) => {
     }
 });
 
-router.get('/generate_images', async (req, res, next) => {
+router.get('/images', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
         const result = await openai.generateImages(req.body.params);
@@ -53,6 +51,16 @@ router.get('/generate_images', async (req, res, next) => {
     }
 });
 
+router.get('/chat', async(req, res, next) => {
+    try {
+        const openai = getAPIWrapper(req);
+        const result = await openai.generateChatText(req.body.params);
+        const responseText = result['choices'][0]['message']['content'].trim();
 
+        res.json({ status: "OK", data: { response: responseText } });
+    } catch (error) {
+        res.json({ status: "ERROR", message: error.message });
+    }
+});
 
 module.exports = router;

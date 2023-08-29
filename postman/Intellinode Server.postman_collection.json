@@ -56,13 +56,49 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/openai/generate_text",
+							"raw": "{{url}}/openai/text",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"openai",
-								"generate_text"
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "openai-chat",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"apiKey\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/openai/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"openai",
+								"chat"
 							]
 						}
 					},
@@ -92,13 +128,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/openai/generate_embeddings",
+							"raw": "{{url}}/openai/embeddings",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"openai",
-								"generate_embeddings"
+								"embeddings"
 							]
 						}
 					},
@@ -128,13 +164,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/openai/generate_images",
+							"raw": "{{url}}/openai/images",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"openai",
-								"generate_images"
+								"images"
 							]
 						}
 					},
