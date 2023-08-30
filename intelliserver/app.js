@@ -7,7 +7,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//creat the app
+//create the app
 var app = express();
 
 /* ### initial config ### */
@@ -27,8 +27,8 @@ const authAdminMiddleware = require('./middleware/authAdmin');
 // api
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
-const openaiRouter = require('./remotes/openai');
-const cohereRouter = require('./remotes/cohere');
+const openaiRouter = require('./models/remote/openai');
+const cohereRouter = require('./models/remote/cohere');
 
 // root apis
 app.use('/', indexRouter);

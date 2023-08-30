@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 const { OpenAIWrapper } = require('intellinode');
-const { USE_DEFAULT_KEYS } = require('../../config');
+const { USE_DEFAULT_KEYS } = require('../../../config');
 
 /* GET api. */
 router.get('/', function(req, res, next) {

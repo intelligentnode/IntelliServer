@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 const { CohereAIWrapper } = require('intellinode');
-const { USE_DEFAULT_KEYS } = require('../../config');
+const { USE_DEFAULT_KEYS } = require('../../../config');
 
 function getAPIWrapper(req) {
   if (USE_DEFAULT_KEYS) {
