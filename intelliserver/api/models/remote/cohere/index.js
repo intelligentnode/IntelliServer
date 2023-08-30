@@ -1,9 +1,10 @@
 // cohere.js
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 
 const { CohereAIWrapper } = require('intellinode');
-const { USE_DEFAULT_KEYS } = require('../../../config');
+const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 function getAPIWrapper(req) {
   if (USE_DEFAULT_KEYS) {

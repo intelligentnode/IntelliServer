@@ -1,9 +1,10 @@
 // openai.js
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 
 const { OpenAIWrapper } = require('intellinode');
-const { USE_DEFAULT_KEYS } = require('../../../config');
+const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 /* GET api. */
 router.get('/', function(req, res, next) {

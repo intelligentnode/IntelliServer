@@ -8,10 +8,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //create the app
+
 var app = express();
 
 /* ### initial config ### */
-
+global.__basedir = __dirname;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,10 +26,10 @@ const authMiddleware = require('./middleware/auth');
 const authAdminMiddleware = require('./middleware/authAdmin');
 
 // api
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');
-const openaiRouter = require('./models/remote/openai');
-const cohereRouter = require('./models/remote/cohere');
+const indexRouter = require('./api/routes/index');
+const adminRouter = require('./api/routes/admin');
+const openaiRouter = require('./api/models/remote/openai');
+const cohereRouter = require('./api/models/remote/cohere');
 
 // root apis
 app.use('/', indexRouter);
