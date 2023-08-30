@@ -1,7 +1,8 @@
+// openai.js
 var express = require('express');
 var router = express.Router();
-const { OpenAIWrapper } = require('intellinode');
 
+const { OpenAIWrapper } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require('../../config');
 
 /* GET api. */
@@ -21,8 +22,6 @@ function getAPIWrapper(req) {
 router.get('/text', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
-
-        console.log('generate text parameters: ', req.body.params)
 
         const result = await openai.generateText(req.body.params);
         res.json({ status: "OK", data: result });

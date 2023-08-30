@@ -20,15 +20,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* ### the api routs ### */
+// middlwares
+const authMiddleware = require('./middleware/auth');
+const authAdminMiddleware = require('./middleware/authAdmin');
 
 // api
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const openaiRouter = require('./remotes/openai');
-
-// middlwares
-const authMiddleware = require('./middleware/auth'); 
-const authAdminMiddleware = require('./middleware/authAdmin');
+const cohereRouter = require('./remotes/cohere');
 
 // root apis
 app.use('/', indexRouter);
@@ -41,6 +41,7 @@ app.use('/admin', authAdminMiddleware, adminRouter);
 app.use(authMiddleware);
 
 app.use('/openai', openaiRouter);
+app.use('/cohere', cohereRouter);
 
 
 /* ### deploy the app ### */
