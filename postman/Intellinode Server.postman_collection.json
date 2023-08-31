@@ -182,6 +182,83 @@
 					]
 				},
 				{
+					"name": "stability",
+					"item": [
+						{
+							"name": "stability-image",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/stability/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stability",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "stability-image2image",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/stability/image_to_image",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stability",
+										"image_to_image"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "cohere",
 					"item": [
 						{
