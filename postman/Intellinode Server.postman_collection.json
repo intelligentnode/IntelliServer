@@ -51,7 +51,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"apiKey\": \"\", \n    \"params\":{\n        \"model\": \"davinci-002\",\n        \"prompt\": \"Summarize the plot of the Inception movie in two sentences\",\n        \"max_tokens\": 50,\n        \"n\": 1,\n        \"stop\": \"<stop>\",\n        \"temperature\": 0.7\n    } \n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"davinci-002\",\n        \"prompt\": \"Summarize the plot of the Inception movie in two sentences\",\n        \"max_tokens\": 50,\n        \"n\": 1,\n        \"stop\": \"<stop>\",\n        \"temperature\": 0.7\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -87,7 +87,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"apiKey\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -123,7 +123,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"apiKey\": \"\", \n    \"params\":{\n        \"input\": [\"IntelliNode provide lightning-fast access to the latest deep learning models\", \"Hello IntelliNode\"],\n        \"model\": \"text-embedding-ada-002\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"input\": [\"IntelliNode provide lightning-fast access to the latest deep learning models\", \"Hello IntelliNode\"],\n        \"model\": \"text-embedding-ada-002\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -159,7 +159,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"apiKey\": \"\", \n    \"params\":{\n        \"prompt\": \"gaming chair\", \n        \"n\": 1,\n        \"size\": \"256x256\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prompt\": \"gaming chair\", \n        \"n\": 1,\n        \"size\": \"256x256\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -200,7 +200,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"apiKey\": \"\", \n    \"params\":{\n        \"model\": \"command\",\n        \"prompt\": \"Write a blog outline for a blog titled The Art of Effective Communication\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 200\n    } \n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"command\",\n        \"prompt\": \"Write a blog outline for a blog titled The Art of Effective Communication\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 200\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -236,7 +236,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"apiKey\": \"\", \n    \"params\": {\n        \"texts\": [\n            \"Hello from Cohere!\",\n            \"Hallo von Cohere!\",\n            \"您好，来自 Cohere！\"\n        ],\n        \"model\": \"embed-multilingual-v2.0\",\n        \"truncate\": \"END\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\": {\n        \"texts\": [\n            \"Hello from Cohere!\",\n            \"Hallo von Cohere!\",\n            \"您好，来自 Cohere！\"\n        ],\n        \"model\": \"embed-multilingual-v2.0\",\n        \"truncate\": \"END\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -251,6 +251,83 @@
 									"path": [
 										"cohere",
 										"embeddings"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "replicate",
+					"item": [
+						{
+							"name": "replicate-predict",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_tag\": \"13b-chat\",\n        \"input_data\": {\n            \"version\": \"d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111\",\n            \"input\": {\n                \"prompt\": \"Translate the following English text to French: 'Good morning'\",\n                \"max_new_tokens\": 60,\n                \"temperature\": 0.5,\n                \"debug\": false\n            }\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/replicate/predict",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"replicate",
+										"predict"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "replicate-status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prediction_id\": \"gimfgb3beqq4tgn4ckv7gltvje\"\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/replicate/status",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"replicate",
+										"status"
 									]
 								}
 							},

@@ -30,6 +30,7 @@ const indexRouter = require('./api/routes/index');
 const adminRouter = require('./api/routes/admin');
 const openaiRouter = require('./api/models/remote/openai');
 const cohereRouter = require('./api/models/remote/cohere');
+const replicateRouter = require('./api/models/remote/replicate');
 
 // root apis
 app.use('/', indexRouter);
@@ -43,7 +44,7 @@ app.use(authMiddleware);
 
 app.use('/openai', openaiRouter);
 app.use('/cohere', cohereRouter);
-
+app.use('/replicate', replicateRouter);
 
 /* ### deploy the app ### */
 
