@@ -7,11 +7,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//creat the app
+//create the app
+
 var app = express();
 
 /* ### initial config ### */
-
+global.__basedir = __dirname;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,15 +21,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* ### the api routs ### */
+// middlwares
+const authMiddleware = require('./middleware/auth');
+const authAdminMiddleware = require('./middleware/authAdmin');
 
 // api
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');
-const openaiRouter = require('./remotes/openai');
-
-// middlwares
-const authMiddleware = require('./middleware/auth'); 
-const authAdminMiddleware = require('./middleware/authAdmin');
+const indexRouter = require('./api/routes/index');
+const adminRouter = require('./api/routes/admin');
+const openaiRouter = require('./api/models/remote/openai');
+const cohereRouter = require('./api/models/remote/cohere');
+const replicateRouter = require('./api/models/remote/replicate');
+const stabilityRouter = require('./api/models/remote/stability');
+const huggingRouter = require('./api/models/remote/hugging');
 
 // root apis
 app.use('/', indexRouter);
@@ -41,7 +45,10 @@ app.use('/admin', authAdminMiddleware, adminRouter);
 app.use(authMiddleware);
 
 app.use('/openai', openaiRouter);
-
+app.use('/cohere', cohereRouter);
+app.use('/replicate', replicateRouter);
+app.use('/stability', stabilityRouter);
+app.use('/hugging', huggingRouter);
 
 /* ### deploy the app ### */
 

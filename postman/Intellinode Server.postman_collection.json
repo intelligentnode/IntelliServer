@@ -1,0 +1,596 @@
+{
+	"info": {
+		"_postman_id": "55e5bb38-3a26-413c-8a30-55a5c77dfb48",
+		"name": "Intellinode Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8207010"
+	},
+	"item": [
+		{
+			"name": "models",
+			"item": [
+				{
+					"name": "openai",
+					"item": [
+						{
+							"name": "openai-welcome",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/openai",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"openai"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "openai-text",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"davinci-002\",\n        \"prompt\": \"Summarize the plot of the Inception movie in two sentences\",\n        \"max_tokens\": 50,\n        \"n\": 1,\n        \"stop\": \"<stop>\",\n        \"temperature\": 0.7\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/openai/text",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"openai",
+										"text"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "openai-chat",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/openai/chat",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"openai",
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "openai-embed",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"input\": [\"IntelliNode provide lightning-fast access to the latest deep learning models\", \"Hello IntelliNode\"],\n        \"model\": \"text-embedding-ada-002\"\n     } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/openai/embeddings",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"openai",
+										"embeddings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "openai-image",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prompt\": \"gaming chair\", \n        \"n\": 1,\n        \"size\": \"256x256\"\n     } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/openai/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"openai",
+										"images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "stability",
+					"item": [
+						{
+							"name": "stability-image",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"text_prompts\": [\n            { \n                \"text\": \"red apple\", \n                \"weight\": 0.5 \n            }\n        ],\n        \"cfg_scale\": 7,\n        \"steps\": 50\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/stability/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stability",
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "stability-image2image",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/Users/Jaguar/Downloads/me-photo3 copy.jpeg"
+										},
+										{
+											"key": "params",
+											"value": "{\n  \"text_prompts\": [\n    { \n      \"text\": \"change to cartoon style.\", \n      \"weight\": 0.5 \n    }\n  ],\n  \"cfg_scale\": 7,\n  \"steps\": 50\n}",
+											"type": "text"
+										},
+										{
+											"key": "api_key",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/stability/image_to_image",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"stability",
+										"image_to_image"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cohere",
+					"item": [
+						{
+							"name": "cohere-text",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"command\",\n        \"prompt\": \"Write a blog outline for a blog titled The Art of Effective Communication\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 200\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/cohere/text",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cohere",
+										"text"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cohere-embed",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\": {\n        \"texts\": [\n            \"Hello from Cohere!\",\n            \"Hallo von Cohere!\",\n            \"您好，来自 Cohere！\"\n        ],\n        \"model\": \"embed-multilingual-v2.0\",\n        \"truncate\": \"END\"\n     } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/cohere/embeddings",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"cohere",
+										"embeddings"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "replicate",
+					"item": [
+						{
+							"name": "replicate-predict",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_tag\": \"13b-chat\",\n        \"input_data\": {\n            \"version\": \"d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111\",\n            \"input\": {\n                \"prompt\": \"Translate the following English text to French: 'Good morning'\",\n                \"max_new_tokens\": 60,\n                \"temperature\": 0.5,\n                \"debug\": false\n            }\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/replicate/predict",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"replicate",
+										"predict"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "replicate-status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prediction_id\": \"gimfgb3beqq4tgn4ckv7gltvje\"\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/replicate/status",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"replicate",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "hugging",
+					"item": [
+						{
+							"name": "hugging-text",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"facebook/bart-large-cnn\",\n        \"data\": {\n            \"inputs\": \"The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building...\"\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/hugging/text",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"hugging",
+										"text"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "hugging-images",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"stabilityai/stable-diffusion-2\",\n        \"data\": {\n            \"inputs\": \"a photo of an astronaut riding a horse on mars\",\n            \"parameters\": {\n                \"negative_prompt\": \"blurry\"\n            }\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/hugging/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"hugging",
+										"images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "admin-get-flags",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/admin/flags",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"flags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-set-flags",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "auth_flag",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/admin/api-auth-flag",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"api-auth-flag"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
