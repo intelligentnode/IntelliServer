@@ -32,6 +32,7 @@ const openaiRouter = require('./api/models/remote/openai');
 const cohereRouter = require('./api/models/remote/cohere');
 const replicateRouter = require('./api/models/remote/replicate');
 const stabilityRouter = require('./api/models/remote/stability');
+const huggingRouter = require('./api/models/remote/hugging');
 
 // root apis
 app.use('/', indexRouter);
@@ -47,6 +48,7 @@ app.use('/openai', openaiRouter);
 app.use('/cohere', cohereRouter);
 app.use('/replicate', replicateRouter);
 app.use('/stability', stabilityRouter);
+app.use('/hugging', huggingRouter);
 
 /* ### deploy the app ### */
 

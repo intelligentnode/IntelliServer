@@ -200,7 +200,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \n    }\n}",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"text_prompts\": [\n            { \n                \"text\": \"red apple\", \n                \"weight\": 0.5 \n            }\n        ],\n        \"cfg_scale\": 7,\n        \"steps\": 50\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -235,13 +235,24 @@
 									}
 								],
 								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/Users/Jaguar/Downloads/me-photo3 copy.jpeg"
+										},
+										{
+											"key": "params",
+											"value": "{\n  \"text_prompts\": [\n    { \n      \"text\": \"change to cartoon style.\", \n      \"weight\": 0.5 \n    }\n  ],\n  \"cfg_scale\": 7,\n  \"steps\": 50\n}",
+											"type": "text"
+										},
+										{
+											"key": "api_key",
+											"value": "",
+											"type": "text"
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{url}}/stability/image_to_image",
@@ -405,6 +416,83 @@
 									"path": [
 										"replicate",
 										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "hugging",
+					"item": [
+						{
+							"name": "hugging-text",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"facebook/bart-large-cnn\",\n        \"data\": {\n            \"inputs\": \"The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building...\"\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/hugging/text",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"hugging",
+										"text"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "hugging-images",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"stabilityai/stable-diffusion-2\",\n        \"data\": {\n            \"inputs\": \"a photo of an astronaut riding a horse on mars\",\n            \"parameters\": {\n                \"negative_prompt\": \"blurry\"\n            }\n        }\n    } \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/hugging/images",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"hugging",
+										"images"
 									]
 								}
 							},
