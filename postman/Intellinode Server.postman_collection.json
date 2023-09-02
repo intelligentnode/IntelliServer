@@ -222,7 +222,7 @@
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/Users/Jaguar/Downloads/me-photo3 copy.jpeg"
+											"src": "/Users/Jaguar/Downloads/3316512_banana_blackbarry_blackberries_fruit_icon.png"
 										},
 										{
 											"key": "params",
@@ -626,6 +626,39 @@
 							"path": [
 								"chatbot",
 								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "semantic-search-openai",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/semanticsearch/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"semanticsearch",
+								"search"
 							]
 						}
 					},

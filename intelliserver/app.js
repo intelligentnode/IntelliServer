@@ -36,6 +36,7 @@ const stabilityRouter = require('./api/models/remote/stability');
 const huggingRouter = require('./api/models/remote/hugging');
 // functions
 const chatRouter = require('./api/functions/chatbot');
+const semanticRouter = require('./api/functions/semanticsearch');
 
 
 // # api routers
@@ -55,6 +56,7 @@ app.use('/stability', stabilityRouter);
 app.use('/hugging', huggingRouter);
 // functions
 app.use('/chatbot', chatRouter);
+app.use('/semanticsearch', semanticRouter);
 
 /* ### deploy the app ### */
 
