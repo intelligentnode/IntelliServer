@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/server-header.png" width="400em">
+<img src="images/server-header.png" width="600em">
 </p> 
 <p align="center">
 <a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag">
