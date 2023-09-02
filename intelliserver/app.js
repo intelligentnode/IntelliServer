@@ -21,11 +21,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* ### the api routs ### */
-// middlwares
+// # middlwares
 const authMiddleware = require('./middleware/auth');
 const authAdminMiddleware = require('./middleware/authAdmin');
 
-// api
+// # api
+// remote models
 const indexRouter = require('./api/routes/index');
 const adminRouter = require('./api/routes/admin');
 const openaiRouter = require('./api/models/remote/openai');
@@ -33,22 +34,27 @@ const cohereRouter = require('./api/models/remote/cohere');
 const replicateRouter = require('./api/models/remote/replicate');
 const stabilityRouter = require('./api/models/remote/stability');
 const huggingRouter = require('./api/models/remote/hugging');
+// functions
+const chatRouter = require('./api/functions/chatbot');
 
-// root apis
+
+// # api routers
+
 app.use('/', indexRouter);
-
 // admin
 app.use('/admin', authAdminMiddleware, adminRouter);
 
 
 // secured apis
 app.use(authMiddleware);
-
+// models
 app.use('/openai', openaiRouter);
 app.use('/cohere', cohereRouter);
 app.use('/replicate', replicateRouter);
 app.use('/stability', stabilityRouter);
 app.use('/hugging', huggingRouter);
+// functions
+app.use('/chatbot', chatRouter);
 
 /* ### deploy the app ### */
 
