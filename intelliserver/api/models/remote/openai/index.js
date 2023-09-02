@@ -16,7 +16,7 @@ function getAPIWrapper(req) {
     if (USE_DEFAULT_KEYS) {
         return new OpenAIWrapper(process.env.OPENAI_API_KEY);
     } else {
-        return new OpenAIWrapper(req.body.model_key);
+        return new OpenAIWrapper(req.body.api_key);
     }
 }
 
@@ -60,17 +60,21 @@ router.post('/chat', async(req, res, next) => {
             const gptStreamParser = new GPTStreamParser();
             const stream = await openai.generateChatText(req.body.params);
 
-            let responseText = '';
+            // set streaming headers
+            res.setHeader('Content-Type', 'text/event-stream');
+            res.setHeader('Cache-Control', 'no-cache');
+            res.setHeader('Connection', 'keep-alive');
 
-            // collect data from the stream
+            // collect the data from the stream
             for await (const chunk of stream) {
                 const chunkText = chunk.toString('utf8');
                 for await (const contentText of gptStreamParser.feed(chunkText)) {
-                    responseText += contentText;
+                    res.write(`data: ${contentText}\n\n`); // write directly to the response
                 }
             }
 
-            res.json({ status: "OK", data: { response: responseText } });
+            // close the stream
+            res.end();
         } else {
             const result = await openai.generateChatText(req.body.params);
             const responseChoices = result.choices;

@@ -81,7 +81,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"stream\": true,\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"stream\": false,\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -522,6 +522,110 @@
 							"path": [
 								"admin",
 								"api-auth-flag"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "functions",
+			"item": [
+				{
+					"name": "chatbot-chat-openai",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chatbot-stream-openai",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/stream",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"stream"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chatbot-chat-replicate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"replicate\",\n    \"input\": {\n        \"model\": \"13b-chat\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"chat"
 							]
 						}
 					},

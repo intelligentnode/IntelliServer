@@ -1,15 +1,22 @@
 const express = require('express');
-const { StabilityAIWrapper } = require('intellinode');
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
 const multer  = require('multer');
 const upload = multer();
 
+const { StabilityAIWrapper } = require('intellinode');
+const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
+
 const router = express.Router();
 
 function getAPIWrapper(req) {
-    return new StabilityAIWrapper(req.body.api_key || process.env.STABILITY_API_KEY);
+
+    if (USE_DEFAULT_KEYS) {
+        return new OpenAIWrapper(process.env.OPENAI_API_KEY);
+    } else {
+        return new OpenAIWrapper(req.body.api_key);
+    }
 }
 
 router.post('/images', upload.none(), async (req, res) => {
