@@ -1,5 +1,5 @@
 # IntelliServer
-AI models as microservice - ChatGPT, Cohere, Llama, Stability, Hugging inference and more
+AI models as microservice - ChatGPT, Cohere, Llama, Stability, Hugging inference and more.
 
 Intelliserver is a microservice providing unified access to multiple AI models, allowing you to easily integrate cutting-edge AI into your project.
 
