@@ -24,6 +24,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 
 **npm**
 ```bash
+cd intelliserver
 npm install
 npm start
 ```
