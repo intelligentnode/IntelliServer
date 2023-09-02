@@ -14,7 +14,7 @@ function getAPIWrapper(req) {
   }
 }
 
-router.get('/text', async (req, res, next) => {
+router.post('/text', async (req, res, next) => {
     try {
         const cohere = getAPIWrapper(req);
 
@@ -27,7 +27,7 @@ router.get('/text', async (req, res, next) => {
     }
 });
 
-router.get('/embeddings', async (req, res, next) => {
+router.post('/embeddings', async (req, res, next) => {
     try {
         const cohere = getAPIWrapper(req);
 

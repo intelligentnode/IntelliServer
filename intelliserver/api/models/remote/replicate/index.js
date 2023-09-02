@@ -14,7 +14,7 @@ function getAPIWrapper(req) {
   }
 }
 
-router.get('/predict', async (req, res, next) => {
+router.post('/predict', async (req, res, next) => {
   try {
     const replicate = getAPIWrapper(req);
     const result = await replicate.predict(req.body.params.model_tag, req.body.params.input_data);
@@ -24,7 +24,7 @@ router.get('/predict', async (req, res, next) => {
   }
 });
 
-router.get('/status', async (req, res, next) => {
+router.post('/status', async (req, res, next) => {
     try {
         const replicate = getAPIWrapper(req);
         const result = await replicate.getPredictionStatus(req.body.params.prediction_id);

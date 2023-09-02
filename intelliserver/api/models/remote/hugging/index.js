@@ -13,7 +13,7 @@ function getAPIWrapper(req) {
   }
 }
 
-router.get('/text', async (req, res, next) => {
+router.post('/text', async (req, res, next) => {
   try {
     const hugging = getAPIWrapper(req);
     const result = await hugging.generateText(req.body.params.model_id, req.body.params.data);
@@ -23,7 +23,7 @@ router.get('/text', async (req, res, next) => {
   }
 });
 
-router.get('/images', async (req, res, next) => {
+router.post('/images', async (req, res, next) => {
   try {
     const hugging = getAPIWrapper(req);
     const result = await hugging.generateImage(req.body.params.model_id, req.body.params.data);

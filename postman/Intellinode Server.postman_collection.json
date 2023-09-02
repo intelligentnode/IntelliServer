@@ -15,7 +15,7 @@
 						{
 							"name": "openai-welcome",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -37,11 +37,8 @@
 						},
 						{
 							"name": "openai-text",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -73,11 +70,8 @@
 						},
 						{
 							"name": "openai-chat",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -87,7 +81,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"stream\": true,\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -109,11 +103,8 @@
 						},
 						{
 							"name": "openai-embed",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -145,11 +136,8 @@
 						},
 						{
 							"name": "openai-image",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -186,11 +174,8 @@
 					"item": [
 						{
 							"name": "stability-image",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -222,11 +207,8 @@
 						},
 						{
 							"name": "stability-image2image",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -274,11 +256,8 @@
 					"item": [
 						{
 							"name": "cohere-text",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -310,11 +289,8 @@
 						},
 						{
 							"name": "cohere-embed",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -351,11 +327,8 @@
 					"item": [
 						{
 							"name": "replicate-predict",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -387,11 +360,8 @@
 						},
 						{
 							"name": "replicate-status",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -428,11 +398,8 @@
 					"item": [
 						{
 							"name": "hugging-text",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -464,11 +431,8 @@
 						},
 						{
 							"name": "hugging-images",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "X-API-KEY",
@@ -508,7 +472,7 @@
 				{
 					"name": "admin-get-flags",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "X-API-KEY",
