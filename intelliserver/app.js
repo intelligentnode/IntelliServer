@@ -37,6 +37,7 @@ const huggingRouter = require('./api/models/remote/hugging');
 // functions
 const chatRouter = require('./api/functions/chatbot');
 const semanticRouter = require('./api/functions/semanticsearch');
+const evaluateRouter = require('./api/functions/evaluate');
 
 
 // # api routers
@@ -57,6 +58,7 @@ app.use('/hugging', huggingRouter);
 // functions
 app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
+app.use('/evaluate', evaluateRouter);
 
 /* ### deploy the app ### */
 

@@ -7,7 +7,7 @@ const { CohereAIWrapper } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 function getAPIWrapper(req) {
-  if (USE_DEFAULT_KEYS) {
+  if (USE_DEFAULT_KEYS && !req.body.api_key) {
     return new CohereAIWrapper(process.env.COHERE_API_KEY);
   } else {
     return new CohereAIWrapper(req.body.api_key);

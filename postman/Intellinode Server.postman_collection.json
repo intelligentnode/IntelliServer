@@ -663,6 +663,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "evaluate-llm",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userInput\": \"Explain the process of photosynthesis in simple terms.\",\n  \"targetAnswers\": [\n    \"Photosynthesis is the process where green plants use sunlight to turn carbon dioxide and water into glucose and oxygen.\",\n    \"Photosynthesis is how plants make their own food. They take in water and carbon dioxide, use the energy from sunlight to transform them into glucose and oxygen.\",\n    \"In simple terms, photosynthesis is like cooking for plants but instead of a stove, they use sunlight. They mix water and carbon dioxide with the sunlight to create glucose, which is their food, and also produce oxygen.\"\n  ],\n  \"semantic\": {\n    \"api_key\": \"\",\n    \"provider\": \"openai\"\n  },\n  \"evaluate\": [\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"replicate\",\n      \"type\": \"chat\",\n      \"model\": \"13b-chat\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"cohere\",\n      \"type\": \"completion\",\n      \"model\": \"command\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"openai\",\n      \"type\": \"chat\",\n      \"model\": \"gpt-3.5-turbo\",\n      \"maxTokens\": 50,\n      \"temperature\": 0.7\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/evaluate/llm",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"evaluate",
+								"llm"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
