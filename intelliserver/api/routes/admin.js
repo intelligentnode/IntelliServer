@@ -3,7 +3,7 @@ var router = express.Router();
 const config = require('../../config');
 
 /* GET admin flags */
-router.get('/flags', function(req, res, next) {
+router.post('/flags', function(req, res, next) {
   res.json({ 
     status: "OK", 
     message: "Current Flags",

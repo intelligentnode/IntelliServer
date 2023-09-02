@@ -12,7 +12,7 @@ function getAPIWrapper(req) {
     return new StabilityAIWrapper(req.body.api_key || process.env.STABILITY_API_KEY);
 }
 
-router.get('/images', upload.none(), async (req, res) => {
+router.post('/images', upload.none(), async (req, res) => {
     try {
         const stability = getAPIWrapper(req);
 
@@ -25,7 +25,7 @@ router.get('/images', upload.none(), async (req, res) => {
     }
 });
 
-router.get('/image_to_image', upload.single('image'), async (req, res) => {
+router.post('/image_to_image', upload.single('image'), async (req, res) => {
     try {
         const stability = getAPIWrapper(req);
         const { buffer, originalname } = req.file;

@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 
-const { OpenAIWrapper } = require('intellinode');
+const { OpenAIWrapper, GPTStreamParser } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 /* GET api. */
@@ -20,7 +20,7 @@ function getAPIWrapper(req) {
     }
 }
 
-router.get('/text', async (req, res, next) => {
+router.post('/text', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
 
@@ -31,7 +31,7 @@ router.get('/text', async (req, res, next) => {
     }
 });
 
-router.get('/embeddings', async (req, res, next) => {
+router.post('/embeddings', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
         const result = await openai.getEmbeddings(req.body.params);
@@ -41,7 +41,7 @@ router.get('/embeddings', async (req, res, next) => {
     }
 });
 
-router.get('/images', async (req, res, next) => {
+router.post('/images', async (req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
         const result = await openai.generateImages(req.body.params);
@@ -51,13 +51,32 @@ router.get('/images', async (req, res, next) => {
     }
 });
 
-router.get('/chat', async(req, res, next) => {
+router.post('/chat', async(req, res, next) => {
     try {
         const openai = getAPIWrapper(req);
-        const result = await openai.generateChatText(req.body.params);
-        const responseText = result['choices'][0]['message']['content'].trim();
+        const isStream = req.body.params.stream || false;
 
-        res.json({ status: "OK", data: { response: responseText } });
+        if (isStream) {
+            const gptStreamParser = new GPTStreamParser();
+            const stream = await openai.generateChatText(req.body.params);
+
+            let responseText = '';
+
+            // collect data from the stream
+            for await (const chunk of stream) {
+                const chunkText = chunk.toString('utf8');
+                for await (const contentText of gptStreamParser.feed(chunkText)) {
+                    responseText += contentText;
+                }
+            }
+
+            res.json({ status: "OK", data: { response: responseText } });
+        } else {
+            const result = await openai.generateChatText(req.body.params);
+            const responseChoices = result.choices;
+            res.json({ status: "OK", data: { response: responseChoices } });
+        }
+
     } catch (error) {
         res.json({ status: "ERROR", message: error.message });
     }
