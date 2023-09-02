@@ -14,7 +14,7 @@ const keys = {
 
 function getChatbot(req) {
     console.log('getChatbot provider: ', req.body.provider)
-    if (USE_DEFAULT_KEYS) {
+    if (USE_DEFAULT_KEYS && !req.body.api_key) {
         return new Chatbot(keys[req.body.provider.toLowerCase()], req.body.provider);
     } else {
         return new Chatbot(req.body.api_key, req.body.provider);

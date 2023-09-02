@@ -10,7 +10,7 @@ const keys = {
 }
 
 function getSemanticSearch(req) {
-  if (USE_DEFAULT_KEYS) {
+  if (USE_DEFAULT_KEYS && !req.body.api_key) {
     return new SemanticSearch(keys[req.body.provider.toLowerCase()], req.body.provider);
   } else {
     return new SemanticSearch(req.body.api_key, req.body.provider);

@@ -12,7 +12,7 @@ const router = express.Router();
 
 function getAPIWrapper(req) {
 
-    if (USE_DEFAULT_KEYS) {
+    if (USE_DEFAULT_KEYS && !req.body.api_key) {
         return new StabilityAIWrapper(process.env.STABILITY_API_KEY);
     } else {
         return new StabilityAIWrapper(req.body.api_key);
