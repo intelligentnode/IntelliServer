@@ -36,4 +36,4 @@ To test Intelliserver, you can use the Postman API connector. You can find a end
 - **Model Evaluation:** Intelliserver's design allows for seamless evaluation and comparison of different AI models using unified service. This facilitates data-driven decision when selecting the optimal model for specific use cases.
 
 ## License
-Intelliserver is released under the [MIT License]
+Intelliserver is released under the [MIT License](https://github.com/intelligentnode/IntelliServer/blob/main/LICENSE)
