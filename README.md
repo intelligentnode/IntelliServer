@@ -1,3 +1,12 @@
+<p align="center">
+<img src="images/server-header.png" width="400em">
+</p> 
+<p align="center">
+<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag">
+    <img src="https://img.shields.io/badge/Discord-Community-light?style=flat-square" />
+</a>
+</p>
+
 # IntelliServer
 AI models as private microservice - ChatGPT, Cohere, Llama, Stability, Hugging inference and more.
 
