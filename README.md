@@ -25,7 +25,7 @@ npm start
 
 ## Testing
 
-To test Intelliserver, you can use the Postman API connector. You can find a endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer).
+To test Intelliserver, you can use the Postman API connector. You can find a endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
 
 ## Key Benefits
 
