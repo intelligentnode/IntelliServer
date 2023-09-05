@@ -1,6 +1,6 @@
 <p align="center">
 <img src="images/server-header.png" width="600em">
-</p> 
+</p>
 <p align="center">
 <a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag">
     <img src="https://img.shields.io/badge/Discord-Community-light?style=flat-square" />
@@ -30,7 +30,12 @@ npm start
 ```
 **docker**
 ```bash
-# docker setup steps will be added
+# docker run command
+docker build -t intelliserver:latest .
+docker run -p 80:80 intelliserver:latest
+
+# docker compose run
+docker-compose up
 ```
 
 ## Testing
