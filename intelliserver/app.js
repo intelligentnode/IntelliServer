@@ -61,5 +61,9 @@ app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
 
 /* ### deploy the app ### */
+var port = process.env.PORT || '80';
+app.listen(port, function () {
+    console.log('Your intelliServer is running on PORT: ' + port);
+});
 
 module.exports = app;

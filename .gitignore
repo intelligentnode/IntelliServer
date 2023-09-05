@@ -131,3 +131,6 @@ dist
 
 #pycharm
 .idea
+
+# project level
+/hidden/*
