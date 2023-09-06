@@ -22,6 +22,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 
 ## Installation
 
+### Repository
 **npm**
 ```bash
 cd intelliserver
@@ -29,13 +30,20 @@ npm install
 npm start
 ```
 **docker**
+- docker run command
 ```bash
-# docker run command
 docker build -t intelliserver:latest .
 docker run -p 80:80 intelliserver:latest
-
-# docker compose run
+```
+- docker compose run
+```bash
 docker-compose up
+```
+
+### Release (Docker Hub)
+```bash
+docker pull intellinode/intelliserver:latest
+docker run -p 80:80 intellinode/intelliserver:latest
 ```
 
 ## Testing
