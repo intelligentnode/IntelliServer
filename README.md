@@ -22,7 +22,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 
 ## Installation
 
-### Repository
+### Repository Setup
 **npm**
 ```bash
 cd intelliserver
@@ -30,13 +30,14 @@ npm install
 npm start
 ```
 **docker**
-- docker run command
+
+
 ```bash
+# docker run
 docker build -t intelliserver:latest .
 docker run -p 80:80 intelliserver:latest
-```
-- docker compose run
-```bash
+
+# or docker compose run
 docker-compose up
 ```
 
@@ -48,7 +49,23 @@ docker run -p 80:80 intellinode/intelliserver:latest
 
 ## Testing
 
-To test Intelliserver, you can use the Postman API connector. You can find a endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
+To test Intelliserver, you can find the endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
+
+To customize the default keys and settings, create a `.env` file inside intelliserver with the following values:
+```
+# api keys
+API_KEY=<key>
+ADMIN_KEY=<key>
+
+# models keys - if not added, the user should send the key in the API call
+OPENAI_API_KEY=<key>
+AZURE_OPENAI_API_KEY=<key>
+COHERE_API_KEY=<key>
+GOOGLE_API_KEY=<key>
+STABILITY_API_KEY=<key>
+HUGGING_API_KEY=<key>
+REPLICATE_API_KEY=<key>
+```
 
 ## Key Benefits
 
