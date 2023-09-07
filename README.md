@@ -42,8 +42,18 @@ docker-compose up
 ```
 
 ### Release (Docker Hub)
+Pull the image
 ```bash
 docker pull intellinode/intelliserver:latest
+```
+Run IntelliServer
+```bash
+# run with custom keys
+API_KEY=<YOUR_API_KEY>
+ADMIN_KEY=<YOUR_ADMIN_KEY>
+docker run -p 80:80 -e API_KEY=$API_KEY -e ADMIN_KEY=$ADMIN_KEY intellinode/intelliserver:latest
+
+# or run with the default key - only for testing
 docker run -p 80:80 intellinode/intelliserver:latest
 ```
 
@@ -51,7 +61,7 @@ docker run -p 80:80 intellinode/intelliserver:latest
 
 To test Intelliserver, you can find the endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
 
-To customize the default keys and settings, create a `.env` file inside intelliserver with the following values:
+To customize the default keys and settings, create a `.env` file inside intelliserver cloned repo with the following values:
 ```
 # api keys
 API_KEY=<key>
