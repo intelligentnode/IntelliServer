@@ -2,7 +2,7 @@
 npm install
 
 ### start npm ###
-start npm
+npm start
 
 ### docker commands ###
 docker build -f Dockerfile -t intelliserver:latest .
