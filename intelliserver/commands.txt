@@ -13,3 +13,8 @@ docker stop <id>
 docker-compose up
 docker-compose down
 
+
+### docker publish ###
+docker tag intelliserver:latest intellinode/intelliserver:latest
+docker push intellinode/intelliserver:latest
+
