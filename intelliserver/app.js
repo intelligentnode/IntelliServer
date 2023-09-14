@@ -6,6 +6,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger');
 
 //create the app
 
@@ -46,7 +49,8 @@ const chatContextRouter = require('./api/functions/chatcontext');
 app.use('/', indexRouter);
 // admin
 app.use('/admin', authAdminMiddleware, adminRouter);
-
+// swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // secured apis
 app.use(authMiddleware);
