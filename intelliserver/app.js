@@ -38,6 +38,7 @@ const huggingRouter = require('./api/models/remote/hugging');
 const chatRouter = require('./api/functions/chatbot');
 const semanticRouter = require('./api/functions/semanticsearch');
 const evaluateRouter = require('./api/functions/evaluate');
+const chatContextRouter = require('./api/functions/chatcontext');
 
 
 // # api routers
@@ -59,6 +60,7 @@ app.use('/hugging', huggingRouter);
 app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
+app.use('/chatcontext', chatContextRouter);
 
 /* ### deploy the app ### */
 var port = process.env.PORT || '80';
