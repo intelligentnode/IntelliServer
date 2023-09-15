@@ -720,7 +720,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"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\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+							"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
