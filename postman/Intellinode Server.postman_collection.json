@@ -801,6 +801,16 @@
 			"key": "url",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "url_local",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "server_url",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
