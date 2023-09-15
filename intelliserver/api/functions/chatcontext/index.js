@@ -17,6 +17,52 @@ function getChatContext(req) {
   }
 }
 
+/**
+ * @swagger
+ * /chatcontext/getStringContext:
+ *   post:
+ *     summary: Get the relevant messages for the chatbot conversation with simple string input. This is used to manage the chatbot window size.
+ *
+ *     security:
+ *       - ApiKeyAuth: []
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - api_key
+ *               - provider
+ *               - input
+ *             properties:
+ *               api_key:
+ *                 type: string
+ *                 description: The api key.
+ *               provider:
+ *                 type: string
+ *                 description: The provider name (e.g. 'openai').
+ *               input:
+ *                 type: object
+ *                 properties:
+ *                   userMessage:
+ *                     type: string
+ *                     description: The user message to consider in the context.
+ *                   historyMessages:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     description: Array of previous messages in the conversation.
+ *                   n:
+ *                     type: integer
+ *                     description: The number of last messages to be considered in the context.
+ *     responses:
+ *       200:
+ *         description: The string context of the conversation considering last n messages with the user message.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/getStringContext', async (req, res, next) => {
   try {
     const chatContext = getChatContext(req);
@@ -30,6 +76,58 @@ router.post('/getStringContext', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /chatcontext/getRoleContext:
+ *   post:
+ *     summary: Get the relevant messages for the chatbot conversation with dict input including the role. This is used to manage the chatbot window size.
+ *
+ *     security:
+ *       - ApiKeyAuth: []
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - api_key
+ *               - provider
+ *               - input
+ *             properties:
+ *               api_key:
+ *                 type: string
+ *                 description: The api key.
+ *               provider:
+ *                 type: string
+ *                 description: The provider name (e.g. 'openai').
+ *               input:
+ *                 type: object
+ *                 properties:
+ *                   userMessage:
+ *                     type: string
+ *                     description: The user message to consider in the context.
+ *                   historyMessages:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         role:
+ *                           type: string
+ *                           description: Role of the sender, either 'user' or 'assistant'
+ *                         content:
+ *                           type: string
+ *                           description: Content of the message
+ *                   n:
+ *                     type: integer
+ *                     description: The number of last messages to be considered in the context.
+ *     responses:
+ *       200:
+ *         description: The role context of the conversation considering last n messages with the user message.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/getRoleContext', async (req, res, next) => {
   try {
     const chatContext = getChatContext(req);
