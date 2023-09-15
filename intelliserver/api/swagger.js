@@ -12,11 +12,6 @@ const options = {
         },
       }
     },
-    servers: [
-      {
-        url: '/api',
-      },
-    ],
     info: {
       title: 'IntelliServer APIs', // Title (required)
       version: '0.0.1',
