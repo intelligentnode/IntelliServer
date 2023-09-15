@@ -49,6 +49,8 @@ function getChatInput(input, provider) {
  * @swagger
  * /chatbot/chat:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: chatbot as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
  *
  *     security:
@@ -115,6 +117,8 @@ router.post('/chat', async (req, res, next) => {
  * @swagger
  * /chatbot/stream:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: Streams chat messages to the chatbot using OpenAI provider
  *
  *     security:

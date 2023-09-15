@@ -29,6 +29,8 @@ function getFilteredResults(results, searchArray) {
  * @swagger
  * /semanticsearch/search:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: Semantic search using LLM providers like openai and cohere.
  *
  *     security:

@@ -21,6 +21,8 @@ function getChatContext(req) {
  * @swagger
  * /chatcontext/getStringContext:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: Get the relevant messages for the chatbot conversation with simple string input. This is used to manage the chatbot window size.
  *
  *     security:
@@ -80,6 +82,8 @@ router.post('/getStringContext', async (req, res, next) => {
  * @swagger
  * /chatcontext/getRoleContext:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: Get the relevant messages for the chatbot conversation with dict input including the role. This is used to manage the chatbot window size.
  *
  *     security:

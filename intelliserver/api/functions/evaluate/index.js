@@ -32,6 +32,8 @@ function getLLMEvaluation(req) {
  * @swagger
  * /evaluate/llm:
  *   post:
+ *     tags:
+ *       - Functions
  *     summary: Evaluate Language models comparison against defined answers using LLM providers like openai, cohere, etc.
  *
  *     security:
