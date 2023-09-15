@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'))
+app.use(express.static('api-docs'))
 
 /* ### the api routs ### */
 // # middlwares
