@@ -51,8 +51,7 @@ app.use('/', indexRouter);
 // admin
 app.use('/admin', authAdminMiddleware, adminRouter);
 // swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-        customCssUrl: '/stylesheets/swagger.css'
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument
 }));
 
 /*if (config.SHOW_SWAGGER) {
