@@ -12,6 +12,7 @@ AI models as private microservice - ChatGPT, Cohere, Llama, Stability, Hugging i
 
 Intelliserver is a microservice providing unified access to multiple AI models, allowing you to easily integrate cutting-edge AI into your project.
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/29770592-ff766d39-676e-4a6e-9a24-ad306cf69bb8?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29770592-ff766d39-676e-4a6e-9a24-ad306cf69bb8%26entityType%3Dcollection%26workspaceId%3D0b88b327-c88a-4050-a084-cd4486f86b68#?env%5Bintelliserver-showcase%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCIsInNlc3Npb25WYWx1ZSI6Imh0dHBzOi8vaW50ZWxsaS1zZXJ2ZXIudmVyY2VsLmFwcCIsInNlc3Npb25JbmRleCI6MH1d)
 
 ## Core Services
 
