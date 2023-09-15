@@ -2,10 +2,11 @@
 require('dotenv').config();
 
 // load the dependencies 
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const config = require('./config');
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger');
@@ -50,7 +51,9 @@ app.use('/', indexRouter);
 // admin
 app.use('/admin', authAdminMiddleware, adminRouter);
 // swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+if (config.SHOW_SWAGGER) {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 
 // secured apis
 app.use(authMiddleware);
