@@ -6,44 +6,41 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const config = require('./config');
+const config = require('../config');
 // swagger
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger');
+const swaggerDocument = require('../swagger');
 
 //create the app
-
 var app = express();
 
 /* ### initial config ### */
-global.__basedir = __dirname;
+global.__basedir = path.join(__dirname, '..');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static('public'))
 
 /* ### the api routs ### */
 // # middlwares
-const authMiddleware = require('./middleware/auth');
-const authAdminMiddleware = require('./middleware/authAdmin');
+const authMiddleware = require('../middleware/auth');
+const authAdminMiddleware = require('../middleware/authAdmin');
 
 // # api
 // remote models
-const indexRouter = require('./api/routes/index');
-const adminRouter = require('./api/routes/admin');
-const openaiRouter = require('./api/models/remote/openai');
-const cohereRouter = require('./api/models/remote/cohere');
-const replicateRouter = require('./api/models/remote/replicate');
-const stabilityRouter = require('./api/models/remote/stability');
-const huggingRouter = require('./api/models/remote/hugging');
+const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin');
+const openaiRouter = require('./models/remote/openai');
+const cohereRouter = require('./models/remote/cohere');
+const replicateRouter = require('./models/remote/replicate');
+const stabilityRouter = require('./models/remote/stability');
+const huggingRouter = require('./models/remote/hugging');
 // functions
-const chatRouter = require('./api/functions/chatbot');
-const semanticRouter = require('./api/functions/semanticsearch');
-const evaluateRouter = require('./api/functions/evaluate');
-const chatContextRouter = require('./api/functions/chatcontext');
-
+const chatRouter = require('./functions/chatbot');
+const semanticRouter = require('./functions/semanticsearch');
+const evaluateRouter = require('./functions/evaluate');
+const chatContextRouter = require('./functions/chatcontext');
 
 // # api routers
 
@@ -74,7 +71,7 @@ app.use('/chatcontext', chatContextRouter);
 /* ### deploy the app ### */
 var port = process.env.PORT || '80';
 app.listen(port, function () {
-    console.log('Your intelliServer is running on PORT: ' + port);
+     console.log('Your intelliServer is running on PORT: ' + port);
 });
 
 module.exports = app;

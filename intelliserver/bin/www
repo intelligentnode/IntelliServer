@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../index');
+var app = require('../api/index');
 var debug = require('debug')('intelliserver:server');
 var http = require('http');
 
