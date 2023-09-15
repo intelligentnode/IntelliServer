@@ -13,6 +13,39 @@ function getAPIWrapper(req) {
   }
 }
 
+/**
+ * @swagger
+ * /hugging/text:
+ *   post:
+ *     tags:
+ *       - Models
+ *     summary: Generates text using Hugging Face's language models.
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - params
+ *             properties:
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                   model_id:
+ *                     type: string
+ *                     description: The model_id of the language model to be used.
+ *                   data:
+ *                     type: string
+ *                     description: The data to be processed by the language model.
+ *     responses:
+ *       200:
+ *         description: The generated text from Hugging Face.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/text', async (req, res, next) => {
   try {
     const hugging = getAPIWrapper(req);
@@ -23,6 +56,39 @@ router.post('/text', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /hugging/images:
+ *   post:
+ *     tags:
+ *       - Models
+ *     summary: Generates images using Hugging Face's image models.
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - params
+ *             properties:
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                   model_id:
+ *                     type: string
+ *                     description: The model_id for the image model to be used.
+ *                   data:
+ *                     type: string
+ *                     description: The data to be processed by the image model.
+ *     responses:
+ *       200:
+ *         description: The generated image from Hugging Face.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/images', async (req, res, next) => {
   try {
     const hugging = getAPIWrapper(req);
