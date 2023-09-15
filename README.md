@@ -61,6 +61,8 @@ docker run -p 80:80 intellinode/intelliserver:latest
 
 To test Intelliserver, you can find the endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
 
+Or access the swagger interactive docs: `localhost/api-docs/`
+
 To customize the default keys and settings, create a `.env` file inside intelliserver cloned repo with the following values:
 ```
 # api keys
