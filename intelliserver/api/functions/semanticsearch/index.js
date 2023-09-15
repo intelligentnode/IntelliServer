@@ -29,7 +29,7 @@ function getFilteredResults(results, searchArray) {
  * @swagger
  * /semanticsearch/search:
  *   post:
- *     summary: Semantic search using LLM providers like openai.
+ *     summary: Semantic search using LLM providers like openai and cohere.
  *
  *     security:
  *       - ApiKeyAuth: []
