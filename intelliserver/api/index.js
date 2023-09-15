@@ -47,7 +47,7 @@ const chatContextRouter = require('./functions/chatcontext');
 app.use('/', indexRouter);
 // admin
 app.use('/api/admin', authAdminMiddleware, adminRouter);
-// swagger
+// swagger 
 if (config.SHOW_SWAGGER) {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
         customCssUrl: '/stylesheets/swagger.css'
