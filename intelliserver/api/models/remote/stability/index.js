@@ -19,6 +19,50 @@ function getAPIWrapper(req) {
     }
 }
 
+/**
+ * @swagger
+ * /stability/images:
+ *   post:
+ *     tags:
+ *       - Models
+ *     summary: Generates image from text prompts using Stable Diffusion.
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - params
+ *             properties:
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                   text_prompts:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         text:
+ *                           type: string
+ *                           description: The text to visualize as an image.
+ *                         weight:
+ *                           type: float
+ *                           description: The weight of the prompt.
+ *                   cfg_scale:
+ *                     type: integer
+ *                     description: The configuration scale for the model.
+ *                   steps:
+ *                     type: integer
+ *                     description: The number of steps to take in generating the image.
+ *     responses:
+ *       200:
+ *         description: The generated image from Stability.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/images', upload.none(), async (req, res) => {
     try {
         const stability = getAPIWrapper(req);
@@ -32,6 +76,33 @@ router.post('/images', upload.none(), async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /stability/image_to_image:
+ *   post:
+ *     tags:
+ *       - Models
+ *     summary: Generates an image from another image using Stable Diffusion.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: The file to upload.
+ *               params:
+ *                 type: string
+ *                 description: The JSON serialized parameters for the image generation.
+ *     responses:
+ *       200:
+ *         description: The generated image from Stability.
+ *       400:
+ *         description: There was a problem with the request.
+ */
 router.post('/image_to_image', upload.single('image'), async (req, res) => {
     try {
         const stability = getAPIWrapper(req);
