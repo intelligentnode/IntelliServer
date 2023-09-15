@@ -45,6 +45,59 @@ function getChatInput(input, provider) {
     return addMessages(inputInst, input.messages);
 }
 
+/**
+ * @swagger
+ * /chatbot/chat:
+ *   post:
+ *     summary: chatbot as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
+ *
+ *     security:
+ *       - ApiKeyAuth: []
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - api_key
+ *               - model
+ *               - provider
+ *               - input
+ *             properties:
+ *               api_key:
+ *                 type: string
+ *                 description: The api key
+ *               model:
+ *                 type: string
+ *                 description: The model type (e.g. 'gpt4')
+ *               provider:
+ *                 type: string
+ *                 description: The provider (e.g. 'openai')
+ *               input:
+ *                 type: object
+ *                 properties:
+ *                  system:
+ *                    type: string
+ *                    description: System message to the chatbot
+ *                  messages:
+ *                    type: array
+ *                    items:
+ *                      type: object
+ *                      properties:
+ *                        role:
+ *                          type: string
+ *                          description: Role of the sender, either 'user' or 'assistant'
+ *                        content:
+ *                          type: string
+ *                          description: Content of the message
+ *     responses:
+ *       200:
+ *         description: The chatbot's response
+ *       400:
+ *         description: There was a problem with the request
+ */
 router.post('/chat', async (req, res, next) => {
     try {
         const chatbot = getChatbot(req);
@@ -58,7 +111,59 @@ router.post('/chat', async (req, res, next) => {
     }
 });
 
-
+/**
+ * @swagger
+ * /chatbot/stream:
+ *   post:
+ *     summary: Streams chat messages to the chatbot using OpenAI provider
+ *
+ *     security:
+ *       - ApiKeyAuth: []
+ *
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - api_key
+ *               - model
+ *               - provider
+ *               - input
+ *             properties:
+ *               api_key:
+ *                 type: string
+ *                 description: The api key
+ *               model:
+ *                 type: string
+ *                 description: The model type (e.g. 'gpt4')
+ *               provider:
+ *                 type: string
+ *                 description: The provider, should be 'openai' for this API
+ *               input:
+ *                 type: object
+ *                 properties:
+ *                  system:
+ *                    type: string
+ *                    description: System message to the chatbot
+ *                  messages:
+ *                    type: array
+ *                    items:
+ *                      type: object
+ *                      properties:
+ *                        role:
+ *                          type: string
+ *                          description: Role of the sender, either 'user' or 'assistant'
+ *                        content:
+ *                          type: string
+ *                          description: Content of the message
+ *     responses:
+ *       200:
+ *         description: A stream of chatbot's responses
+ *       400:
+ *         description: There was a problem with the request
+ */
 router.post('/stream', async (req, res, next) => {
     try {
 
