@@ -15,6 +15,7 @@ const options = {
     info: {
       title: 'IntelliServer APIs', // Title (required)
       version: '0.0.1',
+      description: 'AI model as scalable microservices, enabling evaluation of LLMs and offering end-to-end AI functions such as chatbot, semantic search, image generation and beyond.'
     },
   },
   apis: ['./api/**/*.js'],
