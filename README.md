@@ -19,6 +19,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 - **LLM Evaluation**: evaluate different AI models to choose the optimal solution for your requirements.
 - **Semantic Search**: leverage context-aware semantic search capabilities across text documents.
 - **Image Generation**: generate quality images based on described contexts using diffusion image models.
+- **Chat Context**: get the relevant messages for the chatbot conversation.
 
 ## Installation
 
