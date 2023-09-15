@@ -46,7 +46,7 @@ const chatContextRouter = require('./functions/chatcontext');
 
 app.use('/', indexRouter);
 // admin
-app.use('/admin', authAdminMiddleware, adminRouter);
+app.use('api/admin', authAdminMiddleware, adminRouter);
 // swagger
 if (config.SHOW_SWAGGER) {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
@@ -57,16 +57,16 @@ if (config.SHOW_SWAGGER) {
 // secured apis
 app.use(authMiddleware);
 // models
-app.use('/openai', openaiRouter);
-app.use('/cohere', cohereRouter);
-app.use('/replicate', replicateRouter);
-app.use('/stability', stabilityRouter);
-app.use('/hugging', huggingRouter);
+app.use('api/openai', openaiRouter);
+app.use('api/cohere', cohereRouter);
+app.use('api/replicate', replicateRouter);
+app.use('api/stability', stabilityRouter);
+app.use('api/hugging', huggingRouter);
 // functions
-app.use('/chatbot', chatRouter);
-app.use('/semanticsearch', semanticRouter);
-app.use('/evaluate', evaluateRouter);
-app.use('/chatcontext', chatContextRouter);
+app.use('api/chatbot', chatRouter);
+app.use('api/semanticsearch', semanticRouter);
+app.use('api/evaluate', evaluateRouter);
+app.use('api/chatcontext', chatContextRouter);
 
 /* ### deploy the app ### */
 var port = process.env.PORT || '80';
