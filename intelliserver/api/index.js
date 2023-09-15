@@ -9,7 +9,7 @@ const logger = require('morgan');
 const config = require('../config');
 // swagger
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger');
+const swaggerDocument = require('./swagger');
 const swaggerUiAssetPath = require("swagger-ui-dist").getAbsoluteFSPath()
 
 //create the app
