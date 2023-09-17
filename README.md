@@ -2,9 +2,14 @@
 <img src="images/server-header.png" width="600em">
 </p>
 <p align="center">
-<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag">
+<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag" target="_blank">
     <img src="https://img.shields.io/badge/Discord-Community-light?style=flat-square" />
 </a>
+
+<a href="https://github.com/Hannibal046/Awesome-LLM" target="_blank">
+     <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome LLM">
+</a>
+
 </p>
 
 # IntelliServer
