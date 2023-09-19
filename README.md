@@ -2,9 +2,14 @@
 <img src="images/server-header.png" width="600em">
 </p>
 <p align="center">
-<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag">
+<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag" target="_blank">
     <img src="https://img.shields.io/badge/Discord-Community-light?style=flat-square" />
 </a>
+
+<a href="https://github.com/Hannibal046/Awesome-LLM" target="_blank">
+     <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome LLM">
+</a>
+
 </p>
 
 # IntelliServer
@@ -12,6 +17,7 @@ AI models as private microservice - ChatGPT, Cohere, Llama, Stability, Hugging i
 
 Intelliserver is a microservice providing unified access to multiple AI models, allowing you to easily integrate cutting-edge AI into your project.
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/29770592-ff766d39-676e-4a6e-9a24-ad306cf69bb8?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29770592-ff766d39-676e-4a6e-9a24-ad306cf69bb8%26entityType%3Dcollection%26workspaceId%3D0b88b327-c88a-4050-a084-cd4486f86b68#?env%5Bintelliserver-showcase%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoiZGVmYXVsdCIsInNlc3Npb25WYWx1ZSI6Imh0dHBzOi8vaW50ZWxsaS1zZXJ2ZXIudmVyY2VsLmFwcCIsInNlc3Npb25JbmRleCI6MH1d)
 
 ## Core Services
 
@@ -19,6 +25,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 - **LLM Evaluation**: evaluate different AI models to choose the optimal solution for your requirements.
 - **Semantic Search**: leverage context-aware semantic search capabilities across text documents.
 - **Image Generation**: generate quality images based on described contexts using diffusion image models.
+- **Chat Context**: get the relevant messages for the chatbot conversation.
 
 ## Installation
 
@@ -60,6 +67,8 @@ docker run -p 80:80 intellinode/intelliserver:latest
 ## Testing
 
 To test Intelliserver, you can find the endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
+
+Or access the swagger interactive docs: `localhost/api-docs/`
 
 To customize the default keys and settings, create a `.env` file inside intelliserver cloned repo with the following values:
 ```

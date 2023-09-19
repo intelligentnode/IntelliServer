@@ -2,7 +2,7 @@
 npm install
 
 ### start npm ###
-start npm
+npm start
 
 ### docker commands ###
 docker build -f Dockerfile -t intelliserver:latest .
@@ -12,4 +12,9 @@ docker stop <id>
 ### docker compose commands ###
 docker-compose up
 docker-compose down
+
+
+### docker publish ###
+docker tag intelliserver:latest intellinode/intelliserver:latest
+docker push intellinode/intelliserver:latest
 

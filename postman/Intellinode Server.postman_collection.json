@@ -533,103 +533,179 @@
 			"name": "functions",
 			"item": [
 				{
-					"name": "chatbot-chat-openai",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-API-KEY",
-								"value": "root",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "chatbot",
+					"item": [
+						{
+							"name": "chatbot-chat-openai",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatbot/chat",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatbot",
+										"chat"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/chatbot/chat",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"chatbot",
-								"chat"
-							]
+						{
+							"name": "chatbot-stream-openai",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatbot/stream",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatbot",
+										"stream"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "chatbot-chat-replicate",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"replicate\",\n    \"input\": {\n        \"model\": \"13b-chat\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatbot/chat",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatbot",
+										"chat"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "chatbot-stream-openai",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-API-KEY",
-								"value": "root",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "chat-context-window",
+					"item": [
+						{
+							"name": "get-string-context",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\"Good morning\", \"Dinner time\", \"How can I help you?\", \"Hello\"],\n        \"n\": 3\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatcontext/getStringContext",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatcontext",
+										"getStringContext"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/chatbot/stream",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"chatbot",
-								"stream"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "chatbot-chat-replicate",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-API-KEY",
-								"value": "root",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"replicate\",\n    \"input\": {\n        \"model\": \"13b-chat\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "get-role-context",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"api_key\": \"\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\n            {\"role\": \"user\", \"content\": \"Good morning\"},\n            {\"role\": \"user\", \"content\": \"Dinner time\"},\n            {\"role\": \"assistant\", \"content\": \"How can I help you?\"},\n            {\"role\": \"user\", \"content\": \"Hello\"}\n        ],\n        \"n\": 3\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatcontext/getRoleContext",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatcontext",
+										"getRoleContext"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/chatbot/chat",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"chatbot",
-								"chat"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "semantic-search-openai",
@@ -723,6 +799,16 @@
 	"variable": [
 		{
 			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "url_local",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "server_url",
 			"value": "",
 			"type": "string"
 		}
