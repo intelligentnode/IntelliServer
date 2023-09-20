@@ -16,15 +16,15 @@ function getModelSettings(input) {
   return input.map((item) => {
     return {
       ...item,
-      apiKey: (!USE_DEFAULT_KEYS && item.apiKey) ? item.apiKey : keys[item.provider.toLowerCase()],
+      apiKey: (USE_DEFAULT_KEYS && !item.apiKey) ? keys[item.provider.toLowerCase()] : item.apiKey,
     };
   });
 }
 
 function getLLMEvaluation(req) {
-  const apiKey = (!USE_DEFAULT_KEYS && req.body.semantic.api_key) ?
-                 req.body.semantic.api_key :
-                 keys[req.body.semantic.provider.toLowerCase()];
+  const apiKey = (USE_DEFAULT_KEYS && !req.body.semantic.api_key) ?
+                 keys[req.body.semantic.provider.toLowerCase()] : req.body.semantic.api_key;
+
   return new LLMEvaluation(apiKey, req.body.semantic.provider);
 }
 
