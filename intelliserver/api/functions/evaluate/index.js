@@ -16,7 +16,7 @@ function getModelSettings(input) {
   return input.map((item) => {
     return {
       ...item,
-      apiKey: (!USE_DEFAULT_KEYS && item.apiKey) ? item.apiKey : keys[item.provider.toLowerCase()],
+      apiKey: (USE_DEFAULT_KEYS && !item.apiKey) ? keys[item.provider.toLowerCase()] : item.apiKey,
     };
   });
 }
