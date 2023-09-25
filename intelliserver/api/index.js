@@ -41,6 +41,8 @@ const chatRouter = require('./functions/chatbot');
 const semanticRouter = require('./functions/semanticsearch');
 const evaluateRouter = require('./functions/evaluate');
 const chatContextRouter = require('./functions/chatcontext');
+const parserRoute = require('./parser/index');
+
 
 // # api routers
 
@@ -67,6 +69,8 @@ app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
 app.use('/chatcontext', chatContextRouter);
+
+app.use('/parser', parserRoute)
 
 /* ### deploy the app ### */
 var port = process.env.PORT || '80';

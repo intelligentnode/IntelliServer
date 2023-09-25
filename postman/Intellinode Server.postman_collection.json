@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "55e5bb38-3a26-413c-8a30-55a5c77dfb48",
+		"_postman_id": "76e5b9e8-2652-47a4-89df-8f1350228f54",
 		"name": "Intellinode Server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8207010"
+		"_exporter_id": "14588927"
 	},
 	"item": [
 		{
@@ -768,6 +768,79 @@
 							"path": [
 								"evaluate",
 								"llm"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "parser",
+			"item": [
+				{
+					"name": "word_to_text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doc",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/parser/word_to_text",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"parser",
+								"word_to_text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pdf_to_text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pdf",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/parser/pdf_to_text",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"parser",
+								"pdf_to_text"
 							]
 						}
 					},
