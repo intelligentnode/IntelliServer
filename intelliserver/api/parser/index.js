@@ -75,7 +75,7 @@ router.post('/word_to_text', upload.single('doc'), async (req, res) => {
         const paragraphs = text.split(/\n\n\n\n+/);
         const pages = paragraphs.filter(t => !!t).map((paragraph, index) => {
             return {
-                page_number: index + 1,
+                paragraph_number: index + 1,
                 value: paragraph.trim()
             }
         });
