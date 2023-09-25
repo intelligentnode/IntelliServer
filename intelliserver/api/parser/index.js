@@ -7,6 +7,36 @@ const mammoth = require('mammoth');
 const router = express.Router();
 const upload = multer();
 
+/**
+ * @swagger
+ * /pdf_to_text:
+ *   post:
+ *     tags:
+ *       - Document Conversion
+ *     summary: Convert a PDF document to text with page-wise data.
+ * 
+ *     security:
+ *       - ApiKeyAuth: []
+ * 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pdf:
+ *                 type: string
+ *                 format: binary
+ *                 description: PDF file to be converted.
+ *     responses:
+ *       200:
+ *         description: Successfully converted PDF to text.
+ *       400:
+ *         description: Bad request or missing PDF file.
+ *       500:
+ *         description: Internal server error during PDF conversion.
+ */
 router.post('/pdf_to_text', upload.single('pdf'), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ status: 'ERROR', message: 'PDF document not provided' });
@@ -64,6 +94,36 @@ router.post('/pdf_to_text', upload.single('pdf'), async (req, res) => {
 
 });
 
+/**
+ * @swagger
+ * /word_to_text:
+ *   post:
+ *     tags:
+ *       - Document Conversion
+ *     summary: Convert a Word document to text.
+ * 
+ *     security:
+ *       - ApiKeyAuth: []
+ * 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               doc:
+ *                 type: string
+ *                 format: binary
+ *                 description: Word document to be converted.
+ *     responses:
+ *       200:
+ *         description: Successfully converted Word to text.
+ *       400:
+ *         description: Bad request or missing Word document.
+ *       500:
+ *         description: Internal server error during Word conversion.
+ */
 router.post('/word_to_text', upload.single('doc'), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ status: 'ERROR', message: 'Word document not provided' });
