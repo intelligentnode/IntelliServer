@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "76e5b9e8-2652-47a4-89df-8f1350228f54",
+		"_postman_id": "a36cc10c-bc9d-4682-a8c8-6e345ae917b8",
 		"name": "Intellinode Server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14588927"
+		"_exporter_id": "8207010"
 	},
 	"item": [
 		{
@@ -48,7 +48,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"davinci-002\",\n        \"prompt\": \"Summarize the plot of the Inception movie in two sentences\",\n        \"max_tokens\": 50,\n        \"n\": 1,\n        \"stop\": \"<stop>\",\n        \"temperature\": 0.7\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{openai_key}}\", \n    \"params\":{\n        \"model\": \"davinci-002\",\n        \"prompt\": \"Summarize the plot of the Inception movie in two sentences\",\n        \"max_tokens\": 50,\n        \"n\": 1,\n        \"stop\": \"<stop>\",\n        \"temperature\": 0.7\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -81,7 +81,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"stream\": false,\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
+									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"params\":{\n      \"model\": \"gpt-3.5-turbo\",\n      \"stream\": false,\n      \"messages\": [\n         {\n            \"role\": \"system\",\n            \"content\": \"You are a helpful assistant.\"\n         },\n         {\n            \"role\": \"user\",\n            \"content\": \"Generate a product description for black and white standing desk.\"\n         }\n      ],\n      \"max_tokens\": 100,\n      \"temperature\": 0.8\n   }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -114,7 +114,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"input\": [\"IntelliNode provide lightning-fast access to the latest deep learning models\", \"Hello IntelliNode\"],\n        \"model\": \"text-embedding-ada-002\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"{{openai_key}}\", \n    \"params\":{\n        \"input\": [\"IntelliNode provide lightning-fast access to the latest deep learning models\", \"Hello IntelliNode\"],\n        \"model\": \"text-embedding-ada-002\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -147,7 +147,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prompt\": \"gaming chair\", \n        \"n\": 1,\n        \"size\": \"256x256\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"{{openai_key}}\", \n    \"params\":{\n        \"prompt\": \"gaming chair\", \n        \"n\": 1,\n        \"size\": \"256x256\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -185,7 +185,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"text_prompts\": [\n            { \n                \"text\": \"red apple\", \n                \"weight\": 0.5 \n            }\n        ],\n        \"cfg_scale\": 7,\n        \"steps\": 50\n    }\n}",
+									"raw": "{\n    \"api_key\": \"{{stability_key}}\", \n    \"params\":{\n        \"text_prompts\": [\n            { \n                \"text\": \"red apple\", \n                \"weight\": 0.5 \n            }\n        ],\n        \"cfg_scale\": 7,\n        \"steps\": 50\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -231,7 +231,7 @@
 										},
 										{
 											"key": "api_key",
-											"value": "",
+											"value": "{{stability_key}}",
 											"type": "text"
 										}
 									]
@@ -267,7 +267,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model\": \"command\",\n        \"prompt\": \"Write a blog outline for a blog titled The Art of Effective Communication\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 200\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{cohere_key}}\", \n    \"params\":{\n        \"model\": \"command\",\n        \"prompt\": \"Write a blog outline for a blog titled The Art of Effective Communication\",\n        \"temperature\": 0.7,\n        \"max_tokens\": 200\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -300,7 +300,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\": {\n        \"texts\": [\n            \"Hello from Cohere!\",\n            \"Hallo von Cohere!\",\n            \"您好，来自 Cohere！\"\n        ],\n        \"model\": \"embed-multilingual-v2.0\",\n        \"truncate\": \"END\"\n     } \n}",
+									"raw": "{\n    \"api_key\": \"{{cohere_key}}\", \n    \"params\": {\n        \"texts\": [\n            \"Hello from Cohere!\",\n            \"Hallo von Cohere!\",\n            \"您好，来自 Cohere！\"\n        ],\n        \"model\": \"embed-multilingual-v2.0\",\n        \"truncate\": \"END\"\n     } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -338,7 +338,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_tag\": \"13b-chat\",\n        \"input_data\": {\n            \"version\": \"d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111\",\n            \"input\": {\n                \"prompt\": \"Translate the following English text to French: 'Good morning'\",\n                \"max_new_tokens\": 60,\n                \"temperature\": 0.5,\n                \"debug\": false\n            }\n        }\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{replicate_key}}\", \n    \"params\":{\n        \"model_tag\": \"13b-chat\",\n        \"input_data\": {\n            \"version\": \"d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111\",\n            \"input\": {\n                \"prompt\": \"Translate the following English text to French: 'Good morning'\",\n                \"max_new_tokens\": 60,\n                \"temperature\": 0.5,\n                \"debug\": false\n            }\n        }\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -371,7 +371,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"prediction_id\": \"gimfgb3beqq4tgn4ckv7gltvje\"\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{replicate_key}}\", \n    \"params\":{\n        \"prediction_id\": \"gimfgb3beqq4tgn4ckv7gltvje\"\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -409,7 +409,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"facebook/bart-large-cnn\",\n        \"data\": {\n            \"inputs\": \"The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building...\"\n        }\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{huggin_key}}\", \n    \"params\":{\n        \"model_id\": \"facebook/bart-large-cnn\",\n        \"data\": {\n            \"inputs\": \"The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building...\"\n        }\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -442,7 +442,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\", \n    \"params\":{\n        \"model_id\": \"stabilityai/stable-diffusion-2\",\n        \"data\": {\n            \"inputs\": \"a photo of an astronaut riding a horse on mars\",\n            \"parameters\": {\n                \"negative_prompt\": \"blurry\"\n            }\n        }\n    } \n}",
+									"raw": "{\n    \"api_key\": \"{{huggin_key}}\", \n    \"params\":{\n        \"model_id\": \"stabilityai/stable-diffusion-2\",\n        \"data\": {\n            \"inputs\": \"a photo of an astronaut riding a horse on mars\",\n            \"parameters\": {\n                \"negative_prompt\": \"blurry\"\n            }\n        }\n    } \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -548,7 +548,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -581,7 +581,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -614,7 +614,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"replicate\",\n    \"input\": {\n        \"model\": \"13b-chat\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"raw": "{\n   \"api_key\": \"{{replicate_key}}\",\n   \"provider\": \"replicate\",\n    \"input\": {\n        \"model\": \"13b-chat\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -652,7 +652,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\"Good morning\", \"Dinner time\", \"How can I help you?\", \"Hello\"],\n        \"n\": 3\n    }\n}",
+									"raw": "{\n    \"api_key\": \"{{openai_key}}\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\"Good morning\", \"Dinner time\", \"How can I help you?\", \"Hello\"],\n        \"n\": 3\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -685,7 +685,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"api_key\": \"\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\n            {\"role\": \"user\", \"content\": \"Good morning\"},\n            {\"role\": \"user\", \"content\": \"Dinner time\"},\n            {\"role\": \"assistant\", \"content\": \"How can I help you?\"},\n            {\"role\": \"user\", \"content\": \"Hello\"}\n        ],\n        \"n\": 3\n    }\n}",
+									"raw": "{\n    \"api_key\": \"{{openai_key}}\",\n    \"provider\": \"openai\",\n    \"input\": {\n        \"userMessage\": \"recommend a vegetarian dish for dinner\",\n        \"historyMessages\": [\n            {\"role\": \"user\", \"content\": \"Good morning\"},\n            {\"role\": \"user\", \"content\": \"Dinner time\"},\n            {\"role\": \"assistant\", \"content\": \"How can I help you?\"},\n            {\"role\": \"user\", \"content\": \"Hello\"}\n        ],\n        \"n\": 3\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -720,7 +720,40 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+							"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/semanticsearch/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"semanticsearch",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "semantic-search-cohere",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -753,7 +786,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"userInput\": \"Explain the process of photosynthesis in simple terms.\",\n  \"targetAnswers\": [\n    \"Photosynthesis is the process where green plants use sunlight to turn carbon dioxide and water into glucose and oxygen.\",\n    \"Photosynthesis is how plants make their own food. They take in water and carbon dioxide, use the energy from sunlight to transform them into glucose and oxygen.\",\n    \"In simple terms, photosynthesis is like cooking for plants but instead of a stove, they use sunlight. They mix water and carbon dioxide with the sunlight to create glucose, which is their food, and also produce oxygen.\"\n  ],\n  \"semantic\": {\n    \"api_key\": \"\",\n    \"provider\": \"openai\"\n  },\n  \"evaluate\": [\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"replicate\",\n      \"type\": \"chat\",\n      \"model\": \"13b-chat\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"cohere\",\n      \"type\": \"completion\",\n      \"model\": \"command\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"\",\n      \"provider\": \"openai\",\n      \"type\": \"chat\",\n      \"model\": \"gpt-3.5-turbo\",\n      \"maxTokens\": 50,\n      \"temperature\": 0.7\n    }\n  ]\n}",
+							"raw": "{\n  \"userInput\": \"Explain the process of photosynthesis in simple terms.\",\n  \"targetAnswers\": [\n    \"Photosynthesis is the process where green plants use sunlight to turn carbon dioxide and water into glucose and oxygen.\",\n    \"Photosynthesis is how plants make their own food. They take in water and carbon dioxide, use the energy from sunlight to transform them into glucose and oxygen.\",\n    \"In simple terms, photosynthesis is like cooking for plants but instead of a stove, they use sunlight. They mix water and carbon dioxide with the sunlight to create glucose, which is their food, and also produce oxygen.\"\n  ],\n  \"semantic\": {\n    \"api_key\": \"{{openai_key}}\",\n    \"provider\": \"openai\"\n  },\n  \"evaluate\": [\n    {\n      \"apiKey\": \"{{replicate_key}}\",\n      \"provider\": \"replicate\",\n      \"type\": \"chat\",\n      \"model\": \"13b-chat\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"{{cohere_key}}\",\n      \"provider\": \"cohere\",\n      \"type\": \"completion\",\n      \"model\": \"command\",\n      \"maxTokens\": 50\n    },\n    {\n      \"apiKey\": \"{{openai_key}}\",\n      \"provider\": \"openai\",\n      \"type\": \"chat\",\n      \"model\": \"gpt-3.5-turbo\",\n      \"maxTokens\": 50,\n      \"temperature\": 0.7\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -882,6 +915,31 @@
 		},
 		{
 			"key": "server_url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "openai_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cohere_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "replicate_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "stability_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "huggin_key",
 			"value": "",
 			"type": "string"
 		}

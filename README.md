@@ -26,6 +26,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 - **Semantic Search**: leverage context-aware semantic search capabilities across text documents.
 - **Image Generation**: generate quality images based on described contexts using diffusion image models.
 - **Chat Context**: get the relevant messages for the chatbot conversation.
+- **Parsers**: convert documents to text such as PDF and word.
 
 ## Installation
 
