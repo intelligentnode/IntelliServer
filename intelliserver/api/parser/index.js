@@ -9,10 +9,10 @@ const upload = multer();
 
 /**
  * @swagger
- * /pdf_to_text:
+ * /parser/pdf_to_text:
  *   post:
  *     tags:
- *       - Document Conversion
+ *       - Parsers
  *     summary: Convert a PDF document to text with page-wise data.
  * 
  *     security:
@@ -96,10 +96,10 @@ router.post('/pdf_to_text', upload.single('pdf'), async (req, res) => {
 
 /**
  * @swagger
- * /word_to_text:
+ * /parser/word_to_text:
  *   post:
  *     tags:
- *       - Document Conversion
+ *       - Parsers
  *     summary: Convert a Word document to text.
  * 
  *     security:
