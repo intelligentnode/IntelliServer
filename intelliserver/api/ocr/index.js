@@ -60,3 +60,5 @@ router.post('/google', upload.single('image'), async (req, res) => {
         res.status(500).json({ status: 'ERROR', message: error.message });
     }
 });
+
+module.exports = router;
