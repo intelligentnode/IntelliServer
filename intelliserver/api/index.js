@@ -42,6 +42,7 @@ const semanticRouter = require('./functions/semanticsearch');
 const evaluateRouter = require('./functions/evaluate');
 const chatContextRouter = require('./functions/chatcontext');
 const parserRoute = require('./parser/index');
+const ocrRoute = require('./ocr/index');
 
 
 // # api routers
@@ -71,6 +72,7 @@ app.use('/evaluate', evaluateRouter);
 app.use('/chatcontext', chatContextRouter);
 
 app.use('/parser', parserRoute)
+app.use('/ocr', ocrRoute)
 
 /* ### deploy the app ### */
 var port = process.env.PORT || '80';
