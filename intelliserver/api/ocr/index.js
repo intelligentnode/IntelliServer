@@ -1,13 +1,13 @@
 const express = require('express');
-const multer = require('multer');
-
 const AWS = require('aws-sdk');
+
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
-const router = express.Router();
-const upload = multer();
+const getImageFromUrlOrFile = require('../../middleware/getImageFromUrlOrFile');
 
-router.post('/aws', upload.single('image'), async (req, res) => {
+const router = express.Router();
+
+router.post('/aws', getImageFromUrlOrFile, async (req, res) => {
     const { buffer } = req.file;
     try {
         const awsOcr = async (imageBuffer) => {
@@ -38,7 +38,7 @@ router.post('/aws', upload.single('image'), async (req, res) => {
     }
 });
 
-router.post('/google', upload.single('image'), async (req, res) => {
+router.post('/google', getImageFromUrlOrFile, async (req, res) => {
     const { buffer } = req.file;
     try {
         const googleOcr = async (imageBuffer) => {
