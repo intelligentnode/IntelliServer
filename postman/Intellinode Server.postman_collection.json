@@ -880,6 +880,145 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ocr",
+			"item": [
+				{
+					"name": "aws",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/ocr/aws",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ocr",
+								"aws"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "aws body",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageUrl\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ocr/aws",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ocr",
+								"aws"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/ocr/google",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ocr",
+								"google"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google body",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageUrl\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ocr/google",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ocr",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

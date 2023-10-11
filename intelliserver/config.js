@@ -9,4 +9,7 @@ module.exports = {
     USE_API_AUTH: true,
     /* show swagger docs */
     SHOW_SWAGGER: process.env.SHOW_SWAGGER !== 'false',
+
+    /* AWS DEFAULT REGION */
+    AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION
 };
