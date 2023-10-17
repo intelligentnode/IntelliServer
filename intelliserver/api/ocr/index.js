@@ -88,7 +88,9 @@ AWS.config.update({
  *                   type: object
  *                   properties:
  *                     text:
- *                       type: string
+ *                       type: array
+ *                       items: 
+ *                          type: string
  *                       description: The extracted text from the image.
  *       400:
  *         description: Invalid request or image URL.
@@ -159,7 +161,9 @@ router.post('/aws', getImageFromUrlOrFile, async (req, res) => {
  *                   type: object
  *                   properties:
  *                     text:
- *                       type: string
+ *                       type: array
+ *                       items: 
+ *                          type: string
  *                       description: The extracted text from the image.
  *       400:
  *         description: Invalid request or image format.
