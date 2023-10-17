@@ -11,5 +11,7 @@ module.exports = {
     SHOW_SWAGGER: process.env.SHOW_SWAGGER !== 'false',
 
     /* AWS DEFAULT REGION */
-    AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION
+    AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION,
+    AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET,
+    AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
 };
