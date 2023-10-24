@@ -5,6 +5,7 @@ const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 const getImageFromUrlOrFile = require('../../middleware/getImageFromUrlOrFile');
 const config = require('../../config');
+const awsConfigProvider = require('../../middleware/awsConfigProvider');
 
 const router = express.Router();
 
@@ -14,7 +15,6 @@ AWS.config.update({
     secretAccessKey: config.AWS_ACCESS_SECRET,
     region: config.AWS_DEFAULT_REGION
 });
-
 
 /**
  * @swagger
@@ -55,7 +55,27 @@ AWS.config.update({
  *         description: Invalid request or image format.
  *       500:
  *         description: Internal server error.
+ *     parameters:
+ *       - in: header
+ *         name: X-aws-access-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS access key for this specific request.
+ *       - in: header
+ *         name: X-aws-secret-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS secret key for this specific request.
+ *       - in: header
+ *         name: X-aws-region
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS region for this specific request.
  */
+
 /**
  * @swagger
  * /ocr/aws:
@@ -95,9 +115,28 @@ AWS.config.update({
  *       400:
  *         description: Invalid request or image URL.
  *       500:
- *         description: Internal server error.
+ *         description: Internal server error.\
+ *     parameters:
+ *       - in: header
+ *         name: X-aws-access-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS access key for this specific request.
+ *       - in: header
+ *         name: X-aws-secret-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS secret key for this specific request.
+ *       - in: header
+ *         name: X-aws-region
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS region for this specific request.
  */
-router.post('/aws', getImageFromUrlOrFile, async (req, res) => {
+router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) => {
     try {
         const { buffer } = req.file;
         const awsOcr = async (imageBuffer) => {
@@ -169,6 +208,25 @@ router.post('/aws', getImageFromUrlOrFile, async (req, res) => {
  *         description: Invalid request or image format.
  *       500:
  *         description: Internal server error.
+ *     parameters:
+ *       - in: header
+ *         name: X-aws-access-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS access key for this specific request.
+ *       - in: header
+ *         name: X-aws-secret-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS secret key for this specific request.
+ *       - in: header
+ *         name: X-aws-region
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS region for this specific request.
  */
 
 /**
@@ -209,6 +267,25 @@ router.post('/aws', getImageFromUrlOrFile, async (req, res) => {
  *         description: Invalid request or image URL.
  *       500:
  *         description: Internal server error.
+ *     parameters:
+ *       - in: header
+ *         name: X-aws-access-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS access key for this specific request.
+ *       - in: header
+ *         name: X-aws-secret-Key
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS secret key for this specific request.
+ *       - in: header
+ *         name: X-aws-region
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Optional AWS region for this specific request.
  */
 
 router.post('/google', getImageFromUrlOrFile, async (req, res) => {

@@ -893,6 +893,21 @@
 								"key": "X-API-KEY",
 								"value": "root",
 								"type": "text"
+							},
+							{
+								"key": "X-aws-access-Key",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "X-aws-secret-Key",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "X-aws-region",
+								"value": "",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -926,6 +941,21 @@
 							{
 								"key": "X-API-KEY",
 								"value": "root",
+								"type": "text"
+							},
+							{
+								"key": "X-aws-access-Key",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "X-aws-secret-Key",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "X-aws-region",
+								"value": "",
 								"type": "text"
 							}
 						],
