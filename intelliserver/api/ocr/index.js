@@ -1,5 +1,6 @@
 const express = require('express');
 const AWS = require('aws-sdk');
+const fetch = require('node-fetch'); // For making HTTP requests
 
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
@@ -158,7 +159,6 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
         res.status(500).json({ status: 'ERROR', message: error.message });
     }
 });
-
 /**
  * @swagger
  * /ocr/google:
@@ -177,6 +177,10 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
  *                 type: string
  *                 format: binary
  *                 description: Image to be used for OCR (upload a file).
+ *               apiKey:
+ *                 type: string
+ *                 required: false
+ *                 description: Optional API key for this specific request.
  *     responses:
  *       200:
  *         description: OCR results.
@@ -193,8 +197,8 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
  *                   properties:
  *                     text:
  *                       type: array
- *                       items: 
- *                          type: string
+ *                       items:
+ *                         type: string
  *                       description: The extracted text from the image.
  *       400:
  *         description: Invalid request or image format.
@@ -220,7 +224,6 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
  *         required: false
  *         description: Optional AWS region for this specific request.
  */
-
 /**
  * @swagger
  * /ocr/google:
@@ -238,6 +241,10 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
  *               imageUrl:
  *                 type: string
  *                 description: The URL of the image to perform OCR on.
+ *               apiKey:
+ *                 type: string
+ *                 required: false
+ *                 description: Optional API key for this specific request.
  *     responses:
  *       200:
  *         description: OCR results.
@@ -279,25 +286,67 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
  *         required: false
  *         description: Optional AWS region for this specific request.
  */
-
 router.post('/google', getImageFromUrlOrFile, async (req, res) => {
     try {
         const { buffer } = req.file;
+        const { apiKey } = req.body
+
         const googleOcr = async (imageBuffer) => {
             const client = new ImageAnnotatorClient();
             const [result] = await client.textDetection(imageBuffer);
             const detectedText = result.textAnnotations.map((annotation) => annotation.description);
             return detectedText;
         };
+        const fetchOcr = async (imageBuffer) => {
+            // Define the Vision API endpoint
+            const endpoint = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
+            // Prepare the request data
+            const requestData = {
+                requests: [
+                    {
+                        image: {
+                            content: buffer.toString('base64'),
+                        },
+                        features: [{ type: 'TEXT_DETECTION' }],
+                    },
+                ],
+            };
+            // Make a POST request to the Vision API using node-fetch
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: JSON.stringify(requestData),
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-        const detectedText = await googleOcr(buffer);
-        const response = {
+            // Check the response status
+            if (response.status !== 200) {
+                throw new Error(`Vision API request failed with status code ${response.status}`);
+            }
+
+            // Parse the JSON response
+            const responseData = await response.json();
+
+            // Extract detected text from the response
+            const detectedText = responseData.responses[0].textAnnotations.map(annotation => annotation.description);
+
+            return detectedText;
+        };
+
+        let detectedText
+        if(apiKey) {
+            detectedText = await fetchOcr(buffer)
+        } else {
+            detectedText = await googleOcr(buffer)
+        }
+
+        const responseBody = {
             status: 'OK',
             data: {
-                text: detectedText
+                text: detectedText,
             },
         };
-        res.json(response);
+
+        res.json(responseBody);
     } catch (error) {
         res.status(500).json({ status: 'ERROR', message: error.message });
     }
