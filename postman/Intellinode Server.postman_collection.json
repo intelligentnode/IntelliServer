@@ -999,6 +999,11 @@
 									"key": "image",
 									"type": "file",
 									"src": []
+								},
+								{
+									"key": "apiKey",
+									"value": "",
+									"type": "text"
 								}
 							]
 						},
@@ -1028,7 +1033,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageUrl\": \"\"\r\n}",
+							"raw": "{\r\n    \"imageUrl\": \"\",\r\n    \"apiKey\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
