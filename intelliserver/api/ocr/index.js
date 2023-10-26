@@ -4,17 +4,9 @@ const AWS = require('aws-sdk');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 const getImageFromUrlOrFile = require('../../middleware/getImageFromUrlOrFile');
-const config = require('../../config');
 const awsConfigProvider = require('../../middleware/awsConfigProvider');
 
 const router = express.Router();
-
-// Set up AWS SDK configuration
-AWS.config.update({
-    accessKeyId: config.AWS_ACCESS_KEY,
-    secretAccessKey: config.AWS_ACCESS_SECRET,
-    region: config.AWS_DEFAULT_REGION
-});
 
 /**
  * @swagger
