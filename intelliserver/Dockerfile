@@ -1,5 +1,5 @@
 # base image
-FROM node:14
+FROM node:14-alpine
 
 # work directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # install app dependencies
-RUN npm install
+RUN npm install --only=production
 
 # copy app source
 COPY . .

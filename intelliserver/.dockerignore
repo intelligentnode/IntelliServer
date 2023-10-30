@@ -13,3 +13,14 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+
+
+# general
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+LICENSE
