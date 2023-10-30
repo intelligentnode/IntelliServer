@@ -82,7 +82,11 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
     try {
         const { buffer } = req.file;
         const awsOcr = async (imageBuffer) => {
-            const rekognition = new AWS.Rekognition();
+            const rekognition = new AWS.Rekognition({
+                accessKeyId: req.awsConfig.accessKeyId,
+                secretAccessKey: req.awsConfig.secretAccessKey,
+                region : req.awsConfig.region
+            });
 
             const params = {
                 Image: {
@@ -92,7 +96,6 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
 
             const response = await rekognition.detectText(params).promise();
             const detectedText = response.TextDetections.map((textDetection) => textDetection.DetectedText);
-
             return detectedText;
         }
 
