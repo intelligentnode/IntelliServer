@@ -7,6 +7,8 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@google-cloud/vision": "^4.0.2",
+    "aws-sdk": "^2.1483.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",

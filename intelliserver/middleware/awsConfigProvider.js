@@ -9,7 +9,7 @@ const awsConfigProvider = (req, res, next) => {
     const secretAccessKey = req.header('X-aws-secret-Key');
     const region = req.header('X-aws-region');
 
-    if (config.USE_DEFAULT_KEYS && !(accessKeyId && secretAccessKey)) {
+    if (accessKeyId && secretAccessKey) {
         // Set up AWS SDK configuration with user-provided access key and secret
         AWS.config.update({
             accessKeyId,
@@ -17,6 +17,7 @@ const awsConfigProvider = (req, res, next) => {
             region: region ?? config.AWS_DEFAULT_REGION
         });
     } else {
+        console.log('AWS load local values')
         // Set up AWS SDK configuration
         AWS.config.update({
             accessKeyId: config.AWS_ACCESS_KEY,
