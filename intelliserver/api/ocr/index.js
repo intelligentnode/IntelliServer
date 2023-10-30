@@ -1,13 +1,22 @@
 const express = require('express');
 const AWS = require('aws-sdk');
+const path = require('path');
 const fetch = require('node-fetch'); // For making HTTP requests
-
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
-
 const getImageFromUrlOrFile = require('../../middleware/getImageFromUrlOrFile');
 const awsConfigProvider = require('../../middleware/awsConfigProvider');
+const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 const router = express.Router();
+
+
+function getGoogleKey(req) {
+  if (USE_DEFAULT_KEYS && !req.body.api_key) {
+    return process.env.GOOGLE_KEY;
+  } else {
+    return req.body.api_key;
+  }
+}
 
 /**
  * @swagger
@@ -165,7 +174,7 @@ router.post('/aws', awsConfigProvider, getImageFromUrlOrFile, async (req, res) =
 router.post('/google', getImageFromUrlOrFile, async (req, res) => {
     try {
         const { buffer } = req.file;
-        const { apiKey } = req.body
+        const apiKey = getGoogleKey(req);
 
         const googleOcr = async (imageBuffer) => {
             const client = new ImageAnnotatorClient();
