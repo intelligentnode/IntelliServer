@@ -1001,9 +1001,10 @@
 									"src": []
 								},
 								{
-									"key": "apiKey",
+									"key": "api_key",
 									"value": "",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
