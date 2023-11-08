@@ -2,14 +2,15 @@
 const express = require('express');
 var path = require('path');
 const router = express.Router();
-const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput } = require('intellinode');
+const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput, CohereInput } = require('intellinode');
 const { Chatbot, SupportedChatModels } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 const keys = {
     'openai': process.env.OPENAI_API_KEY,
     'replicate': process.env.REPLICATE_API_KEY,
-    'sagemaker': process.env.SAGEMAKER_API_KEY
+    'sagemaker': process.env.SAGEMAKER_API_KEY,
+    'cohere': process.env.COHERE_API_KEY
 }
 
 function getChatbot(req) {
@@ -40,6 +41,7 @@ function getChatInput(input, provider) {
     const inputInst = input instanceof ChatGPTInput ? input :
         provider === SupportedChatModels.REPLICATE ? new LLamaReplicateInput(input.system, input) :
         provider === SupportedChatModels.SAGEMAKER ? new LLamaSageInput(input.system, input) :
+        provider === SupportedChatModels.COHERE ? new CohereInput(input.system, input) :
         new ChatGPTInput(input.system, input);
 
     return addMessages(inputInst, input.messages);
