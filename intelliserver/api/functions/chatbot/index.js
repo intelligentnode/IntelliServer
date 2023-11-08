@@ -9,7 +9,8 @@ const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 const keys = {
     'openai': process.env.OPENAI_API_KEY,
     'replicate': process.env.REPLICATE_API_KEY,
-    'sagemaker': process.env.SAGEMAKER_API_KEY
+    'sagemaker': process.env.SAGEMAKER_API_KEY,
+    'cohere': process.env.COHERE_API_KEY
 }
 
 function getChatbot(req) {
