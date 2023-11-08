@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>IntelliServer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+       <a class="navbar-brand" href="/home"><img src="/assets/intelliserverLogo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="https://github.com/intelligentnode/IntelliServer/wiki">Docs</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Playground</a>
+            </li> -->
+          </ul>
+          <span class="navbar-text sideBaricon cursor-pointer ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><path fill="'#fff" d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path></svg>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section>
+    <div class="container">
+      <div class="chatbox-container" id="chatbox">
+        
+        <div class="input-group mb-3 chat-mesasge">
+          <input type="text" class="form-control" placeholder="Search " id="userInput" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <button class="input-group-text btn btn-primary submit-button " id="sendMessage">Submit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="side-bar">
+    <div class="row">
+      <div class="col-12">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">System Message</label>
+            <input type="text" class="form-control" id="systemMessage">
+          </div>
+          <div class="col-md-12">
+            <div class="flex justify-content-between">
+              <label for="inputPassword4" class="form-label">Number of Messages</label>
+              <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
+                  <circle cx="12" cy="12" r="10" fill="#fff"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+              </button>
+            </div>
+
+            <input type="number" class="form-control" id="numberOfMessage">
+          </div>
+          <div class="col-12">
+            <label for="inputAddress" class="form-label">Provider</label>
+            <select id="provider" class="form-select">
+              <option selected value="open-api">Open Api</option>
+              <option value="replicate">replicate</option>
+              <option value="azure">azure</option>
+            </select>          
+          </div>
+          <div class="col-12">
+            <label for="inputAddress" class="form-label">Model</label>
+            <select id="model" class="form-select">
+              <option selected value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+              <option value="gpt-4">gpt-4</option>
+            </select>          
+          </div>
+          <div class="col-12">
+            <label for="inputAddress2" class="form-label">Api Key</label>
+            <input type="text" class="form-control" id="apiKey" placeholder="Api Key">
+          </div>
+          
+          <div class="col-12 d-flex justify-content-between align-items-center">
+            <div class="form-check form-switch">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Context</label>
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            </div>
+            <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
+                <circle cx="12" cy="12" r="10" fill="#fff"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="col-12 d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-secondary">Reset Keys</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+
+<!-- 
+  <h1>IntelliServer</h1>
+  <p>Access AI models as microservice with IntelliServer.</p>
+
+  <p><a href="https://github.com/intelligentnode/IntelliServer">Visit the GitHub repository.</a></p>
+
+  <p><a href="https://github.com/intelligentnode/IntelliServer/wiki">Check the documentation.</a></p> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+  $(document).ready(function() {
+      $(".sideBaricon").on("click", function() {
+        $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar
+      });
+
+      $('#userInput').keypress(function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault(); // Prevent default form submission
+          const userInput = $('#userInput').val();
+          if ($.trim(userInput) !== '') {
+            const chatbox = $('#chatbox');
+            const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+            chatbox.append(userBubble);
+
+            // Simulate bot response (you can modify this logic as needed)
+            const botBubble = $('<div>').addClass('bot-bubble').text('Response from Bot'); // Replace this with actual bot response
+            chatbox.append(botBubble);
+
+            $('#userInput').val(''); // Clear the input field
+          }
+        }
+      });
+
+      $('#sendMessage').on('click', function() {
+        const userInput = $('#userInput').val();
+        if ($.trim(userInput) !== '') {
+          const chatbox = $('#chatbox');
+          const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+          chatbox.append(userBubble);
+
+          // Simulate bot response (you can modify this logic as needed)
+          const botBubble = $('<div>').addClass('bot-bubble').text('Response from Bot'); // Replace this with actual bot response
+          chatbox.append(botBubble);
+
+          $('#userInput').val(''); // Clear the input field
+        }
+      });
+      // form sumbission 
+
+    
+
+
+
+
+
+    });
+
+
+  </script>
+
+</body>
+
+</html>

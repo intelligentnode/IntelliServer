@@ -3,16 +3,20 @@ require('dotenv').config();
 
 // load the dependencies 
 const express = require('express');
+const exphbs = require('express-handlebars');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('../config');
+
+
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger');
 
 //create the app
 var app = express();
+
 
 /* ### initial config ### */
 global.__basedir = path.join(__dirname, '..');
@@ -22,7 +26,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'))
 
+
+// Set Handlebars as the view engine
+app.engine('hbs', exphbs.engine({ extname: '.hbs',defaultLayout: null }));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, '../views'));
+
+
+
+// Serve static files from the public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 /* ### the api routs ### */
+
 // # middlwares
 const authMiddleware = require('../middleware/auth');
 const authAdminMiddleware = require('../middleware/authAdmin');
@@ -31,6 +48,7 @@ const authAdminMiddleware = require('../middleware/authAdmin');
 // remote models
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
+const viewsRouter = require("./routes/views")
 const openaiRouter = require('./models/remote/openai');
 const cohereRouter = require('./models/remote/cohere');
 const replicateRouter = require('./models/remote/replicate');
@@ -57,6 +75,8 @@ if (config.SHOW_SWAGGER) {
     }));
 }
 
+app.use('/views', viewsRouter);
+
 // secured apis
 app.use(authMiddleware);
 // models
@@ -74,8 +94,12 @@ app.use('/chatcontext', chatContextRouter);
 app.use('/parser', parserRoute)
 app.use('/ocr', ocrRoute)
 
+
+
+
+
 /* ### deploy the app ### */
-var port = process.env.PORT || '80';
+var port = process.env.PORT || '3000';
 app.listen(port, function () {
      console.log('Your intelliServer is running on PORT: ' + port);
 });
