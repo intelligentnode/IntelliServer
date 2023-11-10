@@ -569,6 +569,39 @@
 							"response": []
 						},
 						{
+							"name": "chatbot-chat-cohere",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"model\": \"command\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/chatbot/chat",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"chatbot",
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "chatbot-stream-openai",
 							"request": {
 								"method": "POST",
@@ -1003,8 +1036,7 @@
 								{
 									"key": "api_key",
 									"value": "",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								}
 							]
 						},

@@ -1,6 +1,6 @@
 {
   "name": "intelliserver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node ./api/index.js",
@@ -16,7 +16,7 @@
     "express-handlebars": "^7.1.2",
     "fs": "^0.0.1-security",
     "hbs": "^4.2.0",
-    "intellinode": "^1.4.4",
+    "intellinode": "^1.4.9",
     "mammoth": "^1.6.0",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
