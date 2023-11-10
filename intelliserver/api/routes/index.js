@@ -6,9 +6,13 @@ router.get("/chat", (req, res) => {
   res.render("chat");
 });
 
-router.get("/home", (req, res) => {
-  console.log("home call")
+router.get("/", (req, res) => {
   res.render("home");
+});
+
+router.post("/dummy", (req, res) => {
+  console.log("request: ", req)
+  res.json({message:"dummy api call"})
 });
 
 module.exports = router;

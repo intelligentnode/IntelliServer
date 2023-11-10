@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 });
 
 function getAPIWrapper(req) {
-
     if (USE_DEFAULT_KEYS && !req.body.api_key) {
         return new OpenAIWrapper(process.env.OPENAI_API_KEY);
     } else {

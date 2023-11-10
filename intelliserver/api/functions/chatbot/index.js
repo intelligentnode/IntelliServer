@@ -100,7 +100,9 @@ function getChatInput(input, provider) {
  *       400:
  *         description: There was a problem with the request
  */
+
 router.post('/chat', async (req, res, next) => {
+    console.log("this is result",req)
     try {
         const chatbot = getChatbot(req);
         const input = getChatInput(req.body.input, req.body.provider);
@@ -109,68 +111,14 @@ router.post('/chat', async (req, res, next) => {
         const results = await chatbot.chat(input, functions, function_call);
         res.json({ status: "OK", data: results });
     } catch (error) {
+        console.log("this is error",error);
         res.json({ status: "ERROR", message: error.message });
     }
 });
 
-/**
- * @swagger
- * /chatbot/stream:
- *   post:
- *     tags:
- *       - Functions
- *     summary: Streams chat messages to the chatbot using OpenAI provider
- *
- *     security:
- *       - ApiKeyAuth: []
- *
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - api_key
- *               - model
- *               - provider
- *               - input
- *             properties:
- *               api_key:
- *                 type: string
- *                 description: The api key
- *               model:
- *                 type: string
- *                 description: The model type (e.g. 'gpt4')
- *               provider:
- *                 type: string
- *                 description: The provider, should be 'openai' for this API
- *               input:
- *                 type: object
- *                 properties:
- *                  system:
- *                    type: string
- *                    description: System message to the chatbot
- *                  messages:
- *                    type: array
- *                    items:
- *                      type: object
- *                      properties:
- *                        role:
- *                          type: string
- *                          description: Role of the sender, either 'user' or 'assistant'
- *                        content:
- *                          type: string
- *                          description: Content of the message
- *     responses:
- *       200:
- *         description: A stream of chatbot's responses
- *       400:
- *         description: There was a problem with the request
- */
 router.post('/stream', async (req, res, next) => {
     try {
-
+        
         let provider = req.body.provider;
 
         // validate

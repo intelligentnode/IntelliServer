@@ -11,7 +11,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-       <a class="navbar-brand" href="/home"><img src="/assets/intelliserverLogo.png" alt=""></a>
+       <a class="navbar-brand" href="/"><img src="/assets/intelliserverLogo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,7 +63,7 @@
               </button>
             </div>
 
-            <input type="number" class="form-control" id="numberOfMessage">
+            <input type="number" name="number" class="form-control" id="numberOfMessage">
           </div>
           <div class="col-12">
             <label for="inputAddress" class="form-label">Provider</label>
@@ -82,7 +82,7 @@
           </div>
           <div class="col-12">
             <label for="inputAddress2" class="form-label">Api Key</label>
-            <input type="text" class="form-control" id="apiKey" placeholder="Api Key">
+            <input type="text" class="form-control" name="apiKey" id="apiKey" placeholder="Api Key">
           </div>
           
           <div class="col-12 d-flex justify-content-between align-items-center">
@@ -100,7 +100,7 @@
           </div>
           <div class="col-12 d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">Save</button>
-            <button type="submit" class="btn btn-secondary">Reset Keys</button>
+            <button class="btn btn-secondary">Reset Keys</button>
           </div>
         </form>
       </div>
@@ -160,17 +160,51 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         }
       });
       // form sumbission 
-
-    
-
-
-
-
-
     });
-
-
   </script>
+  <script>
+  $(function() {
+    // Handle the click event on the submit button
+    $('#sendMessage').on('click', function() {
+      // Gather the data to send to the server
+      var userInput = $('#userInput').val();
+      var systemMessage = $('#systemMessage').val();
+      var apiKey = $('#apiKey').val();
+      var model = $('#model').val();
+      var provider = $('#provider').val();
+
+      // Create the payload for the request
+      var data = {
+        api_key: apiKey,
+        model: model,
+        provider: provider,
+        input: {
+          system: systemMessage,
+          messages: [
+            { role: "user", content: userInput }
+          ]
+        }
+      };
+
+      // Make the AJAX request to the server
+      $.ajax({
+        url: '/chatbot/dummy',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+          // Handle success - display the chatbot's response
+          console.log(response);
+          // You would add code here to update your chat UI
+        },
+        error: function(xhr, status, error) {
+          // Handle error - display an error message
+          console.error(error);
+        }
+      });
+    });
+  });
+</script>
 
 </body>
 

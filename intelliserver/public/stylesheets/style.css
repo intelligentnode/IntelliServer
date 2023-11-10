@@ -94,7 +94,7 @@ nav{
 /* chat box message */
 .chatbox-container{
   position: relative;
-  height: calc(100vh - 57px);
+  height: calc(100vh - 86px);
   padding-bottom: 50px;
   display: flex;
   flex-direction: column;
@@ -140,10 +140,10 @@ nav{
 .side-bar{
   width: 320px;
   padding: 20px;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 86px);
   position: fixed;
   right: -320px;
-  top: 60px;
+  top: 86px;
   background-color: #212529;
   z-index: 99;
   transition: right 0.5s ease;
