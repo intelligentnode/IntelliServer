@@ -40,6 +40,14 @@ body {
 a {
   color: #00B7FF;
 }
+.navbar-brand{
+  font-weight: 700;
+  font-size: 28px;
+}
+.navbar-brand img{
+  width: 59px;
+  height: 59px;
+}
 .main-section{
   color: #fff;
   display: flex;
@@ -208,4 +216,12 @@ nav{
 }
 .submit-button{
   min-width: 120px;
+}
+.connect-button{
+  font-size: 12px;
+  padding-block: 4px;
+}
+.connect-button a{
+  color: #fff;
+  text-decoration: none;
 }
