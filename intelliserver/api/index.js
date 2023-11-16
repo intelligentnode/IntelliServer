@@ -43,7 +43,7 @@ const evaluateRouter = require('./functions/evaluate');
 const chatContextRouter = require('./functions/chatcontext');
 const parserRoute = require('./parser/index');
 const ocrRoute = require('./ocr/index');
-
+const embedRouter = require('./functions/embed');
 
 // # api routers
 
@@ -70,7 +70,7 @@ app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
 app.use('/chatcontext', chatContextRouter);
-
+app.use('/embed', embedRouter);
 app.use('/parser', parserRoute)
 app.use('/ocr', ocrRoute)
 
