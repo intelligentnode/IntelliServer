@@ -1,6 +1,8 @@
 const express = require('express');
-const { RemoteEmbedModel } = require('intellinode');
+const path = require('path');
 const router = express.Router();
+const { RemoteEmbedModel, EmbedInput } = require('intellinode');
+const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 const keys = {
     'openai': process.env.OPENAI_API_KEY,
@@ -12,13 +14,15 @@ function getEmbedModel(req) {
     let apiKey, provider;
     
     if (USE_DEFAULT_KEYS && !req.body.api_key) {
-        provider = req.body.provider.toLowerCase();
+        provider = req.body.provider.toLowerCase().trim();
         apiKey = keys[provider];
     } else {
         apiKey = req.body.api_key;
-        provider = req.body.provider;
+        provider = req.body.provider.toLowerCase().trim();
     }
-    
+
+    console.log('the provider is: ', provider);
+
     return new RemoteEmbedModel(apiKey, provider);
 }
 
@@ -62,13 +66,18 @@ function getEmbedModel(req) {
  *       400:
  *         description: There was a problem with the request
  */
-router.post('/embed', async (req, res) => {
+router.post('/text', async (req, res) => {
     try {
-        const embedModel = getEmbedModel(req);
-        const embedInputs = req.body.inputs;
-        const embeddings = await embedModel.getEmbeddings(embedInputs);
         
+        const embedModel = getEmbedModel(req);
+        const inputJson = req.body.input;
+        
+        const inputEmbed = new EmbedInput(inputJson);
+        inputEmbed.setDefaultValues(req.body.provider.toLowerCase().trim());
+        const embeddings = await embedModel.getEmbeddings(inputEmbed);
+
         res.json({ status: "OK", data: embeddings });
+
     } catch (error) {
         res.status(400).json({ status: "ERROR", message: error.message });
     }
