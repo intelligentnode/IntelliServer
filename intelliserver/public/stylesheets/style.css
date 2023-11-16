@@ -79,7 +79,25 @@ nav{
       transform: rotate(360deg);
   }
 }
+/* CSS for typing animation */
+@keyframes typing {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  67% {
+    content: "...";
+  }
+}
 
+.bot-typing::after {
+  display: inline-block;
+  content: "";
+  animation: typing 1s infinite steps(3); /* Adjust the duration as needed */
+  margin-left: 5px; /* Add some spacing between text and animation */
+}
 /* Apply the animation to the image */
 .art2 {
   position: absolute;
@@ -193,7 +211,7 @@ nav{
   fill: #fff;
 }
 
-/* \\\\test */
+/* chat bot section */
 
 .user-bubble {
   background-color: #dff0d8;
@@ -225,3 +243,9 @@ nav{
   color: #fff;
   text-decoration: none;
 }
+.chat-section{
+  height: (100% - 60px);  
+  padding-bottom: 60px;
+  overflow-y: scroll;
+}
+

@@ -122,7 +122,6 @@ router.post('/stream', async (req, res, next) => {
     try {
         
         let provider = req.body.provider;
-
         // validate
         if (SupportedChatModels.OPENAI != provider.toLowerCase()) {
             res.json({ status: "ERROR", message: "stream support openai only, for other providers call /chat api" });

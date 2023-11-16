@@ -34,10 +34,12 @@
   </header>
   <section>
     <div class="container">
-      <div class="chatbox-container" id="chatbox">
-        
+      <div class="chatbox-container" >
+        <div class="chat-section" id="chatbox">
+
+        </div>
         <div class="input-group mb-3 chat-mesasge">
-          <input type="text" class="form-control" placeholder="Search " id="userInput" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Search"  id="userInput" aria-label="Recipient's username" aria-describedby="basic-addon2" >
           <button class="input-group-text btn btn-primary submit-button " id="sendMessage">Submit</button>
         </div>
       </div>
@@ -46,7 +48,7 @@
   <section class="side-bar">
     <div class="row">
       <div class="col-12">
-        <form class="row g-3">
+        <form class="row g-3" id="chatbot-form">
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">System Message</label>
             <input type="text" class="form-control" id="systemMessage">
@@ -68,21 +70,23 @@
           <div class="col-12">
             <label for="inputAddress" class="form-label">Provider</label>
             <select id="provider" class="form-select">
-              <option selected value="open-api">Open Api</option>
+              <option selected value="openai">Open Api</option>
               <option value="replicate">replicate</option>
-              <option value="azure">azure</option>
+              <option value="cohere">cohere</option>
             </select>          
           </div>
-          <div class="col-12">
+          <div id="model-container" class="col-12">
             <label for="inputAddress" class="form-label">Model</label>
             <select id="model" class="form-select">
-              <option selected value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-              <option value="gpt-4">gpt-4</option>
+                <option selected value="gpt3.5" data-providers="openai ">gpt-3.5-turbo</option>
+                <option value="gpt4" data-providers="openai ">gpt-4</option>
+                <option value="70b-chat" data-providers="replicate">70b Chat</option>
+                <option value="13b-chat" data-providers="replicate">13b Chat</option>
             </select>          
           </div>
           <div class="col-12">
             <label for="inputAddress2" class="form-label">Api Key</label>
-            <input type="text" class="form-control" name="apiKey" id="apiKey" placeholder="Api Key">
+            <input type="password" class="form-control" name="apiKey" id="apiKey" placeholder="Api Key">
           </div>
           
           <div class="col-12 d-flex justify-content-between align-items-center">
@@ -100,7 +104,7 @@
           </div>
           <div class="col-12 d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">Save</button>
-            <button class="btn btn-secondary">Reset Keys</button>
+            <button class="btn btn-secondary" id="resetKeys">Reset Keys</button>
           </div>
         </form>
       </div>
@@ -117,94 +121,213 @@
   <p><a href="https://github.com/intelligentnode/IntelliServer/wiki">Check the documentation.</a></p> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-})
-  $(document).ready(function() {
-      $(".sideBaricon").on("click", function() {
-        $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar
+  
+   <script>
+    // jQuery code to handle form submission and local storage
+    $(document).ready(function () {
+
+
+      // Function to dynamically update the model options based on the selected provider
+  function updateModelOptions() {
+    const selectedProvider = $('#provider').val();
+
+if (selectedProvider === 'cohere') {
+      // Hide the Model select field and remove its value
+      $('#model-container').hide();
+      $('#model').val('');
+    } else {
+      // Show the Model select field
+      $('#model-container').show();
+      $('#model option').each(function () {
+      const allowedProviders = $(this).data('providers').split(' ');
+      if (allowedProviders.includes(selectedProvider)) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+    }
+    
+  }
+
+      // Call the updateModelOptions function on page load
+      updateModelOptions();
+      // Handle the change event of the provider select field
+      $('#provider').on('change', function () {
+        updateModelOptions();
       });
 
-      $('#userInput').keypress(function(event) {
-        if (event.keyCode === 13) {
-          event.preventDefault(); // Prevent default form submission
-          const userInput = $('#userInput').val();
-          if ($.trim(userInput) !== '') {
-            const chatbox = $('#chatbox');
-            const userBubble = $('<div>').addClass('user-bubble').text(userInput);
-            chatbox.append(userBubble);
+      const form = $('#chatbot-form');
+      // Load saved values from local storage when the page loads
+      loadValues();
+      // Form submission event
+      form.submit(function (e) {
+        e.preventDefault();
+       const systemMessage = $('#systemMessage').val();
+        const numberOfMessages = $('#numberOfMessage').val();
+        const provider = $('#provider').val();
+        const model = $('#model').val();
+        const apiKey = $('#apiKey').val();
+        const contextMode = $('#flexSwitchCheckDefault').prop('checked');
 
-            // Simulate bot response (you can modify this logic as needed)
-            const botBubble = $('<div>').addClass('bot-bubble').text('Response from Bot'); // Replace this with actual bot response
+        // Save the values to local storage
+        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
+    
+      });
+
+      // Reset Keys button click event
+      $('#resetKeys').click(function () {
+         localStorage.removeItem('systemMessage');
+        localStorage.removeItem('numberOfMessages');
+        localStorage.removeItem('provider');
+        localStorage.removeItem('model');
+        localStorage.removeItem('apiKey');
+        localStorage.removeItem('contextMode');
+        
+        // Reset the form fields to their default values
+        form[0].reset();
+      });
+
+      // Function to save values to local storage
+     function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
+        // Save values to local storage
+        localStorage.setItem('systemMessage', systemMessage);
+        localStorage.setItem('numberOfMessages', numberOfMessages);
+        localStorage.setItem('provider', provider);
+        localStorage.setItem('model', model);
+        localStorage.setItem('apiKey', apiKey);
+        localStorage.setItem('contextMode', contextMode);      
+      }
+
+      // Function to load values from local storage and populate input fields
+      function loadValues() {
+        // Load values from local storage and populate input fields
+        const savedSystemMessage = localStorage.getItem('systemMessage');
+        const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
+        const savedProvider = localStorage.getItem('provider');
+        const savedModel = localStorage.getItem('model');
+        const savedApiKey = localStorage.getItem('apiKey');
+        const savedContextMode = localStorage.getItem('contextMode');
+        
+        if (savedSystemMessage) {
+          $('#systemMessage').val(savedSystemMessage);
+          $('#numberOfMessage').val(savedNumberOfMessages);
+          $('#provider').val(savedProvider);
+          $('#model').val(savedModel);
+          $('#apiKey').val(savedApiKey);
+          $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+        }
+      }
+    });
+    </script>
+ <script>
+  $(document).ready(function () {
+    // Function to enable/disable the button and show/hide loader
+    function toggleButtonState(isEnabled) {
+      $('#sendMessage').prop('disabled', !isEnabled);
+      $('#sendMessage').html(isEnabled ? 'Send Message' : '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...');
+    }
+    // Function to send the message to the API and handle the response
+    function sendMessageToApi() {
+      toggleButtonState(false); // Disable the button and show loader
+      const userInput = $('#userInput').val();
+      if ($.trim(userInput) !== '') {
+        const chatbox = $('#chatbox');
+        
+
+        // Get API key and other values from local storage
+        const apiKey = localStorage.getItem('apiKey');
+        const model = localStorage.getItem('model');
+        const provider = localStorage.getItem('provider');
+        console.log("model",model);
+
+        if (!apiKey) {
+          alert('Please enter a valid API key.');
+          toggleButtonState(true); // Enable the button and hide loader
+          return;
+        } else{
+          const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+        chatbox.append(userBubble);
+        const botBubblebefore = $('<div>').addClass('bot-bubble bot-typing');
+        chatbox.append(botBubblebefore);
+          console.log("hellooooooooo");
+            // API request logic
+        const apiUrl = 'http://localhost/chatbot/chat';
+        const data = {
+          api_key: apiKey,
+          model: model,
+          provider: provider,
+          input: {
+            system: "You are a helpful assistant.",
+            messages: [
+              {
+                role: "user",
+                content: userInput
+              }
+            ]
+          }
+        };
+        $.ajax({
+          url: apiUrl,
+          type: 'POST',
+          headers: {
+            'X-API-KEY': "root",
+            'Content-Type': 'application/json',
+          },
+          data: JSON.stringify(data),
+          success: function (response) {
+            botBubblebefore.remove();
+            // Display the bot's response
+            console.log("response",response)
+            const botBubble = $('<div>').addClass('bot-bubble').text('Bot: ' + response.data[0]);
             chatbox.append(botBubble);
 
-            $('#userInput').val(''); // Clear the input field
+            // Clear the input field
+            $('#userInput').val('');
+
+            toggleButtonState(true); // Enable the button and hide loader
+            chatbox.scrollTop(chatbox.prop("scrollHeight"));
+          },
+          error: function (xhr, status, error) {
+            // Handle error - display an error message
+            console.error('Error:', error);
+
+            toggleButtonState(true); // Enable the button and hide loader
           }
+        });
+      
+
         }
-      });
 
-      $('#sendMessage').on('click', function() {
-        const userInput = $('#userInput').val();
-        if ($.trim(userInput) !== '') {
-          const chatbox = $('#chatbox');
-          const userBubble = $('<div>').addClass('user-bubble').text(userInput);
-          chatbox.append(userBubble);
+      } else {
+        toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
+      }
+    }
 
-          // Simulate bot response (you can modify this logic as needed)
-          const botBubble = $('<div>').addClass('bot-bubble').text('Response from Bot'); // Replace this with actual bot response
-          chatbox.append(botBubble);
-
-          $('#userInput').val(''); // Clear the input field
-        }
-      });
-      // form sumbission 
+    $('#userInput').keypress(function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        sendMessageToApi();
+      }
     });
-  </script>
-  <script>
-  $(function() {
-    // Handle the click event on the submit button
-    $('#sendMessage').on('click', function() {
-      // Gather the data to send to the server
-      var userInput = $('#userInput').val();
-      var systemMessage = $('#systemMessage').val();
-      var apiKey = $('#apiKey').val();
-      var model = $('#model').val();
-      var provider = $('#provider').val();
 
-      // Create the payload for the request
-      var data = {
-        api_key: apiKey,
-        model: model,
-        provider: provider,
-        input: {
-          system: systemMessage,
-          messages: [
-            { role: "user", content: userInput }
-          ]
-        }
-      };
-
-      // Make the AJAX request to the server
-      $.ajax({
-        url: '/chatbot/dummy',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function(response) {
-          // Handle success - display the chatbot's response
-          console.log(response);
-          // You would add code here to update your chat UI
-        },
-        error: function(xhr, status, error) {
-          // Handle error - display an error message
-          console.error(error);
-        }
-      });
+    $('#sendMessage').on('click', function () {
+      sendMessageToApi();
     });
   });
 </script>
+
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+       
+      $(".sideBaricon").on("click", function() {
+        $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
+      });
+  </script>
+   
 
 </body>
 
