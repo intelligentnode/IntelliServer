@@ -249,3 +249,40 @@ nav{
   overflow-y: scroll;
 }
 
+
+/* Customize the arrow color */
+.tooltip.bs-tooltip-top .arrow::before {
+  border-color: red!important;
+  border-top-color: #ffffff!important; /* Change to your desired arrow color (white) */
+}
+.tooltip-inner {
+  text-align: left;
+    background-color: #ffffff; /* Change to your desired background color (white) */
+    color: #000000; /* Change to your desired font color (black) */
+    font-size: 12px; /* Change to your desired font size (12px) */
+  }
+
+ 
+.bs-tooltip-start .tooltip-arrow::before {
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+}
+.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #fff!important;
+}
+
+
+
+/* .bs-tooltip-start .tooltip-arrow::before {
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+} */
+
+.tooltip .arrow::before {
+  /* Your custom arrow styling here */
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+}

@@ -5,6 +5,8 @@
   <title>IntelliServer</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  
+  
 </head>
 
 <body>
@@ -56,7 +58,7 @@
           <div class="col-md-12">
             <div class="flex justify-content-between">
               <label for="inputPassword4" class="form-label">Number of Messages</label>
-              <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+              <button type="button" class="btn btn-ghost ms-auto" id="dds" data-bs-toggle="tooltip" data-class="custom-tooltip" data-bs-placement="top" title="The number of messages to include in a request. The higher the number, the more context the Al will have to work with. This will determine the number of messages used to generate the context when the Use Chat Context option is enabled.">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
                   <circle cx="12" cy="12" r="10" fill="#fff"></circle>
                   <path d="M12 16v-4"></path>
@@ -65,7 +67,7 @@
               </button>
             </div>
 
-            <input type="number" name="number" class="form-control" id="numberOfMessage">
+            <input type="number" name="number" class="form-control" id="numberOfMessage" min="3" value="3">
           </div>
           <div class="col-12">
             <label for="inputAddress" class="form-label">Provider</label>
@@ -90,11 +92,11 @@
           </div>
           
           <div class="col-12 d-flex justify-content-between align-items-center">
-            <div class="form-check form-switch">
+            <div class="form-check form-switch" id="context-option">
               <label class="form-check-label" for="flexSwitchCheckDefault">Context</label>
               <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             </div>
-            <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+            <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="When enabled, the chatbot wil dynamically select previous parts of the conversation that are most relevant to the current query. using embeddings. The number of parts will be equal to the number of messages set above.">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
                 <circle cx="12" cy="12" r="10" fill="#fff"></circle>
                 <path d="M12 16v-4"></path>
@@ -220,6 +222,25 @@ if (selectedProvider === 'cohere') {
       }
     });
     </script>
+    <script>
+  // Function to toggle the visibility of the "Context" option
+  function toggleContextOptionVisibility() {
+    const providerSelect = document.getElementById('provider');
+    const contextOption = document.getElementById('context-option');
+
+    if (providerSelect.value === 'replicate') {
+      contextOption.style.display = 'none'; // Hide the "Context" option
+    } else {
+      contextOption.style.display = 'block'; // Show the "Context" option
+    }
+  }
+
+  // Add an event listener to the provider select field
+  document.getElementById('provider').addEventListener('change', toggleContextOptionVisibility);
+
+  // Call the toggleContextOptionVisibility function on page load to set the initial state
+  toggleContextOptionVisibility();
+</script>
  <script>
   $(document).ready(function () {
     // Function to enable/disable the button and show/hide loader
@@ -267,6 +288,7 @@ if (selectedProvider === 'cohere') {
             ]
           }
         };
+        $('#userInput').val('');
         $.ajax({
           url: apiUrl,
           type: 'POST',
