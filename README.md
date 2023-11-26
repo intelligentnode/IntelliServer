@@ -2,9 +2,15 @@
 <img src="images/server-header.png" width="600em">
 </p>
 <p align="center">
-<a href="https://discord.gg/VYgCh2p3Ww" alt="licenses tag" target="_blank">
+<a href="https://discord.gg/VYgCh2p3Ww" alt="discord" target="_blank">
     <img src="https://img.shields.io/badge/Discord-Community-light?style=flat-square" />
 </a>
+
+
+<a href="https://hub.docker.com/r/intellinode/intelliserver" alt="docker image" target="_blank">
+    <img src="https://img.shields.io/docker/pulls/intellinode/intelliserver?style=flat-square" />
+</a>
+
 
 <a href="https://github.com/Hannibal046/Awesome-LLM" target="_blank">
      <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome LLM">
