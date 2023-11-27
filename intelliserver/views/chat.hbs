@@ -367,9 +367,14 @@ $('#resetKeys').click(function () {
               console.log("response",response)
               displayErrorMessage(response.message);
             } else {
-              // API call was successful, display the bot's response
-              const botBubble = $('<div>').addClass('bot-bubble').text('Bot: ' + response.data[0]);
+               // API call was successful, display the bot's response
+              const botResponse = response.data[0];
+              const botResponseLines = botResponse.split('\n'); // Split the response into lines
+
+              // Create a single bot bubble with line breaks
+              const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
               chatbox.append(botBubble);
+
               chatbox.scrollTop(chatbox.prop("scrollHeight"));
             }
 
@@ -397,7 +402,6 @@ $('#resetKeys').click(function () {
       sendMessageToApi();
     }
   });
-
   $('#sendMessage').on('click', function () {
     sendMessageToApi();
   });
