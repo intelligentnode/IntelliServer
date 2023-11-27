@@ -741,40 +741,78 @@
 					]
 				},
 				{
-					"name": "semantic-search-openai",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-API-KEY",
-								"value": "root",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "semantic-search",
+					"item": [
+						{
+							"name": "semantic-search-cohere",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/semanticsearch/search",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"semanticsearch",
+										"search"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/semanticsearch/search",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"semanticsearch",
-								"search"
-							]
+						{
+							"name": "semantic-search-openai",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-API-KEY",
+										"value": "root",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/semanticsearch/search",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"semanticsearch",
+										"search"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "semantic-search-cohere",
+					"name": "embedding-openai",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -786,7 +824,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"pivot_item\": \"Hello from OpenAI!\",\n       \"search_array\": [\"Greetings from OpenAI!\", \"Bonjour de OpenAI!\", \"Hola desde OpenAI!\"],\n       \"number_of_matches\": 2\n    }\n}",
+							"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n   \"input\": {\n       \"texts\": [\"Hello, world!\", \"How do you generate embeddings?\"]\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -794,13 +832,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/semanticsearch/search",
+							"raw": "{{url}}/embed/text",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"semanticsearch",
-								"search"
+								"embed",
+								"text"
 							]
 						}
 					},
