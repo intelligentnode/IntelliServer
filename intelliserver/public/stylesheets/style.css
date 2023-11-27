@@ -216,7 +216,7 @@ nav{
 .user-bubble {
   background-color: #dff0d8;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-bottom: 10px;
   max-width: 70%;
   float: right;
@@ -226,7 +226,7 @@ nav{
 .bot-bubble {
   background-color: #d9edf7;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-bottom: 10px;
   max-width: 70%;
   float: left;
@@ -285,4 +285,27 @@ nav{
   left: -1px;
   border-width: 0.4rem 0 0.4rem 0.4rem;
   border-left-color: #fff!important;
+}
+
+
+.error-bubble {
+  background-color: #f44336; /* Red background color */
+  color: white; /* White text color */
+  border-radius: 8px; /* Rounded corners */
+  max-width: 80%; /* Maximum width for the bubble */
+  word-wrap: break-word; /* Wrap long text */
+  margin: 10px 0; /* Margin at the top and bottom */
+  padding: 10px;
+  margin-bottom: 10px;
+  float: left;
+  clear: both;
+}
+.btn-toggle{
+  background: transparent;
+  color: #fff;
+}
+.btn-toggle:hover,.btn-toggle:focus,.btn-toggle:active{
+ 
+  background: transparent;
+  color: #fff;
 }

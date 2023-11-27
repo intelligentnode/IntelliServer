@@ -27,9 +27,13 @@
             </li> -->
           </ul>
           <span class="navbar-text sideBaricon cursor-pointer ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><path fill="'#fff" d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path></svg>
-          </span>
+          <button class="btn btn-toggle">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><path fill="'#fff" d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path>
+                    </svg>
+                   
+          </button>
+             </span>
         </div>
       </div>
     </nav>
@@ -124,71 +128,119 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   
-   <script>
-    // jQuery code to handle form submission and local storage
-    $(document).ready(function () {
+<script>
+    // Function to dynamically update the model options based on the selected provider
+    function updateModelOptions() {
 
-
-      // Function to dynamically update the model options based on the selected provider
-  function updateModelOptions() {
-    const selectedProvider = $('#provider').val();
-
-if (selectedProvider === 'cohere') {
-      // Hide the Model select field and remove its value
-      $('#model-container').hide();
-      $('#model').val('');
-    } else {
-      // Show the Model select field
-      $('#model-container').show();
-      $('#model option').each(function () {
-      const allowedProviders = $(this).data('providers').split(' ');
-      if (allowedProviders.includes(selectedProvider)) {
-        $(this).show();
-      } else {
-        $(this).hide();
+      const selectedProvider = $('#provider').val();
+      const modelDropdown = $('#model');
+      if(localStorage.apiKey){
+        $('#apiKey').val(localStorage.getItem('apiKey'));
       }
-    });
+      if (selectedProvider === 'cohere') {
+        // Hide the Model select field and remove its value
+        $('#model-container').hide();
+        $('#model').val('');
+      } else {
+        // Show the Model select field
+        $('#model-container').show();
+
+        // Clear existing options
+        modelDropdown.empty();
+
+        // Define model options based on the selected provider
+        const modelOptions = {
+          openai: [
+            { value: 'gpt3.5', text: 'gpt-3.5-turbo' },
+            { value: 'gpt4', text: 'gpt-4' },
+          ],
+          replicate: [
+            { value: '70b-chat', text: '70b Chat' },
+            { value: '13b-chat', text: '13b Chat' },
+          ],
+          cohere: [], // Empty array for Cohere
+        };
+
+        // Populate the Model dropdown with options based on the selected provider
+        modelOptions[selectedProvider].forEach(option => {
+          modelDropdown.append($('<option>', {
+            value: option.value,
+            text: option.text,
+            'data-providers': selectedProvider // Add data-providers attribute
+          }));
+        });
+
+        // Toggle the visibility of Model options based on data-providers attribute
+        $('#model option').each(function () {
+          const allowedProviders = $(this).data('providers');
+
+          if (allowedProviders) {
+            const providersArray = allowedProviders.split(' ');
+
+            if (providersArray.includes(selectedProvider)) {
+              $(this).show(); // Show the option
+            } else {
+              $(this).hide(); // Hide the option
+            }
+          } else {
+            // Handle the case where data-providers attribute is undefined or null
+            // You can choose to show or hide the option based on your requirements
+            $(this).hide(); // For example, hide the option
+          }
+        });
+      }
     }
-    
-  }
 
-      // Call the updateModelOptions function on page load
+    // Call the updateModelOptions function on page load
+    updateModelOptions();
+
+    // Handle the change event of the provider select field
+    $('#provider').on('change', function () {
       updateModelOptions();
-      // Handle the change event of the provider select field
-      $('#provider').on('change', function () {
-        updateModelOptions();
-      });
+    });
 
-      const form = $('#chatbot-form');
+    const form = $('#chatbot-form');
       // Load saved values from local storage when the page loads
       loadValues();
       // Form submission event
       form.submit(function (e) {
-        e.preventDefault();
-       const systemMessage = $('#systemMessage').val();
-        const numberOfMessages = $('#numberOfMessage').val();
-        const provider = $('#provider').val();
-        const model = $('#model').val();
-        const apiKey = $('#apiKey').val();
-        const contextMode = $('#flexSwitchCheckDefault').prop('checked');
+  e.preventDefault();
+  const systemMessage = $('#systemMessage').val();
+  const numberOfMessages = $('#numberOfMessage').val();
+  const provider = $('#provider').val();
+  const model = $('#model').val();
+  const apiKey = $('#apiKey').val();
+  const contextMode = $('#flexSwitchCheckDefault').prop('checked');
+  const apiKeyField = $('#apiKey');
 
-        // Save the values to local storage
-        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
-    
-      });
+  if (apiKey.trim() === '') {
+    // API key is empty, display error message and change border color
+    apiKeyField.addClass('is-invalid');
+    apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
+  } else {
+    // API key is not empty, save values and reset the form
+    apiKeyField.removeClass('is-invalid');
+    apiKeyField.siblings('.invalid-feedback').text('');
+    saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
+    $('.side-bar').removeClass('active');
+    form[0].reset();
+  }
+});
 
-      // Reset Keys button click event
-      $('#resetKeys').click(function () {
-         localStorage.removeItem('systemMessage');
-        localStorage.removeItem('numberOfMessages');
-        localStorage.removeItem('provider');
-        localStorage.removeItem('model');
-        localStorage.removeItem('apiKey');
-        localStorage.removeItem('contextMode');
-        
-        // Reset the form fields to their default values
-        form[0].reset();
-      });
+// Reset Keys button click event
+$('#resetKeys').click(function () {
+  localStorage.removeItem('systemMessage');
+  localStorage.removeItem('numberOfMessages');
+  localStorage.removeItem('provider');
+  localStorage.removeItem('model');
+  localStorage.removeItem('apiKey');
+  localStorage.removeItem('contextMode');
+
+  // Reset the form fields to their default values
+  form[0].reset();
+  $('#apiKey').removeClass('is-invalid'); // Remove error styling
+  $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
+});
 
       // Function to save values to local storage
      function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
@@ -220,8 +272,7 @@ if (selectedProvider === 'cohere') {
           $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
         }
       }
-    });
-    </script>
+  </script>
     <script>
   // Function to toggle the visibility of the "Context" option
   function toggleContextOptionVisibility() {
@@ -241,38 +292,46 @@ if (selectedProvider === 'cohere') {
   // Call the toggleContextOptionVisibility function on page load to set the initial state
   toggleContextOptionVisibility();
 </script>
- <script>
+ <script> 
   $(document).ready(function () {
-    // Function to enable/disable the button and show/hide loader
-    function toggleButtonState(isEnabled) {
-      $('#sendMessage').prop('disabled', !isEnabled);
-      $('#sendMessage').html(isEnabled ? 'Send Message' : '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...');
-    }
-    // Function to send the message to the API and handle the response
-    function sendMessageToApi() {
-      toggleButtonState(false); // Disable the button and show loader
-      const userInput = $('#userInput').val();
-      if ($.trim(userInput) !== '') {
-        const chatbox = $('#chatbox');
-        
+  // Function to enable/disable the button and show/hide loader
+  function toggleButtonState(isEnabled) {
+    $('#sendMessage').prop('disabled', !isEnabled);
+    $('#sendMessage').html(isEnabled ? 'Send Message' : '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...');
+  }
 
-        // Get API key and other values from local storage
-        const apiKey = localStorage.getItem('apiKey');
-        const model = localStorage.getItem('model');
-        const provider = localStorage.getItem('provider');
-        console.log("model",model);
+  // Function to display an error message to the user
+  function displayErrorMessage(errorMessage) {
+    const chatbox = $('#chatbox');
+    const errorBubble = $('<div>').addClass('error-bubble').text('Error: ' + errorMessage);
+    chatbox.append(errorBubble);
+    chatbox.scrollTop(chatbox.prop("scrollHeight"));
+  }
 
-        if (!apiKey) {
-          alert('Please enter a valid API key.');
-          toggleButtonState(true); // Enable the button and hide loader
-          return;
-        } else{
-          const userBubble = $('<div>').addClass('user-bubble').text(userInput);
-        chatbox.append(userBubble);
-        const botBubblebefore = $('<div>').addClass('bot-bubble bot-typing');
-        chatbox.append(botBubblebefore);
-          console.log("hellooooooooo");
-            // API request logic
+  // Function to send the message to the API and handle the response
+  function sendMessageToApi() {
+    toggleButtonState(false); // Disable the button and show loader
+    const userInput = $('#userInput').val();
+
+    if ($.trim(userInput) !== '') {
+      const chatbox = $('#chatbox');
+
+      // Get API key and other values from local storage
+      const apiKey = localStorage.getItem('apiKey');
+      const model = localStorage.getItem('model');
+      const provider = localStorage.getItem('provider');
+
+      if (!apiKey) {
+        // API key is empty, display error message and enable the button
+        displayErrorMessage('Please enter a valid API key.');
+        toggleButtonState(true);
+      } else {
+
+        const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+      chatbox.append(userBubble);
+      const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
+      chatbox.append(botBubbleBefore);
+        // API request logic
         const apiUrl = 'http://localhost/chatbot/chat';
         const data = {
           api_key: apiKey,
@@ -288,6 +347,7 @@ if (selectedProvider === 'cohere') {
             ]
           }
         };
+
         $('#userInput').val('');
         $.ajax({
           url: apiUrl,
@@ -298,46 +358,52 @@ if (selectedProvider === 'cohere') {
           },
           data: JSON.stringify(data),
           success: function (response) {
-            botBubblebefore.remove();
-            // Display the bot's response
-            console.log("response",response)
-            const botBubble = $('<div>').addClass('bot-bubble').text('Bot: ' + response.data[0]);
-            chatbox.append(botBubble);
+             botBubbleBefore.remove();
+            // Check the API response status
+            if (response.status === 'ERROR') {
 
-            // Clear the input field
-            $('#userInput').val('');
+              //console.log("this is error message");
+              // API returned an error, display the error message
+              console.log("response",response)
+              displayErrorMessage(response.message);
+            } else {
+              // API call was successful, display the bot's response
+              const botBubble = $('<div>').addClass('bot-bubble').text('Bot: ' + response.data[0]);
+              chatbox.append(botBubble);
+              chatbox.scrollTop(chatbox.prop("scrollHeight"));
+            }
 
             toggleButtonState(true); // Enable the button and hide loader
-            chatbox.scrollTop(chatbox.prop("scrollHeight"));
           },
           error: function (xhr, status, error) {
-            // Handle error - display an error message
+            // Handle other errors (e.g., network issues)
             console.error('Error:', error);
+
+            // Display a generic error message to the user
+            displayErrorMessage('An unexpected error occurred.');
 
             toggleButtonState(true); // Enable the button and hide loader
           }
         });
-      
-
-        }
-
-      } else {
-        toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
       }
+    } else {
+      toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
     }
+  }
 
-    $('#userInput').keypress(function (event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-        sendMessageToApi();
-      }
-    });
-
-    $('#sendMessage').on('click', function () {
+  $('#userInput').keypress(function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
       sendMessageToApi();
-    });
+    }
   });
-</script>
+
+  $('#sendMessage').on('click', function () {
+    sendMessageToApi();
+  });
+});
+ 
+  </script>
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
