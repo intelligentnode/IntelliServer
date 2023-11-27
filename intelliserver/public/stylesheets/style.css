@@ -1,8 +1,311 @@
-body {
+/* body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+} */
 
 a {
   color: #00B7FF;
+}
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #2B2D2D;
+}
+*{
+  font-family: 'Inter', sans-serif;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.home-footer{
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  background: #29292D;
+  color: #fff;
+}
+.primary-bg{
+  background-color: #ADAFEE;
+  outline: none;
+  border: 1px solid #ADAFEE;
+}
+.primary-bg:hover,
+.primary-bg:focus,
+.primary-bg:active
+{
+  background-color: #ADAFEE;
+  border: 1px solid #ADAFEE;
+
+}
+a {
+  color: #00B7FF;
+}
+.navbar-brand{
+  font-weight: 700;
+  font-size: 28px;
+}
+.navbar-brand img{
+  width: 59px;
+  height: 59px;
+}
+.main-section{
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 121px);
+  text-align: center;
+}
+nav{
+  border-bottom: 1px solid #727272;
+}
+.art1{
+  max-height: 330px;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(32%,-50%);
+}
+.art1 img{
+  max-height: 300px;
+}
+/* Animation */
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+/* CSS for typing animation */
+@keyframes typing {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  67% {
+    content: "...";
+  }
+}
+
+.bot-typing::after {
+  display: inline-block;
+  content: "";
+  animation: typing 1s infinite steps(3); /* Adjust the duration as needed */
+  margin-left: 5px; /* Add some spacing between text and animation */
+}
+/* Apply the animation to the image */
+.art2 {
+  position: absolute;
+  top: 100px;
+  left: -60px;
+  transform: translate(-50%,-50%);
+  animation: rotate 15s linear infinite; /* Adjust the time and animation type as needed */
+}
+.art3 {
+  position: absolute;
+  left: 60px;
+  bottom: 40px;
+  bottom: 40px;
+    max-width: 400px;
+    width: 100%;
+}
+.art3 img{
+  max-width: 100%;
+}
+/* chat box message */
+.chatbox-container{
+  position: relative;
+  height: calc(100vh - 86px);
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow-y: auto;
+  padding-block: 1.5rem;
+}
+.chat-mesasge{
+  position: absolute;
+  bottom: 10px;
+}
+.chatbox-container .form-control{
+  background-color: #0000;
+  color: #fff;
+}
+.page-heading{
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.list{
+  padding: 0;
+  margin: 0;
+}
+.list li{
+  list-style: none;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.list li a{
+  text-decoration: none;
+  color: inherit ;
+}
+.chatbox-container .form-control:focus,
+.chatbox-container .form-control:hover
+{
+  background-color: #0000;
+  color:#fff;
+  outline: none;
+  box-shadow: none;
+}
+.side-bar{
+  width: 320px;
+  padding: 20px;
+  height: calc(100vh - 86px);
+  position: fixed;
+  right: -320px;
+  top: 86px;
+  background-color: #212529;
+  z-index: 99;
+  transition: right 0.5s ease;
+}
+
+.side-bar.active {
+  right: 0; /* Slide in from right */
+}
+.side-bar label{
+  color: #fff;
+}
+.side-bar .form-control{
+  background-color: #0000;
+  color: #fff;
+
+}
+.side-bar .form-control:focus,
+.side-bar .form-control:hover
+{
+  background-color: #0000;
+  color:#fff;
+  outline: none;
+  box-shadow: none;
+}
+.side-bar select{
+  background-color: #0000;
+  color: #fff;
+
+}
+.side-bar select:focus,
+.side-bar select:hover
+{
+  background-color: #0000;
+  color:#fff;
+  outline: none;
+  box-shadow: none;
+}
+.sideBaricon svg path{
+  fill: #fff;
+}
+
+/* chat bot section */
+
+.user-bubble {
+  background-color: #dff0d8;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  float: right;
+  clear: both;
+}
+
+.bot-bubble {
+  background-color: #d9edf7;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  float: left;
+  clear: both;
+}
+.submit-button{
+  min-width: 120px;
+}
+.connect-button{
+  font-size: 12px;
+  padding-block: 4px;
+}
+.connect-button a{
+  color: #fff;
+  text-decoration: none;
+}
+.chat-section{
+  height: (100% - 60px);  
+  padding-bottom: 60px;
+  overflow-y: scroll;
+}
+
+
+/* Customize the arrow color */
+.tooltip.bs-tooltip-top .arrow::before {
+  border-color: red!important;
+  border-top-color: #ffffff!important; /* Change to your desired arrow color (white) */
+}
+.tooltip-inner {
+  text-align: left;
+    background-color: #ffffff; /* Change to your desired background color (white) */
+    color: #000000; /* Change to your desired font color (black) */
+    font-size: 12px; /* Change to your desired font size (12px) */
+  }
+
+ 
+.bs-tooltip-start .tooltip-arrow::before {
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+}
+.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #fff!important;
+}
+
+
+
+/* .bs-tooltip-start .tooltip-arrow::before {
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+} */
+
+.tooltip .arrow::before {
+  /* Your custom arrow styling here */
+  left: -1px;
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: #fff!important;
+}
+
+
+.error-bubble {
+  background-color: #f44336; /* Red background color */
+  color: white; /* White text color */
+  border-radius: 8px; /* Rounded corners */
+  max-width: 80%; /* Maximum width for the bubble */
+  word-wrap: break-word; /* Wrap long text */
+  margin: 10px 0; /* Margin at the top and bottom */
+  padding: 10px;
+  margin-bottom: 10px;
+  float: left;
+  clear: both;
+}
+.btn-toggle{
+  background: transparent;
+  color: #fff;
+}
+.btn-toggle:hover,.btn-toggle:focus,.btn-toggle:active{
+ 
+  background: transparent;
+  color: #fff;
 }

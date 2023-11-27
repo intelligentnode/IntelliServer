@@ -1,42 +1,51 @@
-// load the config
+// Load the config
 require('dotenv').config();
 
-// load the dependencies 
+// Load the dependencies
 const express = require('express');
+const exphbs = require('express-handlebars');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('../config');
-// swagger
+
+// Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger');
 
-//create the app
-var app = express();
+// Create the app
+const app = express();
 
-/* ### initial config ### */
+/* ### Initial config ### */
 global.__basedir = path.join(__dirname, '..');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-/* ### the api routs ### */
-// # middlwares
+// Set Handlebars as the view engine
+app.set('view engine', 'hbs');
+app.engine('hbs', exphbs.engine({ extname: '.hbs', defaultLayout: null }));
+app.set('views', path.join(__dirname, '../views'));
+
+/* ### The API routes ### */
+
+// # Middlewares
 const authMiddleware = require('../middleware/auth');
 const authAdminMiddleware = require('../middleware/authAdmin');
 
-// # api
-// remote models
+// # API
+// Remote models
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
+const viewsRouter = require('./routes/views');
 const openaiRouter = require('./models/remote/openai');
 const cohereRouter = require('./models/remote/cohere');
 const replicateRouter = require('./models/remote/replicate');
 const stabilityRouter = require('./models/remote/stability');
 const huggingRouter = require('./models/remote/hugging');
-// functions
+// Functions
 const chatRouter = require('./functions/chatbot');
 const semanticRouter = require('./functions/semanticsearch');
 const evaluateRouter = require('./functions/evaluate');
@@ -46,26 +55,27 @@ const ocrRoute = require('./ocr/index');
 const embedRouter = require('./functions/embed');
 
 // # api routers
-
 app.use('/', indexRouter);
-// admin
+// Admin
 app.use('/admin', authAdminMiddleware, adminRouter);
-// swagger
+// Swagger
 if (config.SHOW_SWAGGER) {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-        customCssUrl: '/stylesheets/swagger.css'
-    }));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+    customCssUrl: '/stylesheets/swagger.css',
+  }));
 }
 
-// secured apis
+app.use('/views', viewsRouter);
+
+// Secured APIs
 app.use(authMiddleware);
-// models
+// Models
 app.use('/openai', openaiRouter);
 app.use('/cohere', cohereRouter);
 app.use('/replicate', replicateRouter);
 app.use('/stability', stabilityRouter);
 app.use('/hugging', huggingRouter);
-// functions
+// Functions
 app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
@@ -74,10 +84,10 @@ app.use('/embed', embedRouter);
 app.use('/parser', parserRoute)
 app.use('/ocr', ocrRoute)
 
-/* ### deploy the app ### */
-var port = process.env.PORT || '80';
-app.listen(port, function () {
-     console.log('Your intelliServer is running on PORT: ' + port);
+/* ### Deploy the app ### */
+const port = process.env.PORT || '80';
+app.listen(port, () => {
+  console.log(`Your intelliServer is running on PORT: ${port}`);
 });
 
 module.exports = app;
