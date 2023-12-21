@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const axios = require('axios'); // Import the axios library
+const axios = require('axios');
 const router = express.Router();
 const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput, CohereInput } = require('intellinode');
 const { Chatbot, SupportedChatModels } = require('intellinode');
@@ -13,30 +13,25 @@ const keys = {
     'cohere': process.env.COHERE_API_KEY
 };
 
-// Utility function to call the semantic search API
 async function callSemanticSearchAPI(data) {
-    
     try {
-        // Replace 'YOUR_SEMANTIC_SEARCH_API_URL' with the actual URL
         const apiUrl = 'https://1cw9da6wl7.execute-api.us-east-2.amazonaws.com/semantic_search/';
 
         const formData = new FormData();
         Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
         });
-        
-        // Make a POST request to the semantic search API
+
         const response = await axios.post(apiUrl, formData, {
             headers: {
-                'Content-Type': 'multipart/form-data', // Set the content type to form-data
+                'Content-Type': 'multipart/form-data',
             },
         });
-        console.log(response.data)
-        
-        // Return the semantic search results
-        return response.data; // Adjust this based on the actual response format
+
+        console.log(response.data);
+        return response.data;
     } catch (error) {
-        throw new Error(`Error calling semantic search APIiii: ${error.message}`);
+        throw new Error(`Error calling semantic search API: ${error.message}`);
     }
 }
 
@@ -75,50 +70,34 @@ function getChatInput(input, provider) {
 // New API route: data/chatbot
 router.post('/chatbot', async (req, res, next) => {
     try {
-        // const semanticSearchResponse = await callSemanticSearchAPI(req.body);
-
-        // // return semanticSearchResponse;
-
-        // console.log(semanticSearchResponse)
-
-        // const chatbot = getChatbot(req);
-        // const input = getChatInput(req.body.input, req.body.provider);
-        // const functions = req.body.functions;
-        // const function_call = req.body.function_call;
-
-        // // Call the semantic search API here
+        // Call the semantic search API asynchronously
         const semanticSearchResponse = await callSemanticSearchAPI(req.body);
-        
-        // Pass the semantic search results to the chatbot
-        // input.addAssistantMessage(semanticSearchResponse);
+
+        // Concatenate the text from response data
         const concatenatedText = semanticSearchResponse.data.map(document => {
             return document.data.map(item => item.text).join(' ');
         }).join(' ');
-        console.log(concatenatedText);
         req.body.input.messages[0].content = concatenatedText;
-         const chatbot = getChatbot(req);
-         const input = getChatInput(req.body.input, req.body.provider);
-         const functions = req.body.functions;
-         const function_call = req.body.function_call;
-        
 
-        // Call the chatbot API
-          const results = await chatbot.chat(input, functions, function_call);
+        // Now, call the chatbot API
+        const chatbot = getChatbot(req);
+        const input = getChatInput(req.body.input, req.body.provider);
+        const functions = req.body.functions;
+        const function_call = req.body.function_call;
+        const results = await chatbot.chat(input, functions, function_call);
+
         res.json({ status: "OK", data: results });
     } catch (error) {
-        console.log("this is error", error);
         res.json({ status: "ERROR", message: error.message });
     }
 });
 
-// New API route: data/search
-router.post('/search', async (req, res, next) => {
+// New API route: data/semantic_search
+router.post('/semantic_search', async (req, res, next) => {
     try {
-        // Call the semantic search API here
         const semanticSearchResponse = await callSemanticSearchAPI(req.body);
         res.json({ status: "OK", data: semanticSearchResponse });
     } catch (error) {
-        console.log("this is error", error);
         res.json({ status: "ERROR", message: error.message });
     }
 });
