@@ -90,7 +90,14 @@
             <label for="inputAddress2" class="form-label">Api Key</label>
             <input type="password" class="form-control" name="apiKey" id="apiKey" placeholder="Api Key">
           </div>
-          
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="ConnectData">
+            <label class="form-check-label" for="ConnectData">
+              Connect Data 
+            </label>
+          </div>
+          <div class="col-12" id="optionFieldsContainer">
+            <div class="row">
           <div class="col-12">
             <label for="inputAddress2" class="form-label">One Key (optional)</label>
             <input type="text" class="form-control" name="apiKey" id="oneKey" placeholder="One key">
@@ -100,6 +107,9 @@
             <input type="text" class="form-control" name="apiKey" id="apiKey" placeholder="Data Api">
           </div>
           
+            </div>
+          </div>
+         
           <div class="col-12 d-flex justify-content-between align-items-center">
             <div class="form-check form-switch" id="context-option">
               <label class="form-check-label" for="flexSwitchCheckDefault">Context</label>
@@ -209,28 +219,28 @@
       loadValues();
       // Form submission event
       form.submit(function (e) {
-  e.preventDefault();
-  const systemMessage = $('#systemMessage').val();
-  const numberOfMessages = $('#numberOfMessage').val();
-  const provider = $('#provider').val();
-  const model = $('#model').val();
-  const apiKey = $('#apiKey').val();
-  const contextMode = $('#flexSwitchCheckDefault').prop('checked');
-  const apiKeyField = $('#apiKey');
+      e.preventDefault();
+      const systemMessage = $('#systemMessage').val();
+      const numberOfMessages = $('#numberOfMessage').val();
+      const provider = $('#provider').val();
+      const model = $('#model').val();
+      const apiKey = $('#apiKey').val();
+      const contextMode = $('#flexSwitchCheckDefault').prop('checked');
+      const apiKeyField = $('#apiKey');
 
-  if (apiKey.trim() === '') {
-    // API key is empty, display error message and change border color
-    apiKeyField.addClass('is-invalid');
-    apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
-  } else {
-    // API key is not empty, save values and reset the form
-    apiKeyField.removeClass('is-invalid');
-    apiKeyField.siblings('.invalid-feedback').text('');
-    saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
-    $('.side-bar').removeClass('active');
-    form[0].reset();
-  }
-});
+      if (apiKey.trim() === '') {
+        // API key is empty, display error message and change border color
+        apiKeyField.addClass('is-invalid');
+        apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
+      } else {
+        // API key is not empty, save values and reset the form
+        apiKeyField.removeClass('is-invalid');
+        apiKeyField.siblings('.invalid-feedback').text('');
+        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
+        $('.side-bar').removeClass('active');
+        form[0].reset();
+      }
+    });
 
 // Reset Keys button click event
 $('#resetKeys').click(function () {
@@ -325,6 +335,9 @@ $('#resetKeys').click(function () {
       const apiKey = localStorage.getItem('apiKey');
       const model = localStorage.getItem('model');
       const provider = localStorage.getItem('provider');
+      // Get values from the new fields
+      const oneKey = $('#oneKey').val();
+      const dataApi = $('#dataApi').val();
 
       if (!apiKey) {
         // API key is empty, display error message and enable the button
@@ -337,7 +350,7 @@ $('#resetKeys').click(function () {
       const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
       chatbox.append(botBubbleBefore);
         // API request logic
-        const apiUrl = 'http://localhost/chatbot/chat';
+        const apiUrl = 'http://localhost/data/chatbot';
         const data = {
           api_key: apiKey,
           model: model,
@@ -350,7 +363,10 @@ $('#resetKeys').click(function () {
                 content: userInput
               }
             ]
-          }
+          },
+          one_key: 'ince37408f',
+          query_text: userInput,
+          k:"2",
         };
 
         $('#userInput').val('');
@@ -363,6 +379,7 @@ $('#resetKeys').click(function () {
           },
           data: JSON.stringify(data),
           success: function (response) {
+            console.log("this is response",response);
              botBubbleBefore.remove();
             // Check the API response status
             if (response.status === 'ERROR') {
@@ -424,7 +441,28 @@ $('#resetKeys').click(function () {
         $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
       });
   </script>
-   
+   <script>
+   // Function to toggle the visibility of option input fields
+   function toggleOptionFieldsVisibility() {
+      const optionFieldsContainer = $('#optionFieldsContainer');
+      const connectDataCheckbox = $('#ConnectData');
+
+      if (connectDataCheckbox.prop('checked')) {
+         optionFieldsContainer.show(); // Show the option input fields
+      } else {
+         optionFieldsContainer.hide(); // Hide the option input fields
+      }
+   }
+
+   // Add an event listener to the "Connect Data" checkbox
+   $('#ConnectData').on('change', function () {
+      toggleOptionFieldsVisibility();
+   });
+
+   // Call the function on page load to set the initial state
+   toggleOptionFieldsVisibility();
+</script>
+
 
 </body>
 

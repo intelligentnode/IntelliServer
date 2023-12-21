@@ -47,6 +47,7 @@ const stabilityRouter = require('./models/remote/stability');
 const huggingRouter = require('./models/remote/hugging');
 // Functions
 const chatRouter = require('./functions/chatbot');
+const dataRouter = require('./functions/data');
 const semanticRouter = require('./functions/semanticsearch');
 const evaluateRouter = require('./functions/evaluate');
 const chatContextRouter = require('./functions/chatcontext');
@@ -77,6 +78,7 @@ app.use('/stability', stabilityRouter);
 app.use('/hugging', huggingRouter);
 // Functions
 app.use('/chatbot', chatRouter);
+app.use('/data', dataRouter);
 app.use('/semanticsearch', semanticRouter);
 app.use('/evaluate', evaluateRouter);
 app.use('/chatcontext', chatContextRouter);
