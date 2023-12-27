@@ -1,0 +1,5 @@
+Provide a response that matches the given context. If the context is not related or missing, offer answers that are relevant to the user's question:
+
+context: <semantic_search>
+
+user query: <query>
