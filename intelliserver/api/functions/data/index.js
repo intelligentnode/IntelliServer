@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs').promises;
 const path = require('path');
 const axios = require('axios');
 const router = express.Router();
@@ -12,6 +13,7 @@ const keys = {
     'sagemaker': process.env.SAGEMAKER_API_KEY,
     'cohere': process.env.COHERE_API_KEY
 };
+const templatePath = path.join(__dirname, '../../../assets/query_template.txt');
 
 async function callSemanticSearchAPI(data) {
     try {
@@ -67,14 +69,13 @@ function getChatInput(input, provider) {
 }
 
 
-
 /**
  * @swagger
  * /data/chatbot:
  *   post:
  *     tags:
  *       - Functions
- *     summary: chatbot as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
+ *     summary: Chatbot as a service with multiple LLM providers like OpenAI, Replicate, Azure, and SageMaker.
  *
  *     security:
  *       - ApiKeyAuth: []
@@ -93,40 +94,47 @@ function getChatInput(input, provider) {
  *             properties:
  *               api_key:
  *                 type: string
- *                 description: The api key
+ *                 description: The API key
  *               model:
  *                 type: string
- *                 description: The model type (e.g. 'gpt4')
+ *                 description: The model type (e.g., 'gpt4')
  *               provider:
  *                 type: string
- *                 description: The provider (e.g. 'openai')
+ *                 description: The provider (e.g., 'openai')
  *               input:
  *                 type: object
  *                 properties:
- *                  system:
- *                    type: string
- *                    description: System message to the chatbot
- *                  messages:
- *                    type: array
- *                    items:
- *                      type: object
- *                      properties:
- *                        role:
- *                          type: string
- *                          description: Role of the sender, either 'user' or 'assistant'
- *                        content:
- *                          type: string
- *                          description: Content of the message
+ *                   system:
+ *                     type: string
+ *                     description: System message to the chatbot
+ *                   messages:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         role:
+ *                           type: string
+ *                           description: Role of the sender, either 'user' or 'assistant'
+ *                         content:
+ *                           type: string
+ *                           description: Content of the message
  *     responses:
  *       200:
  *         description: The chatbot's response
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "OK"
+ *               data:
+ *                 example_key: "example_value"
  *       400:
  *         description: There was a problem with the request
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "ERROR"
+ *               message: "Error message details"
  */
-
-
-
-
 
 
 // New API route: data/chatbot
@@ -148,9 +156,17 @@ router.post('/chatbot', async (req, res, next) => {
         const concatenatedText = semanticSearchResponse.data.map(document => {
             return document.data.map(item => item.text).join(' ');
         }).join(' ');
+
+        // Load the template file
+        const templateContent = await fs.readFile(templatePath, 'utf-8');
+
+        // Replace placeholders with actual data
+        const context = templateContent
+            .replace('<semantic_search>', concatenatedText)
+            .replace('<query>', lastMessage)
        
         // req.body.input.messages[0].content = concatenatedText  ;
-        req.body.input.messages[req.body.input.messages.length - 1].content=concatenatedText;
+        req.body.input.messages[req.body.input.messages.length - 1].content=context;
 
 
        // Now, call the chatbot API
