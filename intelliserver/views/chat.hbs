@@ -308,7 +308,7 @@ $('#resetKeys').click(function () {
   toggleContextOptionVisibility();
 </script>
  <script> 
-  $(document).ready(function () {
+ $(document).ready(function () {
   // Function to enable/disable the button and show/hide loader
   function toggleButtonState(isEnabled) {
     $('#sendMessage').prop('disabled', !isEnabled);
@@ -335,100 +335,94 @@ $('#resetKeys').click(function () {
       const apiKey = localStorage.getItem('apiKey');
       const model = localStorage.getItem('model');
       const provider = localStorage.getItem('provider');
-      // Get values from the new fields
-      const oneKey = $('#oneKey').val();
-      const dataApi = $('#dataApi').val();
 
-      if (!apiKey) {
-        // API key is empty, display error message and enable the button
-        displayErrorMessage('Please enter a valid API key.');
-        toggleButtonState(true);
-      } else {
+      // Load message history from local storage
+      let messageHistory = JSON.parse(localStorage.getItem('messageHistory')) || [];
 
-        const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+      // Add the current user message to the history
+      messageHistory.push({
+        role: 'user',
+        content: userInput
+      });
+
+      // Update local storage with the new message history
+      localStorage.setItem('messageHistory', JSON.stringify(messageHistory));
+
+      const userBubble = $('<div>').addClass('user-bubble').text(userInput);
       chatbox.append(userBubble);
+
       const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
       chatbox.append(botBubbleBefore);
-        // API request logic
-        const apiUrl = 'http://localhost/data/chatbot';
-        const data = {
-          api_key: apiKey,
-          model: model,
-          provider: provider,
-          input: {
-            system: "You are a helpful assistant.",
-            messages: [
-              {
-                role: "user",
-                content: userInput
-              }
-            ]
-          },
-          one_key: 'ince37408f',
-          query_text: userInput,
-          k:"2",
-        };
 
-        $('#userInput').val('');
-        $.ajax({
-          url: apiUrl,
-          type: 'POST',
-          headers: {
-            'X-API-KEY': "root",
-            'Content-Type': 'application/json',
-          },
-          data: JSON.stringify(data),
-          success: function (response) {
-            console.log("this is response",response);
-             botBubbleBefore.remove();
-            // Check the API response status
-            if (response.status === 'ERROR') {
+      // API request logic
+      const apiUrl = 'http://localhost/data/chatbot';
+      const data = {
+        api_key: apiKey,
+        model: model,
+        provider: provider,
+        input: {
+          system: 'You are a helpful assistant.',
+          messages: messageHistory
+        },
+        one_key: 'ince37408f',
+        query_text: userInput,
+        k: '2',
+      };
 
-              //console.log("this is error message");
-              // API returned an error, display the error message
-              console.log("response",response)
-              displayErrorMessage(response.message);
-            } else {
-               // API call was successful, display the bot's response
-              const botResponse = response.data[0];
-              const botResponseLines = botResponse.split('\n'); // Split the response into lines
+      $('#userInput').val('');
+      $.ajax({
+        url: apiUrl,
+        type: 'POST',
+        headers: {
+          'X-API-KEY': 'root',
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(data),
+        success: function (response) {
+          botBubbleBefore.remove();
 
-              // Create a single bot bubble with line breaks
-              const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
-              chatbox.append(botBubble);
+          // Check the API response status
+          if (response.status === 'ERROR') {
+            displayErrorMessage(response.message);
+          } else {
+            // API call was successful, display the bot's response
+            const botResponse = response.data[0];
+            const botResponseLines = botResponse.split('\n');
 
-              chatbox.scrollTop(chatbox.prop("scrollHeight"));
-            }
+            // Create a single bot bubble with line breaks
+            const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
+            chatbox.append(botBubble);
 
-            toggleButtonState(true); // Enable the button and hide loader
-          },
-          error: function (xhr, status, error) {
-            // Handle other errors (e.g., network issues)
-            console.error('Error:', error);
-
-            // Display a generic error message to the user
-            displayErrorMessage('An unexpected error occurred.');
-
-            toggleButtonState(true); // Enable the button and hide loader
+            chatbox.scrollTop(chatbox.prop("scrollHeight"));
           }
-        });
-      }
+
+          toggleButtonState(true); // Enable the button and hide loader
+        },
+        error: function (xhr, status, error) {
+          console.error('Error:', error);
+          displayErrorMessage('An unexpected error occurred.');
+          toggleButtonState(true); // Enable the button and hide loader
+        }
+      });
     } else {
       toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
     }
   }
 
+  // Event listener for pressing Enter key
   $('#userInput').keypress(function (event) {
     if (event.keyCode === 13) {
       event.preventDefault();
       sendMessageToApi();
     }
   });
+
+  // Event listener for clicking the "Send Message" button
   $('#sendMessage').on('click', function () {
     sendMessageToApi();
   });
 });
- 
+
   </script>
 
   <script>

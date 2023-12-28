@@ -13,7 +13,6 @@ const keys = {
     'cohere': process.env.COHERE_API_KEY
 }
 
-
 function getChatbot(req) {
     console.log('getChatbot provider: ', req.body.provider)
     if (USE_DEFAULT_KEYS && !req.body.api_key) {
@@ -50,11 +49,11 @@ function getChatInput(input, provider) {
 
 /**
  * @swagger
- * /chatbot/chat:
+ * /stream/chat:
  *   post:
  *     tags:
  *       - Functions
- *     summary: chatbot as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
+ *     summary: stream as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
  *
  *     security:
  *       - ApiKeyAuth: []
