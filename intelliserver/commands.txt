@@ -18,3 +18,5 @@ docker-compose down
 docker tag intelliserver:latest intellinode/intelliserver:latest
 docker push intellinode/intelliserver:latest
 
+### print project tree ###
+intelliserver % tree -I node_modules

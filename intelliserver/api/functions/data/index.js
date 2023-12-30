@@ -1,3 +1,4 @@
+// data.js
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
@@ -6,13 +7,7 @@ const router = express.Router();
 const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput, CohereInput } = require('intellinode');
 const { Chatbot, SupportedChatModels } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
-
-const keys = {
-    'openai': process.env.OPENAI_API_KEY,
-    'replicate': process.env.REPLICATE_API_KEY,
-    'sagemaker': process.env.SAGEMAKER_API_KEY,
-    'cohere': process.env.COHERE_API_KEY
-};
+const ChatbotHelpers = require('../../utils/chatbot_helper');
 const templatePath = path.join(__dirname, '../../../assets/query_template.txt');
 
 async function callSemanticSearchAPI(data) {
@@ -36,108 +31,6 @@ async function callSemanticSearchAPI(data) {
     }
 }
 
-function getChatbot(req) {
-    console.log('getChatbot provider: ', req.body.provider);
-    if (USE_DEFAULT_KEYS && !req.body.api_key) {
-        return new Chatbot(keys[req.body.provider.toLowerCase()], req.body.provider);
-    } else {
-        return new Chatbot(req.body.api_key, req.body.provider);
-    }
-}
-
-function addMessages(chatInput, messages) {
-    messages.forEach(msg => {
-        if (msg.role.toLowerCase() === "user") {
-            chatInput.addUserMessage(msg.content);
-        } else if (msg.role.toLowerCase() === "assistant") {
-            chatInput.addAssistantMessage(msg.content);
-        } else {
-            throw new Error(`Invalid message role: ${msg.role}`);
-        }
-    });
-    return chatInput;
-}
-
-function getChatInput(input, provider) {
-    const inputInst = input instanceof ChatGPTInput ? input :
-        provider === SupportedChatModels.REPLICATE ? new LLamaReplicateInput(input.system, input) :
-        provider === SupportedChatModels.SAGEMAKER ? new LLamaSageInput(input.system, input) :
-        provider === SupportedChatModels.COHERE ? new CohereInput(input.system, input) :
-            new ChatGPTInput(input.system, input);
-
-    return addMessages(inputInst, input.messages);
-}
-
-
-/**
- * @swagger
- * /data/chatbot:
- *   post:
- *     tags:
- *       - Functions
- *     summary: Chatbot as a service with multiple LLM providers like OpenAI, Replicate, Azure, and SageMaker.
- *
- *     security:
- *       - ApiKeyAuth: []
- *
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - api_key
- *               - model
- *               - provider
- *               - input
- *             properties:
- *               api_key:
- *                 type: string
- *                 description: The API key
- *               model:
- *                 type: string
- *                 description: The model type (e.g., 'gpt4')
- *               provider:
- *                 type: string
- *                 description: The provider (e.g., 'openai')
- *               input:
- *                 type: object
- *                 properties:
- *                   system:
- *                     type: string
- *                     description: System message to the chatbot
- *                   messages:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         role:
- *                           type: string
- *                           description: Role of the sender, either 'user' or 'assistant'
- *                         content:
- *                           type: string
- *                           description: Content of the message
- *     responses:
- *       200:
- *         description: The chatbot's response
- *         content:
- *           application/json:
- *             example:
- *               status: "OK"
- *               data:
- *                 example_key: "example_value"
- *       400:
- *         description: There was a problem with the request
- *         content:
- *           application/json:
- *             example:
- *               status: "ERROR"
- *               message: "Error message details"
- */
-
-
-// New API route: data/chatbot
 router.post('/chatbot', async (req, res, next) => {
     try {
         // Call the semantic search API asynchronously
@@ -170,8 +63,8 @@ router.post('/chatbot', async (req, res, next) => {
 
 
        // Now, call the chatbot API
-        const chatbot = getChatbot(req);
-        const input = getChatInput(req.body.input, req.body.provider);
+        const chatbot = ChatbotHelpers.getChatbot(req);
+        const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider);
         const functions = req.body.functions;
         const function_call = req.body.function_call;
         const results = await chatbot.chat(input, functions, function_call);
