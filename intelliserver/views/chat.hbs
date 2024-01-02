@@ -27,7 +27,7 @@
             </li> -->
           </ul>
           <span class="navbar-text sideBaricon cursor-pointer ">
-            <button class="btn btn-toggle">
+            <button id="slideBtn" class="btn btn-toggle">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                 <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
@@ -117,6 +117,13 @@
               </svg>
             </button>
           </div>
+          <div id="additionalOptions" class="formOptions" style="display: none;">
+            <label for="additionalKey" class="form-label">One Key</label>
+            <input id="oneKey" type="password" class="form-control" id="additionalKey" placeholder="Enter key">
+            <label for="additionalK" class="form-label">Context size</label>
+            <input id="searchK" type="number" class="form-control" id="additionalK" min="1" value="3">
+          </div>
+
           <div class="col-12 d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">Save</button>
             <button class="btn btn-secondary" id="resetKeys">Reset Keys</button>
@@ -223,6 +230,9 @@
       const apiKey = $('#apiKey').val();
       const contextMode = $('#flexSwitchCheckDefault').prop('checked');
       const apiKeyField = $('#apiKey');
+      // ---
+      const oneKey = $('#oneKey').val();
+      const searchK = $('#searchK').val();
 
       if (apiKey.trim() === '') {
         // API key is empty, display error message and change border color
@@ -232,9 +242,9 @@
         // API key is not empty, save values and reset the form
         apiKeyField.removeClass('is-invalid');
         apiKeyField.siblings('.invalid-feedback').text('');
-        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
+        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, searchK);
         $('.side-bar').removeClass('active');
-        form[0].reset();
+        // form[0].reset();
       }
     });
 
@@ -246,6 +256,8 @@
       localStorage.removeItem('model');
       localStorage.removeItem('apiKey');
       localStorage.removeItem('contextMode');
+      localStorage.removeItem('oneKey');
+      localStorage.removeItem('searchK');
 
       // Reset the form fields to their default values
       form[0].reset();
@@ -254,7 +266,7 @@
     });
 
     // Function to save values to local storage
-    function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
+    function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, searchK) {
       // Save values to local storage
       localStorage.setItem('systemMessage', systemMessage);
       localStorage.setItem('numberOfMessages', numberOfMessages);
@@ -262,6 +274,13 @@
       localStorage.setItem('model', model);
       localStorage.setItem('apiKey', apiKey);
       localStorage.setItem('contextMode', contextMode);
+      if (oneKey) {
+        localStorage.setItem('oneKey', oneKey);
+      }
+      if (oneKey) {
+        localStorage.setItem('searchK', searchK);
+      }
+
     }
 
     // Function to load values from local storage and populate input fields
@@ -273,6 +292,9 @@
       const savedModel = localStorage.getItem('model');
       const savedApiKey = localStorage.getItem('apiKey');
       const savedContextMode = localStorage.getItem('contextMode');
+      // ---
+      const oneKey = localStorage.getItem('oneKey');
+      const searchK = localStorage.getItem('searchK');
 
       if (savedSystemMessage) {
         $('#systemMessage').val(savedSystemMessage);
@@ -281,6 +303,10 @@
         $('#model').val(savedModel);
         $('#apiKey').val(savedApiKey);
         $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+        if (oneKey) {
+          $('#oneKey').val(oneKey);
+          $('#searchK').val(searchK);
+        }
       }
     }
   </script>
@@ -331,6 +357,8 @@
           const apiKey = localStorage.getItem('apiKey');
           const model = localStorage.getItem('model');
           const provider = localStorage.getItem('provider');
+          const oneKey = localStorage.getItem('oneKey');
+          const systemMessage = localStorage.getItem('systemMessage') || "";
 
           if (!apiKey) {
             // API key is empty, display error message and enable the button
@@ -344,20 +372,36 @@
             chatbox.append(botBubbleBefore);
             // API request logic
             const apiUrl = 'http://localhost/chatbot/chat';
-            const data = {
-              api_key: apiKey,
-              model: model,
-              provider: provider,
-              input: {
-                system: "You are a helpful assistant.",
-                messages: [
-                  {
-                    role: "user",
-                    content: userInput
-                  }
-                ]
+            // prepare the user messages to send for the chatbot
+            const userMessages = [
+              {
+                role: "user",
+                content: userInput
               }
-            };
+            ];
+            let data = {};
+            if (oneKey) {
+              data = {
+                api_key: apiKey,
+                one_key: oneKey,
+                model: model,
+                provider: provider,
+                input: {
+                  system: systemMessage,
+                  messages: userMessages
+                }
+              };
+            } else {
+              data = {
+                api_key: apiKey,
+                model: model,
+                provider: provider,
+                input: {
+                  system: "You are a helpful assistant.",
+                  messages: userMessages
+                }
+              };
+            }
 
             $('#userInput').val('');
             $.ajax({
@@ -416,6 +460,27 @@
       $('#sendMessage').on('click', function () {
         sendMessageToApi();
       });
+
+      // Check if the checkbox is checked on page load to determine whether to show the additional fields
+      if ($('#flexSwitchCheckDefault').is(':checked')) {
+        $('#additionalOptions').show();
+      }
+
+      // Event listener for the 'Connect Data' checkbox
+      $('#flexSwitchCheckDefault').change(function () {
+        // toggle the display of the additional fields based on the checkbox state
+        if (this.checked) {
+          $('#additionalOptions').slideDown(); // Show the fields with a slide-down effect
+        } else {
+          $('#additionalOptions').slideUp(); // Hide the fields with a slide-up effect
+        }
+      });
+
+      // Event listener for slider button
+      $('#slideBtn').on('click', function () {
+        setTimeout(() => loadValues(), 0);
+      });
+
     });
 
   </script>
