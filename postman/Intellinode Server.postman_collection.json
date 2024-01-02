@@ -548,7 +548,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"model\": \"gpt4\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"model\": \"gpt-4\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -581,7 +581,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"model\": \"command\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
+									"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"model\": \"command\",\n        \"system\": \"You are a helpful assistant.\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"recommend a vegetarian dish for dinner\"\n            }\n        ]\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -825,6 +825,72 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"provider\": \"openai\",\n   \"input\": {\n       \"texts\": [\"Hello, world!\", \"How do you generate embeddings?\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/embed/text",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"embed",
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "embedding-cohere",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"provider\": \"cohere\",\n   \"input\": {\n       \"texts\": [\"Hello, world!\", \"How do you generate embeddings?\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/embed/text",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"embed",
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "embedding-replicate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"{{replicate_key}}\",\n   \"provider\": \"replicate\",\n   \"input\": {\n       \"texts\": [\"Hello, world!\", \"How do you generate embeddings?\"]\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1125,6 +1191,110 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "data",
+			"item": [
+				{
+					"name": "chatbot-chat-openai",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"{{openai_key}}\",\n   \"one_key\": \"{{one_key}}\",\n   \"provider\": \"openai\",\n    \"input\": {\n        \"system\": \"You are a helpful assistant.\",\n        \"model\": \"gpt-4\",\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"tell me about entresto medicine doeses from the context\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chatbot-chat-cohere",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"api_key\": \"{{cohere_key}}\",\n   \"one_key\": \"{{one_key}}\",\n   \"provider\": \"cohere\",\n    \"input\": {\n        \"model\": \"command\",\n        \"system\": \"You are a helpful assistant.\",\n        \"searchK\": 4,\n        \"messages\": [\n            {\n            \"role\": \"user\",\n            \"content\": \"tell me about entresto medicine doeses from the context\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/chatbot/chat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"chatbot",
+								"chat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "semantic-search-intellinode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-KEY",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"one_key\": \"{{one_key}}\",\n   \"query_text\": \"entresto medicine\",\n   \"k\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/semanticsearch/search_intellinode",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"semanticsearch",
+								"search_intellinode"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1185,6 +1355,11 @@
 		},
 		{
 			"key": "huggin_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "one_key",
 			"value": "",
 			"type": "string"
 		}

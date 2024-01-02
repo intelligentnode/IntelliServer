@@ -310,4 +310,7 @@ nav{
   color: #fff;
 }
 
+.formOptions input { 
+  margin-bottom: 1rem;  
+}
 
