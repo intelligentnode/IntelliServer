@@ -330,6 +330,7 @@
     toggleContextOptionVisibility();
   </script>
   <script>
+    var messageHistory = [];
     $(document).ready(function () {
       // Function to enable/disable the button and show/hide loader
       function toggleButtonState(isEnabled) {
@@ -359,6 +360,7 @@
           const provider = localStorage.getItem('provider');
           const oneKey = localStorage.getItem('oneKey');
           const systemMessage = localStorage.getItem('systemMessage') || "";
+          let searchK = localStorage.getItem('searchK') || 3;
 
           if (!apiKey) {
             // API key is empty, display error message and enable the button
@@ -373,12 +375,16 @@
             // API request logic
             const apiUrl = 'http://localhost/chatbot/chat';
             // prepare the user messages to send for the chatbot
-            const userMessages = [
-              {
+            messageHistory.push({
                 role: "user",
                 content: userInput
-              }
-            ];
+            });
+            // verify the K
+            if (isNaN(Number(searchK)) || Number(searchK) < 1) { 
+              searchK = 3;
+            }
+            // prepare the data
+            const userMessages = messageHistory;
             let data = {};
             if (oneKey) {
               data = {
@@ -388,6 +394,7 @@
                 provider: provider,
                 input: {
                   system: systemMessage,
+                  searchK: searchK,
                   messages: userMessages
                 }
               };
@@ -416,14 +423,16 @@
                 botBubbleBefore.remove();
                 // Check the API response status
                 if (response.status === 'ERROR') {
-
-                  //console.log("this is error message");
                   // API returned an error, display the error message
                   console.log("response", response)
                   displayErrorMessage(response.message);
                 } else {
                   // API call was successful, display the bot's response
                   const botResponse = response.data[0];
+                  messageHistory.push({
+                      role: "assistant",
+                      content: botResponse
+                  });
                   const botResponseLines = botResponse.split('\n'); // Split the response into lines
 
                   // Create a single bot bubble with line breaks
