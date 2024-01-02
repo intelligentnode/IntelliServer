@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var path = require('path');
-const { SemanticSearch, SupportedEmbedModels } = require('intellinode');
+const { SemanticSearch, SupportedEmbedModels, IntellicloudWrapper } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
 const keys = {
@@ -87,6 +87,37 @@ router.post('/search', async (req, res, next) => {
   } catch (error) {
     res.json({ status: "ERROR", message: error.message });
   }
+});
+
+
+router.post('/search_intellinode', async (req, res, next) => { 
+  
+  const oneKey = req.body.one_key;
+  const queryText = req.body.query_text;
+  const searchK = req.body.k;
+  
+  if (!queryText) {
+    res.json({ status: "ERROR", message: "Send the queryText paramter with your query." });
+  } else if (!queryText) { 
+    res.json({ status: "searchK", message: "Send the k paramter with number of searched items." });
+  } else if (!oneKey) { 
+    res.json({ status: "searchK", message: "Send intellinode one_key to use the service." });
+  } else {
+
+    try {
+
+      const intellicloud = new IntellicloudWrapper(oneKey);
+      const result = await intellicloud.semanticSearch(queryText, searchK);
+
+      res.json({ status: "OK", results: result });
+
+    } catch (error) {
+      res.json({ status: "ERROR", message: error.message });
+    }
+  } /* validate the input */
+    
+
+
 });
 
 module.exports = router;
