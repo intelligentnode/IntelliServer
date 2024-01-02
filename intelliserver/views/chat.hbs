@@ -98,14 +98,14 @@
           </div>
           <div class="col-12" id="optionFieldsContainer">
             <div class="row">
-          <div class="col-12">
-            <label for="inputAddress2" class="form-label">One Key (optional)</label>
-            <input type="text" class="form-control" name="apiKey" id="oneKey" placeholder="One key">
-          </div>
-          <div class="col-12">
-            <label for="inputAddress2" class="form-label">Data Api (optional)</label>
-            <input type="text" class="form-control" name="apiKey" id="apiKey" placeholder="Data Api">
-          </div>
+         <div class="col-12">
+          <label for="oneKey" class="form-label">One Key (optional)</label>
+          <input type="text" class="form-control" id="oneKey" placeholder="One key">
+        </div>
+        <div class="col-12">
+          <label for="k" class="form-label">K (optional)</label>
+          <input type="number" class="form-control" id="k" placeholder="K" min="2" value="2">
+        </div>
           
             </div>
           </div>
@@ -146,11 +146,13 @@
 <script>
     // Function to dynamically update the model options based on the selected provider
     function updateModelOptions() {
-
       const selectedProvider = $('#provider').val();
       const modelDropdown = $('#model');
       if(localStorage.apiKey){
         $('#apiKey').val(localStorage.getItem('apiKey'));
+      }
+      if(localStorage.oneKey){
+        $('#oneKey').val(localStorage.getItem('oneKey'));
       }
       if (selectedProvider === 'cohere') {
         // Hide the Model select field and remove its value
@@ -215,10 +217,12 @@
     });
 
     const form = $('#chatbot-form');
-      // Load saved values from local storage when the page loads
-      loadValues();
-      // Form submission event
-      form.submit(function (e) {
+    
+    // Load saved values from local storage when the page loads
+    loadValues();
+    
+    // Form submission event
+    form.submit(function (e) {
       e.preventDefault();
       const systemMessage = $('#systemMessage').val();
       const numberOfMessages = $('#numberOfMessage').val();
@@ -227,7 +231,9 @@
       const apiKey = $('#apiKey').val();
       const contextMode = $('#flexSwitchCheckDefault').prop('checked');
       const apiKeyField = $('#apiKey');
-
+      const oneKey = $('#oneKey').val();
+      const k = $('#k').val();
+      
       if (apiKey.trim() === '') {
         // API key is empty, display error message and change border color
         apiKeyField.addClass('is-invalid');
@@ -236,59 +242,83 @@
         // API key is not empty, save values and reset the form
         apiKeyField.removeClass('is-invalid');
         apiKeyField.siblings('.invalid-feedback').text('');
-        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
-        $('.side-bar').removeClass('active');
-        form[0].reset();
+        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, k);
+         $('.side-bar').removeClass('active');
+        //form[0].reset();
       }
     });
 
-// Reset Keys button click event
-$('#resetKeys').click(function () {
-  localStorage.removeItem('systemMessage');
-  localStorage.removeItem('numberOfMessages');
-  localStorage.removeItem('provider');
-  localStorage.removeItem('model');
-  localStorage.removeItem('apiKey');
-  localStorage.removeItem('contextMode');
+    // Reset Keys button click event
+    $('#resetKeys').click(function () {
+      localStorage.removeItem('systemMessage');
+      localStorage.removeItem('numberOfMessages');
+      localStorage.removeItem('provider');
+      localStorage.removeItem('model');
+      localStorage.removeItem('apiKey');
+      localStorage.removeItem('contextMode');
+      localStorage.removeItem('oneKey');
+      localStorage.removeItem('k');
 
-  // Reset the form fields to their default values
-  form[0].reset();
-  $('#apiKey').removeClass('is-invalid'); // Remove error styling
-  $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
-});
+      // Reset the form fields to their default values
+      form[0].reset();
+      $('#apiKey').removeClass('is-invalid'); // Remove error styling
+      $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
+    });
 
-      // Function to save values to local storage
-     function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
-        // Save values to local storage
-        localStorage.setItem('systemMessage', systemMessage);
-        localStorage.setItem('numberOfMessages', numberOfMessages);
-        localStorage.setItem('provider', provider);
-        localStorage.setItem('model', model);
-        localStorage.setItem('apiKey', apiKey);
-        localStorage.setItem('contextMode', contextMode);      
-      }
+    // Function to save values to local storage
+    function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, k) {
+      // Save values to local storage
+      localStorage.setItem('systemMessage', systemMessage);
+      localStorage.setItem('numberOfMessages', numberOfMessages);
+      localStorage.setItem('provider', provider);
+      localStorage.setItem('model', model);
+      localStorage.setItem('apiKey', apiKey);
+      localStorage.setItem('contextMode', contextMode);
+      // Save one_key and k values if "Connect Data" is checked
+      if ($('#ConnectData').prop('checked')) {
+        localStorage.setItem('oneKey', oneKey);
+        localStorage.setItem('k', k);
+      }    
+    }
 
-      // Function to load values from local storage and populate input fields
-      function loadValues() {
-        // Load values from local storage and populate input fields
-        const savedSystemMessage = localStorage.getItem('systemMessage');
-        const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
-        const savedProvider = localStorage.getItem('provider');
-        const savedModel = localStorage.getItem('model');
-        const savedApiKey = localStorage.getItem('apiKey');
-        const savedContextMode = localStorage.getItem('contextMode');
-        
-        if (savedSystemMessage) {
-          $('#systemMessage').val(savedSystemMessage);
-          $('#numberOfMessage').val(savedNumberOfMessages);
-          $('#provider').val(savedProvider);
-          $('#model').val(savedModel);
-          $('#apiKey').val(savedApiKey);
-          $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+    // Function to load values from local storage and populate input fields
+    function loadValues() {
+      // Load values from local storage and populate input fields
+      const savedSystemMessage = localStorage.getItem('systemMessage');
+      const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
+      const savedProvider = localStorage.getItem('provider');
+      const savedModel = localStorage.getItem('model');
+      const savedApiKey = localStorage.getItem('apiKey');
+      const savedContextMode = localStorage.getItem('contextMode');
+      const savedOneKey = localStorage.getItem('oneKey');
+      const savedK = localStorage.getItem('k');
+      const connectDataChecked = localStorage.getItem('connectDataChecked');
+      if (connectDataChecked === 'true') {
+            $('#ConnectData').prop('checked', true);
+          }
+
+      if (savedSystemMessage) {
+        $('#systemMessage').val(savedSystemMessage);
+        $('#numberOfMessage').val(savedNumberOfMessages);
+        $('#provider').val(savedProvider);
+        $('#model').val(savedModel);
+        $('#apiKey').val(savedApiKey);
+        $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+        // Set one_key and k values
+          $('#oneKey').val(savedOneKey);
+          $('#k').val(savedK);
+
+          // Check "Connect Data" checkbox if it was checked before
+          if (connectDataChecked === 'true') {
+            $('#ConnectData').prop('checked', true);
+          }
         }
       }
-  </script>
-    <script>
+    
+</script>
+
+
+<script>
   // Function to toggle the visibility of the "Context" option
   function toggleContextOptionVisibility() {
     const providerSelect = document.getElementById('provider');
@@ -307,7 +337,7 @@ $('#resetKeys').click(function () {
   // Call the toggleContextOptionVisibility function on page load to set the initial state
   toggleContextOptionVisibility();
 </script>
- <script> 
+<script> 
  $(document).ready(function () {
   // Function to enable/disable the button and show/hide loader
   function toggleButtonState(isEnabled) {
@@ -335,6 +365,10 @@ $('#resetKeys').click(function () {
       const apiKey = localStorage.getItem('apiKey');
       const model = localStorage.getItem('model');
       const provider = localStorage.getItem('provider');
+      // Get one_key and k values from the input fields
+      const oneKey = $('#ConnectData').prop('checked') ? localStorage.getItem('oneKey') : '';
+      const k = $('#ConnectData').prop('checked') ? localStorage.getItem('k')  : '';
+      const isDataConnected=localStorage.getItem('connectDataChecked');
 
       // Load message history from local storage
       let messageHistory = JSON.parse(localStorage.getItem('messageHistory')) || [];
@@ -364,9 +398,11 @@ $('#resetKeys').click(function () {
           system: 'You are a helpful assistant.',
           messages: messageHistory
         },
-        one_key: 'ince37408f',
+
+        one_key: oneKey, // Use dynamic one_key value
+        k: k, // Use dynamic k value
         query_text: userInput,
-        k: '2',
+        isDataConnected:isDataConnected,
       };
 
       $('#userInput').val('');
@@ -423,38 +459,52 @@ $('#resetKeys').click(function () {
   });
 });
 
-  </script>
+</script>
 
-  <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
-       
-      $(".sideBaricon").on("click", function() {
-        $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
-      });
-  </script>
-   <script>
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+      
+    $(".sideBaricon").on("click", function() {
+      $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
+    });
+</script>
+<script>
    // Function to toggle the visibility of option input fields
    function toggleOptionFieldsVisibility() {
       const optionFieldsContainer = $('#optionFieldsContainer');
       const connectDataCheckbox = $('#ConnectData');
 
       if (connectDataCheckbox.prop('checked')) {
-         optionFieldsContainer.show(); // Show the option input fields
-      } else {
-         optionFieldsContainer.hide(); // Hide the option input fields
-      }
+            optionFieldsContainer.show(); // Show the option input fields
+        } else {
+            optionFieldsContainer.hide(); // Hide the option input fields
+            // Clear values and remove from local storage when hiding
+            $('#oneKey').val('');
+            $('#k').val('');
+            localStorage.removeItem('oneKey');
+            localStorage.removeItem('k');
+        }
    }
 
    // Add an event listener to the "Connect Data" checkbox
    $('#ConnectData').on('change', function () {
       toggleOptionFieldsVisibility();
+      localStorage.setItem('connectDataChecked', $(this).prop('checked'));
    });
 
    // Call the function on page load to set the initial state
    toggleOptionFieldsVisibility();
+/*
+   const storedConnectDataChecked = localStorage.getItem('connectDataChecked');
+  if (storedConnectDataChecked === 'true') {
+      $('#ConnectData').prop('checked', true);
+      toggleOptionFieldsVisibility(); // Show option input fields
+  } else {
+      $('#ConnectData').prop('checked', false);
+  }*/
 </script>
 
 

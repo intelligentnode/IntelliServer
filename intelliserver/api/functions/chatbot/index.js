@@ -64,7 +64,6 @@ const ChatbotHelpers = require('../../utils/chatbot_helper');
  */
 
 router.post('/chat', async (req, res, next) => {
-    console.log("this is result",req)
     try {
         const chatbot = ChatbotHelpers.getChatbot(req);
         const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider);
@@ -86,7 +85,6 @@ router.post('/stream', async (req, res, next) => {
         if (SupportedChatModels.OPENAI != provider.toLowerCase()) {
             res.json({ status: "ERROR", message: "stream support openai only, for other providers call /chat api" });
         }
-
         // process
         const chatbot = ChatbotHelpers.getChatbot(req);
         const input = ChatbotHelpers.getChatInput(req.body.input, provider);
