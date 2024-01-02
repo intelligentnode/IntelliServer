@@ -14,7 +14,10 @@ const ChatbotHelpers = require('../../utils/chatbot_helper');
  *     tags:
  *       - Functions
  *     summary: chatbot as a service with multiple LLM providers like openai, replicate, azure and sageMaker.
- *
+ *     description: |
+ *       Chatbot agent with multiple providers like openai, cohere, replicate, azure and more,
+ *       providing a unified layer to access any model without changing your business application.
+ *       You can connect the agent to your data using the one key from "intellinode.ai".
  *     security:
  *       - ApiKeyAuth: []
  *
@@ -33,18 +36,21 @@ const ChatbotHelpers = require('../../utils/chatbot_helper');
  *               api_key:
  *                 type: string
  *                 description: The api key
+ *               one_key:
+ *                 type: string
+ *                 description: optional value to use your intellinode documents in the chat.
  *               model:
  *                 type: string
- *                 description: The model type (e.g. 'gpt4')
+ *                 description: The model type (e.g. 'gpt4').
  *               provider:
  *                 type: string
- *                 description: The provider (e.g. 'openai')
+ *                 description: The provider (e.g. 'openai', 'cohere').
  *               input:
  *                 type: object
  *                 properties:
  *                  system:
  *                    type: string
- *                    description: System message to the chatbot
+ *                    description: System message to the chatbot.
  *                  messages:
  *                    type: array
  *                    items:
@@ -52,15 +58,15 @@ const ChatbotHelpers = require('../../utils/chatbot_helper');
  *                      properties:
  *                        role:
  *                          type: string
- *                          description: Role of the sender, either 'user' or 'assistant'
+ *                          description: Role of the sender, either 'user' or 'assistant'.
  *                        content:
  *                          type: string
- *                          description: Content of the message
+ *                          description: Content of the message.
  *     responses:
  *       200:
- *         description: The chatbot's response
+ *         description: The chatbot's response.
  *       400:
- *         description: There was a problem with the request
+ *         description: There was a problem with the request.
  */
 
 router.post('/chat', async (req, res, next) => {
@@ -77,6 +83,68 @@ router.post('/chat', async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * /chatbot/stream:
+ *   post:
+ *     tags:
+ *       - Functions
+ *     summary: Stream chat responses in real-time.
+ *     description: |
+ *       Opens a streaming connection with the chatbot using the LLM providers like OpenAI,
+ *       allowing clients to receive real-time responses as a stream. 
+ *       Currently supports OpenAI provider only. For other providers, use the /chat endpoint.
+ *     security:
+ *       - ApiKeyAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - model
+ *               - provider
+ *               - input
+ *             properties:
+ *               api_key:
+ *                 type: string
+ *                 description: The OpenAI api key. Required if not using default keys configured on the server.
+ *               one_key:
+ *                 type: string
+ *                 description: Optional value to use your intellinode documents in the chat.
+ *               model:
+ *                 type: string
+ *                 description: The model type (e.g. 'gpt-3.5-turbo').
+ *               provider:
+ *                 type: string
+ *                 description: The provider must be 'openai'.
+ *               input:
+ *                 type: object
+ *                 properties:
+ *                   system:
+ *                     type: string
+ *                     description: System message to the chatbot.
+ *                   messages:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         role:
+ *                           type: string
+ *                           description: Role of the sender, either 'user' or 'assistant'.
+ *                         content:
+ *                           type: string
+ *                           description: Content of the message.
+ *     responses:
+ *       200:
+ *         description: |
+ *           Streams the chatbot's response. Each message is prefixed with "data: " as per the Server-Sent Events protocol.
+ *       400:
+ *         description: There was a problem with the request.
+ *     produces:
+ *       - text/event-stream
+ */
 router.post('/stream', async (req, res, next) => {
     try {
         

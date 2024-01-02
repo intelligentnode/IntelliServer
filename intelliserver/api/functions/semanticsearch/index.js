@@ -95,7 +95,7 @@ router.post('/search', async (req, res, next) => {
  * /search_intellinode:
  *   post:
  *     tags:
- *       - Semantic Search
+ *       - Functions
  *     summary: Semantic search using the IntelliNode service.
  *     description: Perform a semantic search to find the most relevant items related to the given query using IntelliNode.
  *     requestBody:
