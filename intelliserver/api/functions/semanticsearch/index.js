@@ -90,6 +90,42 @@ router.post('/search', async (req, res, next) => {
 });
 
 
+/**
+ * @swagger
+ * /search_intellinode:
+ *   post:
+ *     tags:
+ *       - Semantic Search
+ *     summary: Semantic search using the IntelliNode service.
+ *     description: Perform a semantic search to find the most relevant items related to the given query using IntelliNode.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - one_key
+ *               - query_text
+ *               - k
+ *             properties:
+ *               one_key:
+ *                 type: string
+ *                 description: IntelliNode one_key for authentication.
+ *               query_text:
+ *                 type: string
+ *                 description: The query text to search against the items.
+ *               k:
+ *                 type: integer
+ *                 description: The number of top results to return from the search.
+ *     responses:
+ *       200:
+ *         description: The search results containing the most relevant items.
+ *       400:
+ *         description: An error message if the request is invalid.
+ *       500:
+ *         description: An error message if there is an issue processing the request.
+ */
 router.post('/search_intellinode', async (req, res, next) => { 
   
   const oneKey = req.body.one_key;
