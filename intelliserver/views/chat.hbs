@@ -1,9 +1,10 @@
-
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>IntelliServer</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
@@ -12,7 +13,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="/"><img src="/assets/logo.png" alt="">IntelliServer</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
@@ -26,9 +28,12 @@
           </ul>
           <span class="navbar-text sideBaricon cursor-pointer ">
             <button class="btn btn-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><path fill="'#fff" d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path>
-                      </svg>                  
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                <path fill="'#fff" d="M9 3v18"></path>
+                <path d="m16 15-3-3 3-3"></path>
+              </svg>
             </button>
           </span>
         </div>
@@ -37,11 +42,12 @@
   </header>
   <section>
     <div class="container">
-      <div class="chatbox-container" >
+      <div class="chatbox-container">
         <div class="chat-section" id="chatbox">
         </div>
         <div class="input-group mb-3 chat-mesasge">
-          <input type="text" class="form-control" placeholder="Search"  id="userInput" aria-label="Recipient's username" aria-describedby="basic-addon2" >
+          <input type="text" class="form-control" placeholder="Search" id="userInput" aria-label="Recipient's username"
+            aria-describedby="basic-addon2">
           <button class="input-group-text btn btn-primary submit-button " id="sendMessage">Submit</button>
         </div>
       </div>
@@ -58,8 +64,12 @@
           <div class="col-md-12">
             <div class="flex justify-content-between">
               <label for="inputPassword4" class="form-label">Number of Messages</label>
-              <button type="button" class="btn btn-ghost ms-auto" id="dds" data-bs-toggle="tooltip" data-class="custom-tooltip" data-bs-placement="top" title="The number of messages to include in a request. The higher the number, the more context the Al will have to work with. This will determine the number of messages used to generate the context when the Use Chat Context option is enabled.">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
+              <button type="button" class="btn btn-ghost ms-auto" id="dds" data-bs-toggle="tooltip"
+                data-class="custom-tooltip" data-bs-placement="top"
+                title="The number of messages to include in a request. The higher the number, the more context the Al will have to work with.">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-info">
                   <circle cx="12" cy="12" r="10" fill="#fff"></circle>
                   <path d="M12 16v-4"></path>
                   <path d="M12 8h.01"></path>
@@ -75,29 +85,32 @@
               <option selected value="openai">Open Api</option>
               <option value="replicate">replicate</option>
               <option value="cohere">cohere</option>
-            </select>          
+            </select>
           </div>
           <div id="model-container" class="col-12">
             <label for="inputAddress" class="form-label">Model</label>
             <select id="model" class="form-select">
-                <option selected value="gpt3.5" data-providers="openai ">gpt-3.5-turbo</option>
-                <option value="gpt4" data-providers="openai ">gpt-4</option>
-                <option value="70b-chat" data-providers="replicate">70b Chat</option>
-                <option value="13b-chat" data-providers="replicate">13b Chat</option>
-            </select>          
+              <option selected value="gpt3.5" data-providers="openai ">gpt-3.5-turbo</option>
+              <option value="gpt4" data-providers="openai ">gpt-4</option>
+              <option value="70b-chat" data-providers="replicate">70b Chat</option>
+              <option value="13b-chat" data-providers="replicate">13b Chat</option>
+            </select>
           </div>
           <div class="col-12">
             <label for="inputAddress2" class="form-label">Api Key</label>
             <input type="password" class="form-control" name="apiKey" id="apiKey" placeholder="Api Key">
           </div>
-          
+
           <div class="col-12 d-flex justify-content-between align-items-center">
-            <div class="form-check form-switch" id="context-option">
-              <label class="form-check-label" for="flexSwitchCheckDefault">Context</label>
+            <div class="form-check form-switch" id="data-option">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Connect Data</label>
               <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             </div>
-            <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="When enabled, the chatbot wil dynamically select previous parts of the conversation that are most relevant to the current query. using embeddings. The number of parts will be equal to the number of messages set above.">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info">
+            <button type="button" class="btn btn-ghost ms-auto" data-bs-toggle="tooltip" data-bs-placement="top"
+              title="When enabled, the chatbot will use your data in the conversation. To upload your documents go to intellinode.ai">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-info">
                 <circle cx="12" cy="12" r="10" fill="#fff"></circle>
                 <path d="M12 16v-4"></path>
                 <path d="M12 8h.01"></path>
@@ -112,9 +125,9 @@
       </div>
     </div>
   </section>
-  
 
-<!-- 
+
+  <!-- 
   <h1>IntelliServer</h1>
   <p>Access AI models as microservice with IntelliServer.</p>
 
@@ -122,15 +135,17 @@
 
   <p><a href="https://github.com/intelligentnode/IntelliServer/wiki">Check the documentation.</a></p> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  
-<script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script>
     // Function to dynamically update the model options based on the selected provider
     function updateModelOptions() {
 
       const selectedProvider = $('#provider').val();
       const modelDropdown = $('#model');
-      if(localStorage.apiKey){
+      if (localStorage.apiKey) {
         $('#apiKey').val(localStorage.getItem('apiKey'));
       }
       if (selectedProvider === 'cohere') {
@@ -196,226 +211,226 @@
     });
 
     const form = $('#chatbot-form');
-      // Load saved values from local storage when the page loads
-      loadValues();
-      // Form submission event
-      form.submit(function (e) {
-  e.preventDefault();
-  const systemMessage = $('#systemMessage').val();
-  const numberOfMessages = $('#numberOfMessage').val();
-  const provider = $('#provider').val();
-  const model = $('#model').val();
-  const apiKey = $('#apiKey').val();
-  const contextMode = $('#flexSwitchCheckDefault').prop('checked');
-  const apiKeyField = $('#apiKey');
+    // Load saved values from local storage when the page loads
+    loadValues();
+    // Form submission event
+    form.submit(function (e) {
+      e.preventDefault();
+      const systemMessage = $('#systemMessage').val();
+      const numberOfMessages = $('#numberOfMessage').val();
+      const provider = $('#provider').val();
+      const model = $('#model').val();
+      const apiKey = $('#apiKey').val();
+      const contextMode = $('#flexSwitchCheckDefault').prop('checked');
+      const apiKeyField = $('#apiKey');
 
-  if (apiKey.trim() === '') {
-    // API key is empty, display error message and change border color
-    apiKeyField.addClass('is-invalid');
-    apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
-  } else {
-    // API key is not empty, save values and reset the form
-    apiKeyField.removeClass('is-invalid');
-    apiKeyField.siblings('.invalid-feedback').text('');
-    saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
-    $('.side-bar').removeClass('active');
-    form[0].reset();
-  }
-});
+      if (apiKey.trim() === '') {
+        // API key is empty, display error message and change border color
+        apiKeyField.addClass('is-invalid');
+        apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
+      } else {
+        // API key is not empty, save values and reset the form
+        apiKeyField.removeClass('is-invalid');
+        apiKeyField.siblings('.invalid-feedback').text('');
+        saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode);
+        $('.side-bar').removeClass('active');
+        form[0].reset();
+      }
+    });
 
-// Reset Keys button click event
-$('#resetKeys').click(function () {
-  localStorage.removeItem('systemMessage');
-  localStorage.removeItem('numberOfMessages');
-  localStorage.removeItem('provider');
-  localStorage.removeItem('model');
-  localStorage.removeItem('apiKey');
-  localStorage.removeItem('contextMode');
+    // Reset Keys button click event
+    $('#resetKeys').click(function () {
+      localStorage.removeItem('systemMessage');
+      localStorage.removeItem('numberOfMessages');
+      localStorage.removeItem('provider');
+      localStorage.removeItem('model');
+      localStorage.removeItem('apiKey');
+      localStorage.removeItem('contextMode');
 
-  // Reset the form fields to their default values
-  form[0].reset();
-  $('#apiKey').removeClass('is-invalid'); // Remove error styling
-  $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
-});
+      // Reset the form fields to their default values
+      form[0].reset();
+      $('#apiKey').removeClass('is-invalid'); // Remove error styling
+      $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
+    });
 
-      // Function to save values to local storage
-     function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
-        // Save values to local storage
-        localStorage.setItem('systemMessage', systemMessage);
-        localStorage.setItem('numberOfMessages', numberOfMessages);
-        localStorage.setItem('provider', provider);
-        localStorage.setItem('model', model);
-        localStorage.setItem('apiKey', apiKey);
-        localStorage.setItem('contextMode', contextMode);      
+    // Function to save values to local storage
+    function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode) {
+      // Save values to local storage
+      localStorage.setItem('systemMessage', systemMessage);
+      localStorage.setItem('numberOfMessages', numberOfMessages);
+      localStorage.setItem('provider', provider);
+      localStorage.setItem('model', model);
+      localStorage.setItem('apiKey', apiKey);
+      localStorage.setItem('contextMode', contextMode);
+    }
+
+    // Function to load values from local storage and populate input fields
+    function loadValues() {
+      // Load values from local storage and populate input fields
+      const savedSystemMessage = localStorage.getItem('systemMessage');
+      const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
+      const savedProvider = localStorage.getItem('provider');
+      const savedModel = localStorage.getItem('model');
+      const savedApiKey = localStorage.getItem('apiKey');
+      const savedContextMode = localStorage.getItem('contextMode');
+
+      if (savedSystemMessage) {
+        $('#systemMessage').val(savedSystemMessage);
+        $('#numberOfMessage').val(savedNumberOfMessages);
+        $('#provider').val(savedProvider);
+        $('#model').val(savedModel);
+        $('#apiKey').val(savedApiKey);
+        $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+      }
+    }
+  </script>
+  <script>
+    // Function to toggle the visibility of the "Context" option
+    function toggleContextOptionVisibility() {
+      const providerSelect = document.getElementById('provider');
+      const dataOption = document.getElementById('data-option');
+
+      if (providerSelect.value === 'replicate') {
+        dataOption.style.display = 'none'; // Hide the "Context" option
+      } else {
+        dataOption.style.display = 'block'; // Show the "Context" option
+      }
+    }
+
+    // Add an event listener to the provider select field
+    document.getElementById('provider').addEventListener('change', toggleContextOptionVisibility);
+
+    // Call the toggleContextOptionVisibility function on page load to set the initial state
+    toggleContextOptionVisibility();
+  </script>
+  <script>
+    $(document).ready(function () {
+      // Function to enable/disable the button and show/hide loader
+      function toggleButtonState(isEnabled) {
+        $('#sendMessage').prop('disabled', !isEnabled);
+        $('#sendMessage').html(isEnabled ? 'Send Message' : '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...');
       }
 
-      // Function to load values from local storage and populate input fields
-      function loadValues() {
-        // Load values from local storage and populate input fields
-        const savedSystemMessage = localStorage.getItem('systemMessage');
-        const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
-        const savedProvider = localStorage.getItem('provider');
-        const savedModel = localStorage.getItem('model');
-        const savedApiKey = localStorage.getItem('apiKey');
-        const savedContextMode = localStorage.getItem('contextMode');
-        
-        if (savedSystemMessage) {
-          $('#systemMessage').val(savedSystemMessage);
-          $('#numberOfMessage').val(savedNumberOfMessages);
-          $('#provider').val(savedProvider);
-          $('#model').val(savedModel);
-          $('#apiKey').val(savedApiKey);
-          $('#flexSwitchCheckDefault').prop('checked', savedContextMode === 'true');
+      // Function to display an error message to the user
+      function displayErrorMessage(errorMessage) {
+        const chatbox = $('#chatbox');
+        const errorBubble = $('<div>').addClass('error-bubble').text('Error: ' + errorMessage);
+        chatbox.append(errorBubble);
+        chatbox.scrollTop(chatbox.prop("scrollHeight"));
+      }
+
+      // Function to send the message to the API and handle the response
+      function sendMessageToApi() {
+        toggleButtonState(false); // Disable the button and show loader
+        const userInput = $('#userInput').val();
+
+        if ($.trim(userInput) !== '') {
+          const chatbox = $('#chatbox');
+
+          // Get API key and other values from local storage
+          const apiKey = localStorage.getItem('apiKey');
+          const model = localStorage.getItem('model');
+          const provider = localStorage.getItem('provider');
+
+          if (!apiKey) {
+            // API key is empty, display error message and enable the button
+            displayErrorMessage('Please enter a valid API key.');
+            toggleButtonState(true);
+          } else {
+
+            const userBubble = $('<div>').addClass('user-bubble').text(userInput);
+            chatbox.append(userBubble);
+            const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
+            chatbox.append(botBubbleBefore);
+            // API request logic
+            const apiUrl = 'http://localhost/chatbot/chat';
+            const data = {
+              api_key: apiKey,
+              model: model,
+              provider: provider,
+              input: {
+                system: "You are a helpful assistant.",
+                messages: [
+                  {
+                    role: "user",
+                    content: userInput
+                  }
+                ]
+              }
+            };
+
+            $('#userInput').val('');
+            $.ajax({
+              url: apiUrl,
+              type: 'POST',
+              headers: {
+                'X-API-KEY': "root",
+                'Content-Type': 'application/json',
+              },
+              data: JSON.stringify(data),
+              success: function (response) {
+                botBubbleBefore.remove();
+                // Check the API response status
+                if (response.status === 'ERROR') {
+
+                  //console.log("this is error message");
+                  // API returned an error, display the error message
+                  console.log("response", response)
+                  displayErrorMessage(response.message);
+                } else {
+                  // API call was successful, display the bot's response
+                  const botResponse = response.data[0];
+                  const botResponseLines = botResponse.split('\n'); // Split the response into lines
+
+                  // Create a single bot bubble with line breaks
+                  const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
+                  chatbox.append(botBubble);
+
+                  chatbox.scrollTop(chatbox.prop("scrollHeight"));
+                }
+
+                toggleButtonState(true); // Enable the button and hide loader
+              },
+              error: function (xhr, status, error) {
+                // Handle other errors (e.g., network issues)
+                console.error('Error:', error);
+
+                // Display a generic error message to the user
+                displayErrorMessage('An unexpected error occurred.');
+
+                toggleButtonState(true); // Enable the button and hide loader
+              }
+            });
+          }
+        } else {
+          toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
         }
       }
-  </script>
-    <script>
-  // Function to toggle the visibility of the "Context" option
-  function toggleContextOptionVisibility() {
-    const providerSelect = document.getElementById('provider');
-    const contextOption = document.getElementById('context-option');
 
-    if (providerSelect.value === 'replicate') {
-      contextOption.style.display = 'none'; // Hide the "Context" option
-    } else {
-      contextOption.style.display = 'block'; // Show the "Context" option
-    }
-  }
+      $('#userInput').keypress(function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          sendMessageToApi();
+        }
+      });
+      $('#sendMessage').on('click', function () {
+        sendMessageToApi();
+      });
+    });
 
-  // Add an event listener to the provider select field
-  document.getElementById('provider').addEventListener('change', toggleContextOptionVisibility);
-
-  // Call the toggleContextOptionVisibility function on page load to set the initial state
-  toggleContextOptionVisibility();
-</script>
- <script> 
-  $(document).ready(function () {
-  // Function to enable/disable the button and show/hide loader
-  function toggleButtonState(isEnabled) {
-    $('#sendMessage').prop('disabled', !isEnabled);
-    $('#sendMessage').html(isEnabled ? 'Send Message' : '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...');
-  }
-
-  // Function to display an error message to the user
-  function displayErrorMessage(errorMessage) {
-    const chatbox = $('#chatbox');
-    const errorBubble = $('<div>').addClass('error-bubble').text('Error: ' + errorMessage);
-    chatbox.append(errorBubble);
-    chatbox.scrollTop(chatbox.prop("scrollHeight"));
-  }
-
-  // Function to send the message to the API and handle the response
-  function sendMessageToApi() {
-    toggleButtonState(false); // Disable the button and show loader
-    const userInput = $('#userInput').val();
-
-    if ($.trim(userInput) !== '') {
-      const chatbox = $('#chatbox');
-
-      // Get API key and other values from local storage
-      const apiKey = localStorage.getItem('apiKey');
-      const model = localStorage.getItem('model');
-      const provider = localStorage.getItem('provider');
-
-      if (!apiKey) {
-        // API key is empty, display error message and enable the button
-        displayErrorMessage('Please enter a valid API key.');
-        toggleButtonState(true);
-      } else {
-
-        const userBubble = $('<div>').addClass('user-bubble').text(userInput);
-      chatbox.append(userBubble);
-      const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
-      chatbox.append(botBubbleBefore);
-        // API request logic
-        const apiUrl = 'http://localhost/chatbot/chat';
-        const data = {
-          api_key: apiKey,
-          model: model,
-          provider: provider,
-          input: {
-            system: "You are a helpful assistant.",
-            messages: [
-              {
-                role: "user",
-                content: userInput
-              }
-            ]
-          }
-        };
-
-        $('#userInput').val('');
-        $.ajax({
-          url: apiUrl,
-          type: 'POST',
-          headers: {
-            'X-API-KEY': "root",
-            'Content-Type': 'application/json',
-          },
-          data: JSON.stringify(data),
-          success: function (response) {
-             botBubbleBefore.remove();
-            // Check the API response status
-            if (response.status === 'ERROR') {
-
-              //console.log("this is error message");
-              // API returned an error, display the error message
-              console.log("response",response)
-              displayErrorMessage(response.message);
-            } else {
-               // API call was successful, display the bot's response
-              const botResponse = response.data[0];
-              const botResponseLines = botResponse.split('\n'); // Split the response into lines
-
-              // Create a single bot bubble with line breaks
-              const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
-              chatbox.append(botBubble);
-
-              chatbox.scrollTop(chatbox.prop("scrollHeight"));
-            }
-
-            toggleButtonState(true); // Enable the button and hide loader
-          },
-          error: function (xhr, status, error) {
-            // Handle other errors (e.g., network issues)
-            console.error('Error:', error);
-
-            // Display a generic error message to the user
-            displayErrorMessage('An unexpected error occurred.');
-
-            toggleButtonState(true); // Enable the button and hide loader
-          }
-        });
-      }
-    } else {
-      toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
-    }
-  }
-
-  $('#userInput').keypress(function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      sendMessageToApi();
-    }
-  });
-  $('#sendMessage').on('click', function () {
-    sendMessageToApi();
-  });
-});
- 
   </script>
 
   <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
-       
-      $(".sideBaricon").on("click", function() {
-        $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
-      });
+    })
+
+    $(".sideBaricon").on("click", function () {
+      $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
+    });
   </script>
-   
+
 
 </body>
 
