@@ -61,7 +61,7 @@ app.use('/admin', authAdminMiddleware, adminRouter);
 // Swagger
 const options = { customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.css' };
 if (config.SHOW_SWAGGER) {
-  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+  app.use('/api_docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 }
 
 app.use('/views', viewsRouter);
