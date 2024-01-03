@@ -74,6 +74,7 @@ docker run -p 80:80 -e API_KEY=$API_KEY -e ADMIN_KEY=$ADMIN_KEY intellinode/inte
 docker run -p 80:80 intellinode/intelliserver:latest
 ```
 
+-----
 **Mac M-series processors**
 
 For Mac M-series users, pull the arm64 version:
