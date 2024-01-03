@@ -128,7 +128,7 @@ router.post('/search', async (req, res, next) => {
  */
 router.post('/search_intellinode', async (req, res, next) => { 
   
-  const oneKey = req.body.one_key;
+  const oneKey = req.body.one_key || process.env.ONE_KEY;
   const queryText = req.body.query_text;
   const searchK = req.body.k;
   

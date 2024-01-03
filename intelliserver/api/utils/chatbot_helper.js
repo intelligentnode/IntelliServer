@@ -14,7 +14,7 @@ class ChatbotHelpers {
             'cohere': process.env.COHERE_API_KEY
         };
 
-        const one_key = req.body.one_key;
+        const one_key = req.body.one_key || process.env.ONE_KEY;
         
         if (one_key) {
             // if the api connected with data.
