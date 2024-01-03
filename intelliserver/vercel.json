@@ -4,8 +4,5 @@
     { "source": "/api-docs", "destination": "/api-docs/index.html" },
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/api" }
-  ],
-  "staticFiles": {
-    "public": "public"
-  }
+  ]
 }
