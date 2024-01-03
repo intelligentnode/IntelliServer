@@ -75,6 +75,7 @@ docker run -p 80:80 intellinode/intelliserver:latest
 ```
 
 **Mac M-series processors**
+
 For Mac M-series users, pull the arm64 version:
 ```bash
 docker pull intellinode/intelliserver:arm64
