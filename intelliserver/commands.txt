@@ -5,7 +5,7 @@ npm install
 npm start
 
 ### docker commands ###
-docker build -f Dockerfile -t intelliserver:latest .
+docker build --platform linux/amd64 -f Dockerfile -t intelliserver:latest .
 docker run -p 80:80 intelliserver:latest
 docker stop <id>
 
@@ -18,3 +18,11 @@ docker-compose down
 docker tag intelliserver:latest intellinode/intelliserver:latest
 docker push intellinode/intelliserver:latest
 
+# version publish
+docker tag intelliserver:latest intellinode/intelliserver:0.1
+docker push intellinode/intelliserver:0.1
+
+### mac M-series processor publish ###
+docker build --platform linux/arm64 -f Dockerfile -t intelliserver:arm64 .
+docker tag intelliserver:arm64 intellinode/intelliserver:arm64
+docker push intellinode/intelliserver:arm64
