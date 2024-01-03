@@ -38,13 +38,15 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 ## Installation
 
 ### Repository Setup
-Below are instructions to run the microservice from the GitHub repo:
+Instructions to run the microservice from GitHub repo:
+
 **npm**
 ```bash
 cd intelliserver
 npm install
 npm start
 ```
+
 **docker**
 
 ```bash
