@@ -1,8 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api-docs/(.*)", "destination": "/public/api-docs/$1" },
-    { "source": "/api-docs", "destination": "/api-docs/index.html" },
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/api" }
+    { "source": "/api-docs/(.*)", "destination": "/api-docs/index.html" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ]
 }
