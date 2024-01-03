@@ -38,6 +38,7 @@ Intelliserver is a microservice providing unified access to multiple AI models, 
 ## Installation
 
 ### Repository Setup
+Below are instructions to run the microservice from the GitHub repo:
 **npm**
 ```bash
 cd intelliserver
@@ -45,7 +46,6 @@ npm install
 npm start
 ```
 **docker**
-
 
 ```bash
 # docker run
@@ -57,7 +57,7 @@ docker-compose up
 ```
 
 ### Release (Docker Hub)
-Pull the image
+To pull the release image from docker hub:
 ```bash
 docker pull intellinode/intelliserver:latest
 ```
@@ -70,6 +70,12 @@ docker run -p 80:80 -e API_KEY=$API_KEY -e ADMIN_KEY=$ADMIN_KEY intellinode/inte
 
 # or run with the default key - only for testing
 docker run -p 80:80 intellinode/intelliserver:latest
+```
+
+**Mac M-series processors**
+For Mac M-series users, pull the arm64 version:
+```bash
+docker pull intellinode/intelliserver:arm64
 ```
 
 ## Testing
