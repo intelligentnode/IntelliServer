@@ -1,5 +1,5 @@
 const path = require('path');
-const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput, CohereInput } = require('intellinode');
+const { ChatGPTInput, LLamaReplicateInput, LLamaSageInput, CohereInput, GeminiInput, MistralInput } = require('intellinode');
 const { Chatbot, SupportedChatModels } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
 
@@ -11,7 +11,9 @@ class ChatbotHelpers {
             'openai': process.env.OPENAI_API_KEY,
             'replicate': process.env.REPLICATE_API_KEY,
             'sagemaker': process.env.SAGEMAKER_API_KEY,
-            'cohere': process.env.COHERE_API_KEY
+            'cohere': process.env.COHERE_API_KEY,
+            'mistral': process.env.MISTRAL_API_KEY,
+            'gemini': process.env.GEMINI_API_KEY
         };
 
         const one_key = req.body.one_key || process.env.ONE_KEY;
@@ -51,11 +53,15 @@ class ChatbotHelpers {
     }
 
     static getChatInput(input, provider) {
+        
+        input.attachReference = true;
 
         const inputInst = input instanceof ChatGPTInput ? input :
             provider === SupportedChatModels.REPLICATE ? new LLamaReplicateInput(input.system, input) :
             provider === SupportedChatModels.SAGEMAKER ? new LLamaSageInput(input.system, input) :
             provider === SupportedChatModels.COHERE ? new CohereInput(input.system, input) :
+            provider === SupportedChatModels.MISTRAL ? new MistralInput(input.system, input) :
+            provider === SupportedChatModels.GEMINI ? new GeminiInput(input.system, input) :
             new ChatGPTInput(input.system, input);
 
         return ChatbotHelpers.addMessages(inputInst, input.messages);

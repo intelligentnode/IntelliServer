@@ -75,8 +75,8 @@ router.post('/chat', async (req, res, next) => {
         const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider);
         const functions = req.body.functions;
         const function_call = req.body.function_call;
-        const results = await chatbot.chat(input, functions, function_call);
-        res.json({ status: "OK", data: results });  
+        const responses = await chatbot.chat(input, functions, function_call);
+        res.json({ status: "OK", data: responses.result, reference: Object.keys(responses.references) });
     } catch (error) {
         console.log("this is error",error);
         res.json({ status: "ERROR", message: error.message });
