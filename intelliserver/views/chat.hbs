@@ -378,7 +378,8 @@
             const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
             chatbox.append(botBubbleBefore);
             // API request logic
-            const apiUrl = 'http://localhost/chatbot/chat';
+            const baseUrl = window.location.origin;
+            const apiUrl = `${baseUrl}/chatbot/chat`;
             // prepare the user messages to send for the chatbot
             messageHistory.push({
                 role: "user",
