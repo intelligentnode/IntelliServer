@@ -82,18 +82,20 @@
           <div class="col-12">
             <label for="inputAddress" class="form-label">Provider</label>
             <select id="provider" class="form-select">
-              <option selected value="openai">Open Api</option>
-              <option value="replicate">replicate</option>
-              <option value="cohere">cohere</option>
+              <option selected value="openai">Open AI</option>
+              <option value="replicate">Replicate</option>
+              <option value="cohere">Cohere</option>
+              <option value="mistral">Mistral</option>
             </select>
           </div>
           <div id="model-container" class="col-12">
             <label for="inputAddress" class="form-label">Model</label>
             <select id="model" class="form-select">
-              <option selected value="gpt3.5" data-providers="openai ">gpt-3.5-turbo</option>
+              <option selected value="gpt3.5" data-providers="openai">gpt-3.5-turbo</option>
               <option value="gpt4" data-providers="openai ">gpt-4</option>
               <option value="70b-chat" data-providers="replicate">70b Chat</option>
               <option value="13b-chat" data-providers="replicate">13b Chat</option>
+              <option value="mistral-medium" data-providers="mistral">mistral medium</option>
             </select>
           </div>
           <div class="col-12">
@@ -177,6 +179,9 @@
             { value: '13b-chat', text: '13b Chat' },
           ],
           cohere: [], // Empty array for Cohere
+          mistral: [
+            {value: 'mistral-medium', text: 'mistral medium'}
+          ]
         };
 
         // Populate the Model dropdown with options based on the selected provider
@@ -373,7 +378,8 @@
             const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
             chatbox.append(botBubbleBefore);
             // API request logic
-            const apiUrl = 'http://localhost/chatbot/chat';
+            const baseUrl = window.location.origin;
+            const apiUrl = `${baseUrl}/chatbot/chat`;
             // prepare the user messages to send for the chatbot
             messageHistory.push({
                 role: "user",
