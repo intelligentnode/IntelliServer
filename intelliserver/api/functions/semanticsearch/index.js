@@ -126,34 +126,40 @@ router.post('/search', async (req, res, next) => {
  *       500:
  *         description: An error message if there is an issue processing the request.
  */
-router.post('/search_intellinode', async (req, res, next) => { 
-  
+router.post('/search_intellinode', async (req, res, next) => {
   const oneKey = req.body.one_key || process.env.ONE_KEY;
   const queryText = req.body.query_text;
   const searchK = req.body.k;
-  
+
+  // Check environment variable for custom IntelliBase URL
+  const customIntelliBaseEnv = process.env.INTELLIBASE;
+
+  // If the user explicitly passed intelliBase, it overrides
+  let intelliBaseUrl = null;
+  if (req.body.intelliBase) {
+    intelliBaseUrl = req.body.intelliBase;
+  } else if (customIntelliBaseEnv) {
+    intelliBaseUrl = customIntelliBaseEnv;
+  }
+
   if (!queryText) {
-    res.json({ status: "ERROR", message: "Send the queryText paramter with your query." });
-  } else if (!queryText) { 
-    res.json({ status: "searchK", message: "Send the k paramter with number of searched items." });
-  } else if (!oneKey) { 
-    res.json({ status: "searchK", message: "Send intellinode one_key to use the service." });
-  } else {
+    return res.json({ status: "ERROR", message: "Send the query_text parameter." });
+  }
+  if (!searchK) {
+    return res.json({ status: "ERROR", message: "Send the k parameter for number of searched items." });
+  }
+  if (!oneKey) {
+    return res.json({ status: "ERROR", message: "Send intellinode one_key to use the service." });
+  }
 
-    try {
-
-      const intellicloud = new IntellicloudWrapper(oneKey);
-      const result = await intellicloud.semanticSearch(queryText, searchK);
-
-      res.json({ status: "OK", results: result });
-
-    } catch (error) {
-      res.json({ status: "ERROR", message: error.message });
-    }
-  } /* validate the input */
-    
-
-
+  try {
+    // Pass oneKey and optional intelliBase
+    const intellicloud = new IntellicloudWrapper(oneKey, intelliBaseUrl);
+    const result = await intellicloud.semanticSearch(queryText, searchK);
+    res.json({ status: "OK", results: result });
+  } catch (error) {
+    res.json({ status: "ERROR", message: error.message });
+  }
 });
 
 module.exports = router;
