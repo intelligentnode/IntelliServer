@@ -132,7 +132,7 @@ router.post('/search_intellinode', async (req, res, next) => {
   const searchK = req.body.k;
 
   // Check environment variable for custom IntelliBase URL
-  const customIntelliBaseEnv = process.env.CUSTOM_INTELLIBASE_URL;
+  const customIntelliBaseEnv = process.env.INTELLIBASE;
 
   // If the user explicitly passed intelliBase, it overrides
   let intelliBaseUrl = null;

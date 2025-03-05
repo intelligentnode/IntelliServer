@@ -27,7 +27,7 @@ class ChatbotHelpers {
         const oneKey = req.body.one_key || process.env.ONE_KEY;
 
         // Check environment for custom IntelliBase
-        const customIntelliBaseEnv = process.env.CUSTOM_INTELLIBASE_URL;
+        const customIntelliBaseEnv = process.env.INTELLIBASE;
 
         // If the user explicitly passed intelliBase, overrides the env variable
         let intelliBaseUrl = null;
