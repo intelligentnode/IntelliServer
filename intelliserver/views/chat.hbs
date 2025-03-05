@@ -91,11 +91,14 @@
           <div id="model-container" class="col-12">
             <label for="inputAddress" class="form-label">Model</label>
             <select id="model" class="form-select">
-              <option selected value="gpt3.5" data-providers="openai">gpt-3.5-turbo</option>
+              <option selected value="gpt-4o" data-providers="openai">gpt-4o</option>
+              <option selected value="o3-mini" data-providers="openai">o3-mini</option>
               <option value="gpt4" data-providers="openai ">gpt-4</option>
               <option value="70b-chat" data-providers="replicate">70b Chat</option>
               <option value="13b-chat" data-providers="replicate">13b Chat</option>
-              <option value="mistral-medium" data-providers="mistral">mistral medium</option>
+              <option value="mistral-large-latest" data-providers="mistral">mistral Large</option>
+              <option value="mistral-saba-latest" data-providers="mistral">mistral Saba</option>
+              <option value="mistral-medium" data-providers="mistral">mistral Medium</option>
             </select>
           </div>
           <div class="col-12">
@@ -149,7 +152,7 @@
     crossorigin="anonymous"></script>
 
   <script>
-    // Function to dynamically update the model options based on the selected provider
+    // Update the model options based on the provider
     function updateModelOptions() {
 
       const selectedProvider = $('#provider').val();
@@ -158,42 +161,40 @@
         $('#apiKey').val(localStorage.getItem('apiKey'));
       }
       if (selectedProvider === 'cohere') {
-        // Hide the Model select field and remove its value
         $('#model-container').hide();
         $('#model').val('');
       } else {
-        // Show the Model select field
         $('#model-container').show();
 
-        // Clear existing options
         modelDropdown.empty();
 
-        // Define model options based on the selected provider
         const modelOptions = {
           openai: [
-            { value: 'gpt3.5', text: 'gpt-3.5-turbo' },
+            { value: 'gpt-4o', text: 'gpt-4o' },
+            { value: 'o3-mini', text: 'o3-mini' },
             { value: 'gpt4', text: 'gpt-4' },
           ],
           replicate: [
             { value: '70b-chat', text: '70b Chat' },
             { value: '13b-chat', text: '13b Chat' },
           ],
-          cohere: [], // Empty array for Cohere
+          cohere: [],
           mistral: [
+            {value: 'mistral-large-latest', text: 'mistral-large-latest'},
+            {value: 'mistral-saba-latest', text: 'mistral-saba-latest'},
             {value: 'mistral-medium', text: 'mistral medium'}
           ]
         };
 
-        // Populate the Model dropdown with options based on the selected provider
+        // Populate the Model dropdown with options
         modelOptions[selectedProvider].forEach(option => {
           modelDropdown.append($('<option>', {
             value: option.value,
             text: option.text,
-            'data-providers': selectedProvider // Add data-providers attribute
+            'data-providers': selectedProvider
           }));
         });
 
-        // Toggle the visibility of Model options based on data-providers attribute
         $('#model option').each(function () {
           const allowedProviders = $(this).data('providers');
 
@@ -206,9 +207,9 @@
               $(this).hide(); // Hide the option
             }
           } else {
-            // Handle the case where data-providers attribute is undefined or null
-            // You can choose to show or hide the option based on your requirements
-            $(this).hide(); // For example, hide the option
+            // Data-providers attribute is undefined or null
+            // Hide
+            $(this).hide();
           }
         });
       }
@@ -223,7 +224,7 @@
     });
 
     const form = $('#chatbot-form');
-    // Load saved values from local storage when the page loads
+
     loadValues();
     // Form submission event
     form.submit(function (e) {
@@ -240,20 +241,19 @@
       const searchK = $('#searchK').val();
 
       if (apiKey.trim() === '') {
-        // API key is empty, display error message and change border color
+        // API key is empty, display error message
         apiKeyField.addClass('is-invalid');
         apiKeyField.siblings('.invalid-feedback').text('API Key cannot be empty.');
       } else {
-        // API key is not empty, save values and reset the form
+        // API key is not empty, save
         apiKeyField.removeClass('is-invalid');
         apiKeyField.siblings('.invalid-feedback').text('');
         saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, searchK);
         $('.side-bar').removeClass('active');
-        // form[0].reset();
       }
     });
 
-    // Reset Keys button click event
+    // Reset Keys button
     $('#resetKeys').click(function () {
       localStorage.removeItem('systemMessage');
       localStorage.removeItem('numberOfMessages');
@@ -266,8 +266,9 @@
 
       // Reset the form fields to their default values
       form[0].reset();
-      $('#apiKey').removeClass('is-invalid'); // Remove error styling
-      $('#apiKey').siblings('.invalid-feedback').text(''); // Clear error message
+      // Remove error styling
+      $('#apiKey').removeClass('is-invalid');
+      $('#apiKey').siblings('.invalid-feedback').text('');
     });
 
     // Function to save values to local storage
@@ -289,9 +290,9 @@
       }
     }
 
-    // Function to load values from local storage and populate input fields
+    // Load values from local storage
     function loadValues() {
-      // Load values from local storage and populate input fields
+
       const savedSystemMessage = localStorage.getItem('systemMessage');
       const savedNumberOfMessages = localStorage.getItem('numberOfMessages');
       const savedProvider = localStorage.getItem('provider');
@@ -435,7 +436,6 @@
                 if (response.status === 'ERROR') {
                   displayErrorMessage(response.message);
                 } else {
-                  // Get the chatbot response (first element of response.data)
                   const botResponse = response.data[0];
                   messageHistory.push({
                     role: "assistant",
@@ -445,7 +445,6 @@
                   // Create the chat bubble with the bot's response
                   const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
 
-                  // If oneKey was used and references are provided, add a "Source" button
                   if (oneKey && response.reference && response.reference.length > 0) {
                     const sourceButton = $('<button>')
                       .addClass('btn btn-link source-btn')
@@ -463,7 +462,7 @@
                           $(this).after(sourceDiv);
                         }
                       });
-                    // Append the button (and a line break) to the bot bubble
+                    // Append the source action to the bot bubble
                     botBubble.append('<br>').append(sourceButton);
                   }
 
@@ -479,7 +478,8 @@
               }
             });
           } else {
-            toggleButtonState(true); // Re-enable button if input is empty
+            // Re-enable button if input is empty
+            toggleButtonState(true);
           }
         }
 
@@ -494,7 +494,7 @@
         sendMessageToApi();
       });
 
-      // Check if the checkbox is checked on page load to determine whether to show the additional fields
+      // Check the checkbox
       if ($('#flexSwitchCheckDefault').is(':checked')) {
         $('#additionalOptions').show();
       }
@@ -503,9 +503,9 @@
       $('#flexSwitchCheckDefault').change(function () {
         // toggle the display of the additional fields based on the checkbox state
         if (this.checked) {
-          $('#additionalOptions').slideDown(); // Show the fields with a slide-down effect
+          $('#additionalOptions').slideDown();
         } else {
-          $('#additionalOptions').slideUp(); // Hide the fields with a slide-up effect
+          $('#additionalOptions').slideUp();
         }
       });
 
@@ -525,10 +525,9 @@
     })
 
     $(".sideBaricon").on("click", function () {
-      $(".side-bar").toggleClass("active"); // Toggle the "active" class on the sidebar   
+      $(".side-bar").toggleClass("active");
     });
   </script>
-
 
 </body>
 
