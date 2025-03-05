@@ -272,20 +272,21 @@
 
     // Function to save values to local storage
     function saveValuesToLocalStorage(systemMessage, numberOfMessages, provider, model, apiKey, contextMode, oneKey, searchK) {
-      // Save values to local storage
       localStorage.setItem('systemMessage', systemMessage);
       localStorage.setItem('numberOfMessages', numberOfMessages);
       localStorage.setItem('provider', provider);
       localStorage.setItem('model', model);
       localStorage.setItem('apiKey', apiKey);
       localStorage.setItem('contextMode', contextMode);
-      if (oneKey) {
-        localStorage.setItem('oneKey', oneKey);
-      }
-      if (oneKey) {
-        localStorage.setItem('searchK', searchK);
-      }
 
+      // Only save oneKey and searchK if "Connect Data" is enabled
+      if (contextMode && oneKey) {
+        localStorage.setItem('oneKey', oneKey);
+        localStorage.setItem('searchK', searchK);
+      } else {
+        localStorage.removeItem('oneKey');
+        localStorage.removeItem('searchK');
+      }
     }
 
     // Function to load values from local storage and populate input fields
@@ -353,44 +354,44 @@
 
       // Function to send the message to the API and handle the response
       function sendMessageToApi() {
-        toggleButtonState(false); // Disable the button and show loader
-        const userInput = $('#userInput').val();
+          toggleButtonState(false);
+          const userInput = $('#userInput').val();
 
-        if ($.trim(userInput) !== '') {
-          const chatbox = $('#chatbox');
+          if ($.trim(userInput) !== '') {
+            const chatbox = $('#chatbox');
+            // Retrieve values from local storage
+            const apiKey = localStorage.getItem('apiKey');
+            const model = localStorage.getItem('model');
+            const provider = localStorage.getItem('provider');
+            const oneKey = localStorage.getItem('oneKey');
+            const systemMessage = localStorage.getItem('systemMessage') || "";
+            let searchK = localStorage.getItem('searchK') || 3;
 
-          // Get API key and other values from local storage
-          const apiKey = localStorage.getItem('apiKey');
-          const model = localStorage.getItem('model');
-          const provider = localStorage.getItem('provider');
-          const oneKey = localStorage.getItem('oneKey');
-          const systemMessage = localStorage.getItem('systemMessage') || "";
-          let searchK = localStorage.getItem('searchK') || 3;
+            if (!apiKey) {
+              displayErrorMessage('Please enter a valid API key.');
+              toggleButtonState(true);
+              return;
+            }
 
-          if (!apiKey) {
-            // API key is empty, display error message and enable the button
-            displayErrorMessage('Please enter a valid API key.');
-            toggleButtonState(true);
-          } else {
-
+            // Append the user's message
             const userBubble = $('<div>').addClass('user-bubble').text(userInput);
             chatbox.append(userBubble);
+            // Add a temporary bot "typing" bubble
             const botBubbleBefore = $('<div>').addClass('bot-bubble bot-typing');
             chatbox.append(botBubbleBefore);
-            // API request logic
-            const baseUrl = window.location.origin;
-            const apiUrl = `${baseUrl}/chatbot/chat`;
-            // prepare the user messages to send for the chatbot
+
+            // Prepare the conversation history
             messageHistory.push({
-                role: "user",
-                content: userInput
+              role: "user",
+              content: userInput
             });
-            // verify the K
-            if (isNaN(Number(searchK)) || Number(searchK) < 1) { 
+
+            // Validate searchK value
+            if (isNaN(Number(searchK)) || Number(searchK) < 1) {
               searchK = 3;
             }
-            // prepare the data
-            const userMessages = messageHistory;
+
+            // Prepare the data payload;
             let data = {};
             if (oneKey) {
               data = {
@@ -401,7 +402,8 @@
                 input: {
                   system: systemMessage,
                   searchK: searchK,
-                  messages: userMessages
+                  attachReference: true,
+                  messages: messageHistory
                 }
               };
             } else {
@@ -411,12 +413,15 @@
                 provider: provider,
                 input: {
                   system: "You are a helpful assistant.",
-                  messages: userMessages
+                  messages: messageHistory
                 }
               };
             }
 
             $('#userInput').val('');
+            const baseUrl = window.location.origin;
+            const apiUrl = `${baseUrl}/chatbot/chat`;
+
             $.ajax({
               url: apiUrl,
               type: 'POST',
@@ -427,44 +432,57 @@
               data: JSON.stringify(data),
               success: function (response) {
                 botBubbleBefore.remove();
-                // Check the API response status
                 if (response.status === 'ERROR') {
-                  // API returned an error, display the error message
-                  console.log("response", response)
                   displayErrorMessage(response.message);
                 } else {
-                  // API call was successful, display the bot's response
+                  // Get the chatbot response (first element of response.data)
                   const botResponse = response.data[0];
                   messageHistory.push({
-                      role: "assistant",
-                      content: botResponse
+                    role: "assistant",
+                    content: botResponse
                   });
-                  const botResponseLines = botResponse.split('\n'); // Split the response into lines
-
-                  // Create a single bot bubble with line breaks
+                  const botResponseLines = botResponse.split('\n');
+                  // Create the chat bubble with the bot's response
                   const botBubble = $('<div>').addClass('bot-bubble').html(botResponseLines.join('<br>'));
-                  chatbox.append(botBubble);
 
+                  // If oneKey was used and references are provided, add a "Source" button
+                  if (oneKey && response.reference && response.reference.length > 0) {
+                    const sourceButton = $('<button>')
+                      .addClass('btn btn-link source-btn')
+                      .text('Source')
+                      .on('click', function () {
+                        // Toggle display of the source list
+                        let sourceDiv = $(this).siblings('.source-list');
+                        if (sourceDiv.length) {
+                          sourceDiv.toggle();
+                        } else {
+                          sourceDiv = $('<div>')
+                            .addClass('source-list alert alert-secondary mt-2')
+                            .css({ "font-size": "0.85em" })
+                            .html("Sources: " + response.reference.join(', '));
+                          $(this).after(sourceDiv);
+                        }
+                      });
+                    // Append the button (and a line break) to the bot bubble
+                    botBubble.append('<br>').append(sourceButton);
+                  }
+
+                  chatbox.append(botBubble);
                   chatbox.scrollTop(chatbox.prop("scrollHeight"));
                 }
-
-                toggleButtonState(true); // Enable the button and hide loader
+                toggleButtonState(true);
               },
               error: function (xhr, status, error) {
-                // Handle other errors (e.g., network issues)
                 console.error('Error:', error);
-
-                // Display a generic error message to the user
                 displayErrorMessage('An unexpected error occurred.');
-
-                toggleButtonState(true); // Enable the button and hide loader
+                toggleButtonState(true);
               }
             });
+          } else {
+            toggleButtonState(true); // Re-enable button if input is empty
           }
-        } else {
-          toggleButtonState(true); // Enable the button and hide loader (if user input is empty)
         }
-      }
+
 
       $('#userInput').keypress(function (event) {
         if (event.keyCode === 13) {
