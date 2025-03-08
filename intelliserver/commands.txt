@@ -26,3 +26,7 @@ docker push intellinode/intelliserver:0.2
 docker build --platform linux/arm64 -f Dockerfile -t intelliserver:arm64 .
 docker tag intelliserver:arm64 intellinode/intelliserver:arm64
 docker push intellinode/intelliserver:arm64
+
+
+### project tree and code ###
+find . -type f \( -iname "*.js" -o -iname "*.hbs" \) -not -path "./node_modules/*" -exec sh -c 'for file; do echo "$file"; cat "$file"; echo ""; done' sh {} +
