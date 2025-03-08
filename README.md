@@ -82,6 +82,16 @@ For Mac M-series users, pull the arm64 version:
 docker pull intellinode/intelliserver:arm64
 ```
 
+## API and Admin Keys
+- **API_KEY**: Set this key to protect your server endpoints. Clients must include this key in their requests.
+- **ADMIN_KEY**: Required for administrative operations, such as changing the API key.
+
+Set these keys via environment variables when starting the container, or define them in a `.env` file in the repo root:
+```python
+API_KEY=your-api-key
+ADMIN_KEY=your-admin-key
+```
+
 ## Testing
 
 To test Intelliserver, you can find the endpoints collection in the [postman repository](https://github.com/intelligentnode/IntelliServer/tree/main/postman).
