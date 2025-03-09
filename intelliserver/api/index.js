@@ -45,6 +45,8 @@ const cohereRouter = require('./models/remote/cohere');
 const replicateRouter = require('./models/remote/replicate');
 const stabilityRouter = require('./models/remote/stability');
 const huggingRouter = require('./models/remote/hugging');
+const vllmOfflineRouter = require('./models/offline/vllm');
+
 // Functions
 const chatRouter = require('./functions/chatbot');
 const semanticRouter = require('./functions/semanticsearch');
@@ -75,6 +77,8 @@ app.use('/cohere', cohereRouter);
 app.use('/replicate', replicateRouter);
 app.use('/stability', stabilityRouter);
 app.use('/hugging', huggingRouter);
+app.use('/offline/vllm', vllmOfflineRouter);
+
 // Functions
 app.use('/chatbot', chatRouter);
 app.use('/semanticsearch', semanticRouter);
