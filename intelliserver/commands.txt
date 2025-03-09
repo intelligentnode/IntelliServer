@@ -19,8 +19,8 @@ docker tag intelliserver:latest intellinode/intelliserver:latest
 docker push intellinode/intelliserver:latest
 
 # version publish
-docker tag intelliserver:latest intellinode/intelliserver:0.2
-docker push intellinode/intelliserver:0.2
+docker tag intelliserver:latest intellinode/intelliserver:0.6
+docker push intellinode/intelliserver:0.6
 
 ### mac M-series processor publish ###
 docker build --platform linux/arm64 -f Dockerfile -t intelliserver:arm64 .
