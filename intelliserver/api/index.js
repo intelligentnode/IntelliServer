@@ -8,6 +8,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('../config');
+const redoc = require('redoc-express');
 
 // Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -56,14 +57,28 @@ const parserRoute = require('./parser/index');
 const ocrRoute = require('./ocr/index');
 const embedRouter = require('./functions/embed');
 
+
+
 // # api routers
 app.use('/', indexRouter);
 // Admin
 app.use('/admin', authAdminMiddleware, adminRouter);
+
+// Swagger json
+app.get('/swagger.json', (req, res) => {
+  res.json(swaggerDocument);
+});
+
 // Swagger
 if (config.SHOW_SWAGGER) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
     customCssUrl: '/stylesheets/swagger.css',
+  }));
+
+  // redoc
+  app.get('/redoc', redoc({
+    title: 'IntelliServer ReDoc Docs',
+    specUrl: '/swagger.json',
   }));
 }
 
