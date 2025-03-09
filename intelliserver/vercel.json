@@ -1,7 +1,18 @@
 {
-  "version": 2,
+  "version": 3,
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "routes": [
-    { "src": "/api-docs(?:/.*)?", "dest": "/api" },
-    { "src": "/redoc(?:/.*)?",    "dest": "/api" }
-  ]
+      {
+        "src": "/api/swagger-ui.css",
+        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css"
+      },
+      {
+        "src": "/api/swagger-ui-bundle.js",
+        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"
+      },
+      {
+        "src": "/api/swagger-ui-standalone-preset.js",
+        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"
+      }
+    ]
 }
