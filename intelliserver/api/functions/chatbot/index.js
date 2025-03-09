@@ -89,7 +89,7 @@ const ChatbotHelpers = require('../../utils/chatbot_helper');
 router.post('/chat', async (req, res, next) => {
     try {
         const chatbot = ChatbotHelpers.getChatbot(req);
-        const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider);
+        const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider, req.body.model);
         const functions = req.body.functions;
         const function_call = req.body.function_call;
         const responses = await chatbot.chat(input, functions, function_call);
@@ -182,7 +182,7 @@ router.post('/stream', async (req, res, next) => {
         }
         // process
         const chatbot = ChatbotHelpers.getChatbot(req);
-        const input = ChatbotHelpers.getChatInput(req.body.input, provider);
+        const input = ChatbotHelpers.getChatInput(req.body.input, req.body.provider, req.body.model);
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
         res.setHeader('Connection', 'keep-alive');

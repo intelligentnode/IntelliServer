@@ -6,7 +6,8 @@ const {
   CohereInput,
   GeminiInput,
   MistralInput,
-  VLLMInput
+  VLLMInput,
+  AnthropicInput
 } = require('intellinode');
 const { Chatbot, SupportedChatModels } = require('intellinode');
 const { USE_DEFAULT_KEYS } = require(path.join(global.__basedir, 'config'));
@@ -27,7 +28,8 @@ class ChatbotHelpers {
           'cohere': process.env.COHERE_API_KEY,
           'mistral': process.env.MISTRAL_API_KEY,
           'gemini': process.env.GEMINI_API_KEY,
-          'vllm': process.env.VLLM_API_KEY
+          'vllm': process.env.VLLM_API_KEY,
+          'anthropic': process.env.ANTHROPIC_API_KEY
         };
 
         // Get one_key if available
@@ -54,8 +56,6 @@ class ChatbotHelpers {
           }
           options.baseUrl = baseUrl;
           return new Chatbot(null, SupportedChatModels.VLLM, null, options);
-
-        // Other providers
         } else {
           if (oneKey) {
             if (USE_DEFAULT_KEYS && !req.body.api_key) {
@@ -86,10 +86,12 @@ class ChatbotHelpers {
         return chatInput;
     }
 
-    static getChatInput(input, provider) {
+    static getChatInput(input, provider, topLevelModel) {
         input.attachReference = true;
+        if (!input.model && topLevelModel) {
+            input.model = topLevelModel;
+        }
         let inputInst;
-
         switch (provider.toLowerCase()) {
           case SupportedChatModels.VLLM:
             inputInst = (input instanceof VLLMInput)
@@ -121,14 +123,19 @@ class ChatbotHelpers {
               ? input
               : new GeminiInput(input.system, input);
             break;
+          case SupportedChatModels.ANTHROPIC:
+            inputInst = (input instanceof AnthropicInput)
+              ? input
+              : new AnthropicInput(input.system, input);
+            break;
           default:
             inputInst = (input instanceof ChatGPTInput)
               ? input
               : new ChatGPTInput(input.system, input);
         }
-
         return ChatbotHelpers.addMessages(inputInst, input.messages);
     }
+
 }
 
 module.exports = ChatbotHelpers;
