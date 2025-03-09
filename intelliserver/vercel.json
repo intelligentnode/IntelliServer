@@ -1,17 +1,20 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
-  "routes": [
-      {
-        "src": "/api/swagger-ui.css",
-        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css"
-      },
-      {
-        "src": "/api/swagger-ui-bundle.js",
-        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"
-      },
-      {
-        "src": "/api/swagger-ui-standalone-preset.js",
-        "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"
-      }
-    ]
+  "rewrites": [
+    {
+      "source": "/api/swagger-ui.css",
+      "destination": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css"
+    },
+    {
+      "source": "/api/swagger-ui-bundle.js",
+      "destination": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"
+    },
+    {
+      "source": "/api/swagger-ui-standalone-preset.js",
+      "destination": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ]
 }
