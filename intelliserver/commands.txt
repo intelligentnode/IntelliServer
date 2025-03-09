@@ -19,10 +19,14 @@ docker tag intelliserver:latest intellinode/intelliserver:latest
 docker push intellinode/intelliserver:latest
 
 # version publish
-docker tag intelliserver:latest intellinode/intelliserver:0.2
-docker push intellinode/intelliserver:0.2
+docker tag intelliserver:latest intellinode/intelliserver:0.6
+docker push intellinode/intelliserver:0.6
 
 ### mac M-series processor publish ###
 docker build --platform linux/arm64 -f Dockerfile -t intelliserver:arm64 .
 docker tag intelliserver:arm64 intellinode/intelliserver:arm64
 docker push intellinode/intelliserver:arm64
+
+
+### project tree and code ###
+find . -type f \( -iname "*.js" -o -iname "*.hbs" \) -not -path "./node_modules/*" -exec sh -c 'for file; do echo "$file"; cat "$file"; echo ""; done' sh {} +
